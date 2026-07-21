@@ -15,8 +15,9 @@ import os
 import json
 import asyncio
 import logging
+from collections.abc import AsyncGenerator
 from datetime import datetime
-from typing import Optional
+from typing import Optional, AsyncGenerator
 
 import httpx
 from fastapi import FastAPI, HTTPException
