@@ -1,0 +1,26 @@
+# robots.txt for WhatIfWeBelieved
+# This file tells search engine crawlers which pages or files they can or cannot request from your site
+
+# Allow all user agents to access the site
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /logs/
+
+# Disallow specific file types that shouldn't be indexed
+Disallow: /*.pdf$
+Disallow: /*.zip$
+Disallow: /*.exe$
+
+# Allow specific important files
+Allow: /Affirming_Faith_Through_Thought_Refined.pdf
+
+# Sitemap location
+Sitemap: https://whatifwebelieved.com/sitemap.xml
+
+# Crawl delay for aggressive bots
+# Crawl-delay: 10

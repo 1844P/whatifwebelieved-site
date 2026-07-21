@@ -1,0 +1,23 @@
+{
+  "name": "whatifwebelieved-site",
+  "version": "1.0.0",
+  "description": "Website for What If We Believed? YouTube channel",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "sync-youtube": "node src/scripts/sync-youtube.js",
+    "lint": "eslint . --ext .js,.html",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "vite": "^5.4.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.2",
+    "eslint-plugin-html": "^8.0.0"
+  },
+  "dependencies": {
+    "googleapis": "^140.0.0"
+  }
+}

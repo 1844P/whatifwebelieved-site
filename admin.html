@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatIfWeBelieved - Content Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-surface: #ffffff;
+            --bg-surface-hover: #f1f5f9;
+            --blue: #1e40af;
+            --blue-light: #3b82f6;
+            --blue-dark: #1e3a8a;
+            --blue-muted: rgba(30,64,175,0.08);
+            --blue-subtle: rgba(30,64,175,0.04);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #64748b;
+            --text-inverse: #ffffff;
+            --border-subtle: #e2e8f0;
+            --border-default: #cbd5e1;
+            --border-strong: #94a3b8;
+            --font-serif: 'EB Garamond', Georgia, serif;
+            --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --space-md: 24px;
+            --space-lg: 40px;
+            --space-xl: 64px;
+            --space-2xl: 96px;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --max-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        header {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: var(--space-lg) 0;
+            margin-bottom: var(--space-xl);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .logo svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--blue);
+        }
+
+        .logo span {
+            color: var(--blue);
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: var(--text-primary);
+            background: var(--blue-subtle);
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+        }
+
+        @media (min-width: 768px) {
+            main {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .panel h2 {
+            color: var(--text-primary);
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .panel h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--blue);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            background: var(--bg-secondary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(30,64,175,0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-sans);
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: var(--text-inverse);
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-default);
+        }
+
+        .btn-secondary:hover {
+            background: var(--blue-subtle);
+            color: var(--text-primary);
+            border-color: var(--border-strong);
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: var(--text-inverse);
+        }
+
+        .btn-danger:hover {
+            background: #ef4444;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.875rem;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--space-md);
+        }
+
+        .table th,
+        .table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .table th {
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--bg-surface-hover);
+        }
+
+        .table tr:hover {
+            background: var(--bg-surface-hover);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-coming {
+            background: var(--blue-muted);
+            color: var(--blue);
+        }
+
+        .status-live {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .video-preview {
+            background: #000;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin: 16px 0;
+            aspect-ratio: 16/9;
+            position: relative;
+        }
+
+        .video-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30,64,175,0.8);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .video-play-btn:hover {
+            background: rgba(30,64,175,1);
+        }
+
+        .video-play-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--text-inverse);
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            color: #16a34a;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            border: 1px solid #bfdbfe;
+            color: #2563eb;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            text-align: center;
+            background: var(--bg-surface-hover);
+            transition: all 0.2s;
+        }
+
+        .upload-area:hover {
+            border-color: var(--blue);
+            background: var(--blue-subtle);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--blue);
+            background: var(--blue);
+        }
+
+        .upload-area.dragover span {
+            color: var(--text-inverse);
+        }
+
+        .upload-area svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            opacity: 0.7;
+        }
+
+        .upload-area span {
+            display: block;
+            color: var(--text-tertiary);
+            font-size: 1.125rem;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: var(--space-lg);
+        }
+
+        .preview-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .preview-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .preview-card-content {
+            padding: 12px;
+        }
+
+        .preview-card-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .preview-card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            margin-top: 8px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: var(--space-lg);
+            align-self: start;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--blue);
+            color: var(--text-inverse);
+            border-color: transparent;
+        }
+
+        .sidebar-nav a:hover svg,
+        .sidebar-nav a.active svg {
+            fill: var(--text-inverse);
+        }
+
+        .sidebar-nav svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            text-align: center;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .stat-value {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--blue);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        footer {
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .fade-in-up:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .fade-in-up:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M2 12h20"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                <span>WhatIfWeBelieved</span>
+            </div>
+            <nav class="nav">
+                <a href="#dashboard" class="active">Dashboard</a>
+                <a href="#articles">Articles</a>
+                <a href="#videos">Videos</a>
+                <a href="#hero">Hero Video</a>
+                <a href="#voices">Voices</a>
+                <a href="#book">Book</a>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="#dashboard" class="active">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="15"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                        Dashboard
+                    </a>
+                    <a href="#articles">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        Articles
+                    </a>
+                    <a href="#videos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23,7 16,12 23,17"/><line x1="4" y1="22" x2="4" y2="2"/><line x1="2" y1="12" x2="20" y2="12"/></svg>
+                        Videos
+                    </a>
+                    <a href="#hero">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="6" x2="6" y2="6"/></svg>
+                        Hero Video
+                    </a>
+                    <a href="#voices">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6.9c0-1.6-1.3-2.9-2.9-2.9h-8.2c-1.6 0-2.9 1.3-2.9 2.9V19l5-3 5 3V6.9z"/><circle cx="12" cy="18" r="4"/></svg>
+                        Voices
+                    </a>
+                    <a href="#book">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        Book
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <section class="content">
+                <!-- Dashboard -->
+                <div id="dashboard" class="panel fade-in-up">
+                    <h2>Dashboard</h2>
+                    <div class="alert alert-info">
+                        Welcome to the WhatIfWeBelieved Content Manager. Use this interface to update articles, videos, and other site content.
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-value" id="article-count">-</span>
+                            <span class="stat-label">Articles</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" id="video-count">-</span>
+                            <span class="stat-label">Videos</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" id="voice-count">-</span>
+                            <span class="stat-label">Testimonials</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" id="last-updated">-</span>
+                            <span class="stat-label">Last Updated</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" id="refresh-data">
+                            Refresh Statistics
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Articles Management -->
+                <section id="articles" class="panel fade-in-up">
+                    <h2>Articles Management</h2>
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="add-article-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Add New Article
+                        </button>
+                    </div>
+                    <div id="articles-list">
+                        <!-- Articles will be populated here -->
+                    </div>
+                </section>
+
+                <!-- Videos Management -->
+                <section id="videos" class="panel fade-in-up">
+                    <h2>Videos Management</h2>
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="add-video-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Add New Video
+                        </button>
+                    </div>
+                    <div id="videos-list">
+                        <!-- Videos will be populated here -->
+                    </div>
+                </section>
+
+                <!-- Hero Video Management -->
+                <section id="hero" class="panel fade-in-up">
+                    <h2>Hero Video (Weekly Featured)</h2>
+                    <div class="alert alert-info">
+                        Update the featured video that appears in the homepage hero section. This should be updated weekly.
+                    </div>
+                    <div class="form-group">
+                        <label for="hero-video-id">YouTube Video ID</label>
+                        <input type="text" id="hero-video-id" placeholder="e.g., 881ddNnGCfs" />
+                    </div>
+                    <div class="form-group">
+                        <label for="hero-video-title">Video Title</label>
+                        <input type="text" id="hero-video-title" placeholder="e.g., How a Good Man Loses His Shape" />
+                    </div>
+                    <div class="form-group">
+                        <label for="hero-video-date">Effective Date</label>
+                        <input type="date" id="hero-video-date" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="update-hero-btn">
+                            Update Hero Video
+                        </button>
+                    </div>
+                    <div id="hero-preview" class="video-preview" style="display: none;">
+                        <div class="video-play-btn" id="hero-play-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Voices Management -->
+                <section id="voices" class="panel fade-in-up">
+                    <h2>Voices/Testimonials Management</h2>
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="add-voice-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Add New Testimonial
+                        </button>
+                    </div>
+                    <div id="voices-list">
+                        <!-- Voices will be populated here -->
+                    </div>
+                </section>
+
+                <!-- Book Management -->
+                <section id="book" class="panel fade-in-up">
+                    <h2>Book Information</h2>
+                    <div class="form-group">
+                        <label for="book-title">Book Title</label>
+                        <input type="text" id="book-title" placeholder="e.g., Affirming Faith Through Thought" />
+                    </div>
+                    <div class="form-group">
+                        <label for="book-description">Book Description</label>
+                        <textarea id="book-description" placeholder="Brief description of the book"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-international-badge">International Badge (HTML)</label>
+                        <input type="text" id="book-international-badge" placeholder="e.g., &#127760; Translated for the World" />
+                    </div>
+                    <div class="form-group">
+                        <label for="book-icon">Book Icon (HTML)</label>
+                        <input type="text" id="book-icon" placeholder="e.g., &#128214;" />
+                    </div>
+                    <div class="form-group">
+                        <label for="book-release-note">Release Note</label>
+                        <input type="text" id="book-release-note" placeholder="e.g., Limited release &middot; Free for a short time" />
+                    </div>
+                    <div class="form-group">
+                        <label>Available Languages</label>
+                        <div id="languages-container">
+                            <!-- Languages will be added dynamically -->
+                        </div>
+                        <button class="btn btn-secondary" id="add-language-btn">
+                            Add Language
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="update-book-btn">
+                            Update Book Information
+                        </button>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 WhatIfWeBelieved &middot; Content Management System</p>
+        </footer>
+    </div>
+
+    <script>
+        // Content Manager JavaScript
+        class ContentManager {
+            constructor() {
+                this.content = null;
+                this.init();
+            }
+
+            async init() {
+                try {
+                    await this.loadContent();
+                    this.bindEvents();
+                    this.renderDashboard();
+                    this.renderAllLists();
+                    this.showSection('dashboard');
+                } catch (error) {
+                    this.showError('Failed to initialize content manager: ' + error.message);
+                }
+            }
+
+            async loadContent() {
+                try {
+                    const response = await fetch('../src/data/content.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    this.content = await response.json();
+                } catch (error) {
+                    console.error('Error loading content:', error);
+                    // Provide default structure if file doesn't exist or is invalid
+                    this.content = this.getDefaultContent();
+                }
+            }
+
+            getDefaultContent() {
+                return {
+                    "siteInfo": {
+                        "title": "WhatIfWeBelieved — Global Faith & Theology",
+                        "description": "A global media ministry exploring faith, theology, and the transformative power of belief. Join millions worldwide in thought-provoking teaching and conversation.",
+                        "themeColor": "#1e40af",
+                        "lastUpdated": new Date().toISOString().split('T')[0]
+                    },
+                    "hero": {
+                        "eyebrow": "Active Worldwide",
+                        "title": "What If We<br><em>Believed?</em>",
+                        "description": "A global media ministry exploring faith, theology, and the transformative power of belief through thought-provoking teaching and conversation.",
+                        "videoId": "881ddNnGCfs",
+                        "videoTitle": "How a Good Man Loses His Shape",
+                        "ctaButtons": [
+                            {
+                                "text": "Subscribe on YouTube",
+                                "href": "https://www.youtube.com/@paulos1844?sub_confirmation=1",
+                                "class": "btn-primary",
+                                "target": "_blank",
+                                "rel": "noopener"
+                            },
+                            {
+                                "text": "Latest Teachings",
+                                "href": "#videos",
+                                "class": "btn-outline"
+                            }
+                        ],
+                        "lastUpdated": new Date().toISOString().split('T')[0]
+                    },
+                    "articles": [],
+                    "videos": [],
+                    "voices": [],
+                    "book": {
+                        "title": "Affirming Faith <em>Through Thought</em>",
+                        "description": "A limited-release book exploring the intersection of reason and belief. Available in English, with translations planned for Spanish, Portuguese, and French.",
+                        "internationalBadge": "&#127760; Translated for the World",
+                        "icon": "&#128214;",
+                        "releaseNote": "Limited release &middot; Free for a short time",
+                        "languages": ["English", "Espa&ntilde;ol (coming)", "Portugu&ecirc;s (coming)", "Fran&ccedil;ais (coming)"],
+                        "lastUpdated": new Date().toISOString().split('T')[0]
+                    },
+                    "stats": [
+                        {
+                            "number": "40+",
+                            "label": "Countries Reached"
+                        },
+                        {
+                            "number": "6",
+                            "label": "Continents"
+                        },
+                        {
+                            "number": "10+",
+                            "label": "Teachings"
+                        },
+                        {
+                            "number": "2026",
+                            "label": "Active Since"
+                        }
+                    ],
+                    "cta": {
+                        "title": "Join the Global Conversation",
+                        "description": "Subscribe to WhatIfWeBelieved and explore faith, theology, and the questions that resonate across every culture and continent.",
+                        "buttonText": "Subscribe Now",
+                        "buttonHref": "https://www.youtube.com/@paulos1844?sub_confirmation=1",
+                        "buttonTarget": "_blank",
+                        "buttonRel": "noopener"
+                    },
+                    "lastUpdated": new Date().toISOString() + 'Z'
+                };
+            }
+
+            bindEvents() {
+                // Navigation
+                document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const section = e.target.closest('a').getAttribute('href').substring(1);
+                        this.showSection(section);
+                        
+                        // Update active states
+                        document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                        document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+                        e.target.closest('a').classList.add('active');
+                        document.querySelector(`.nav a[href="#${section}"]`).classList.add('active');
+                    });
+                });
+
+                document.querySelectorAll('.nav a').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const section = e.target.getAttribute('href').substring(1);
+                        this.showSection(section);
+                        
+                        // Update active states
+                        document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                        document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+                        e.target.classList.add('active');
+                        document.querySelector(`.sidebar-nav a[href="#${section}"]`).classList.add('active');
+                    });
+                });
+
+                // Button events
+                document.getElementById('refresh-data').addEventListener('click', () => this.refreshStats());
+                document.getElementById('add-article-btn').addEventListener('click', () => this.showArticleForm());
+                document.getElementById('add-video-btn').addEventListener('click', () => this.showVideoForm());
+                document.getElementById('add-voice-btn').addEventListener('click', () => this.showVoiceForm());
+                document.getElementById('add-language-btn').addEventListener('click', () => this.addLanguageField());
+                document.getElementById('update-hero-btn').addEventListener('click', () => this.updateHeroVideo());
+                document.getElementById('update-book-btn').addEventListener('click', () => this.updateBookInfo());
+                
+                // Hero video preview
+                document.getElementById('hero-video-id').addEventListener('change', () => this.previewHeroVideo());
+                document.getElementById('hero-play-btn').addEventListener('click', () => this.playHeroVideo());
+            }
+
+            showSection(sectionId) {
+                document.querySelectorAll('.content > section').forEach(section => {
+                    section.classList.remove('fade-in-up');
+                    section.style.display = 'none';
+                });
+                
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.style.display = 'block';
+                    // Trigger reflow for animation
+                    void section.offsetWidth;
+                    section.classList.add('fade-in-up');
+                }
+            }
+
+            async saveContent() {
+                try {
+                    // In a real application, this would send to a backend API
+                    // For this static site, we'll generate a downloadable file
+                    const blob = new Blob([JSON.stringify(this.content, null, 2)], {type: 'application/json'});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'content.json';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    this.showSuccess('Content updated successfully! Download the updated content.json file and replace the existing one in src/data/');
+                    this.updateLastUpdated();
+                } catch (error) {
+                    this.showError('Failed to save content: ' + error.message);
+                }
+            }
+
+            updateLastUpdated() {
+                const now = new Date();
+                this.content.lastUpdated = now.toISOString() + 'Z';
+                this.content.siteInfo.lastUpdated = now.toISOString().split('T')[0];
+                this.content.hero.lastUpdated = now.toISOString().split('T')[0];
+                this.content.book.lastUpdated = now.toISOString().split('T')[0];
+            }
+
+            showSuccess(message) {
+                this.showAlert(message, 'success');
+            }
+
+            showError(message) {
+                this.showAlert(message, 'error');
+            }
+
+            showAlert(message, type) {
+                // Remove any existing alerts
+                const existingAlert = document.querySelector('.alert');
+                if (existingAlert) {
+                    existingAlert.remove();
+                }
+                
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.textContent = message;
+                
+                // Insert after header
+                const header = document.querySelector('header');
+                header.insertAdjacentElement('afterend', alert);
+                
+                // Remove after 5 seconds
+                setTimeout(() => {
+                    alert.remove();
+                }, 5000);
+            }
+
+            async loadContent() {
+                try {
+                    const response = await fetch('../src/data/content.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    this.content = await response.json();
+                } catch (error) {
+                    console.error('Error loading content:', error);
+                    // Provide default structure if file doesn't exist or is invalid
+                    this.content = this.getDefaultContent();
+                }
+            }
+
+            renderDashboard() {
+                // This will be called after content is loaded
+            }
+
+            refreshStats() {
+                this.renderDashboard();
+                this.showSuccess('Statistics refreshed!');
+            }
+
+            renderAllLists() {
+                this.renderArticlesList();
+                this.renderVideosList();
+                this.renderVoicesList();
+                this.renderHeroPreview();
+                this.renderBookForm();
+            }
+
+            renderArticlesList() {
+                const container = document.getElementById('articles-list');
+                if (!this.content.articles || this.content.articles.length === 0) {
+                    container.innerHTML = '<p>No articles found. Click "Add New Article" to create one.</p>';
+                    return;
+                }
+
+                let html = '<table class="table"><thead><tr><th>Title</th><th>Category</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>';
+                
+                this.content.articles.forEach((article, index) => {
+                    html += `
+                        <tr>
+                            <td>${article.title}</td>
+                            <td>${article.category}</td>
+                            <td><span class="status-badge status-${article.status === 'coming soon' ? 'coming' : 'live'}">${article.status}</span></td>
+                            <td>${article.date}</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary" onclick="app.editArticle(${index})">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="app.deleteArticle(${index})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            }
+
+            renderVideosList() {
+                const container = document.getElementById('videos-list');
+                if (!this.content.videos || this.content.videos.length === 0) {
+                    container.innerHTML = '<p>No videos found. Click "Add New Video" to create one.</p>';
+                    return;
+                }
+
+                let html = '<table class="table"><thead><tr><th>Title</th><th>Video ID</th><th>Date</th><th>Actions</th></tr></thead><tbody>';
+                
+                this.content.videos.forEach((video, index) => {
+                    html += `
+                        <tr>
+                            <td>${video.title}</td>
+                            <td>${video.id}</td>
+                            <td>${video.date}</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary" onclick="app.editVideo(${index})">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="app.deleteVideo(${index})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            }
+
+            renderVoicesList() {
+                const container = document.getElementById('voices-list');
+                if (!this.content.voices || this.content.voices.length === 0) {
+                    container.innerHTML = '<p>No testimonials found. Click "Add New Testimonial" to create one.</p>';
+                    return;
+                }
+
+                let html = '<table class="table"><thead><tr><th>Quote</th><th>Author</th><th>Location</th><th>Actions</th></tr></thead><tbody>';
+                
+                this.content.voices.forEach((voice, index) => {
+                    html += `
+                        <tr>
+                            <td>${voice.quote}</td>
+                            <td>${voice.author}</td>
+                            <td>${voice.location}</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary" onclick="app.editVoice(${index})">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="app.deleteVoice(${index})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            }
+
+            renderHeroPreview() {
+                const previewDiv = document.getElementById('hero-preview');
+                const playBtn = document.getElementById('hero-play-btn');
+                
+                if (this.content.hero && this.content.hero.videoId) {
+                    const thumbnailUrl = `https://img.youtube.com/vi/${this.content.hero.videoId}/hqdefault.jpg`;
+                    previewDiv.innerHTML = `
+                        <img src="${thumbnailUrl}" alt="${this.content.hero.videoTitle}">
+                    `;
+                    previewDiv.style.display = 'block';
+                    
+                    // Update play button click handler
+                    playBtn.onclick = () => this.playHeroVideo();
+                } else {
+                    previewDiv.style.display = 'none';
+                }
+            }
+
+            playHeroVideo() {
+                if (this.content.hero && this.content.hero.videoId) {
+                    const videoUrl = `https://www.youtube.com/embed/${this.content.hero.videoId}?autoplay=1`;
+                    // In a real implementation, we'd show a modal or redirect
+                    window.open(videoUrl, '_blank');
+                }
+            }
+
+            renderBookForm() {
+                // Populate book form fields
+                document.getElementById('book-title').value = this.content.book.title || '';
+                document.getElementById('book-description').value = this.content.book.description || '';
+                document.getElementById('book-international-badge').value = this.content.book.internationalBadge || '';
+                document.getElementById('book-icon').value = this.content.book.icon || '';
+                document.getElementById('book-release-note').value = this.content.book.releaseNote || '';
+                
+                // Populate languages
+                const languagesContainer = document.getElementById('languages-container');
+                languagesContainer.innerHTML = '';
+                
+                (this.content.book.languages || []).forEach((lang, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'form-group';
+                    div.innerHTML = `
+                        <input type="text" value="${lang}" placeholder="Language (e.g., Spanish)" />
+                        <button type="button" class="btn btn-sm btn-danger" onclick="this.removeLanguage(${index})">Remove</button>
+                    `;
+                    languagesContainer.appendChild(div);
+                });
+            }
+
+            addLanguageField() {
+                const languagesContainer = document.getElementById('languages-container');
+                const div = document.createElement('div');
+                div.className = 'form-group';
+                div.innerHTML = `
+                    <input type="text" placeholder="Language (e.g., Spanish)" />
+                    <button type="button" class="btn btn-sm btn-danger" onclick="this.removeLanguage(${languagesContainer.children.length})">Remove</button>
+                `;
+                languagesContainer.appendChild(div);
+            }
+
+            removeLanguage(index) {
+                const languagesContainer = document.getElementById('languages-container');
+                if (languagesContainer.children.length > 1) {
+                    languagesContainer.removeChild(languagesContainer.children[index]);
+                }
+            }
+
+            showArticleForm() {
+                // Create and show article form modal
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <h2>Add New Article</h2>
+                        <form id="article-form">
+                            <div class="form-group">
+                                <label for="article-title">Title</label>
+                                <input type="text" id="article-title" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="article-category">Category</label>
+                                <input type="text" id="article-category" placeholder="e.g., Theology, Scripture, Discipleship" />
+                            </div>
+                            <div class="form-group">
+                                <label for="article-description">Description</label>
+                                <textarea id="article-description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="article-read-time">Read Time</label>
+                                <input type="text" id="article-read-time" placeholder="e.g., 5 min read" />
+                            </div>
+                            <div class="form-group">
+                                <label for="article-status">Status</label>
+                                <select id="article-status">
+                                    <option value="coming soon">Coming Soon</option>
+                                    <option value="live">Live</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="article-date">Date</label>
+                                <input type="date" id="article-date" value="${new Date().toISOString().split('T')[0]}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="article-image">Image URL</label>
+                                <input type="text" id="article-image" placeholder="e.g., https://i.ytimg.com/vi/VIDEO_ID/hqdefault.jpg" />
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-secondary" onclick="this.closeModal()">Cancel</button>
+                                <button type="button" class="btn btn-primary" onclick="this.saveArticle()">Save Article</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+                
+                // Add modal styles if not already present
+                if (!document.getElementById('modal-styles')) {
+                    const style = document.createElement('style');
+                    style.id = 'modal-styles';
+                    style.textContent = `
+                        .modal {
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(0,0,0,0.5);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            z-index: 1000;
+                        }
+                        .modal-content {
+                            background: white;
+                            border-radius: var(--radius-lg);
+                            width: 90%;
+                            max-width: 500px;
+                            max-height: 90vh;
+                            overflow-y: auto;
+                            padding: var(--space-lg);
+                        }
+                        .modal-content h2 {
+                            margin-top: 0;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(modal);
+            }
+
+            saveArticle() {
+                // Get form values
+                const title = document.getElementById('article-title').value.trim();
+                const category = document.getElementById('article-category').value.trim() || 'General';
+                const description = document.getElementById('article-description').value.trim();
+                const readTime = document.getElementById('article-read-time').value.trim() || '5 min read';
+                const status = document.getElementById('article-status').value;
+                const date = document.getElementById('article-date').value;
+                const image = document.getElementById('article-image').value.trim() || 'https://i.ytimg.com/vi/default/hqdefault.jpg';
+                
+                if (!title || !description) {
+                    this.showError('Title and description are required');
+                    return;
+                }
+                
+                // Add new article
+                const newArticle = {
+                    id: Date.now(), // Simple ID generation
+                    title,
+                    category,
+                    description,
+                    readTime,
+                    status,
+                    date,
+                    image
+                };
+                
+                this.content.articles.push(newArticle);
+                this.closeModal();
+                this.renderArticlesList();
+                this.updateLastUpdated();
+                this.showSuccess('Article added successfully!');
+            }
+
+            editArticle(index) {
+                const article = this.content.articles[index];
+                // Similar to showArticleForm but pre-populated with existing data
+                // Implementation omitted for brevity
+                alert('Edit functionality would be implemented here');
+            }
+
+            deleteArticle(index) {
+                if (confirm('Are you sure you want to delete this article?')) {
+                    this.content.articles.splice(index, 1);
+                    this.renderArticlesList();
+                    this.updateLastUpdated();
+                    this.showSuccess('Article deleted successfully!');
+                }
+            }
+
+            showVideoForm() {
+                // Similar to showArticleForm but for videos
+                alert('Video form would be implemented here');
+            }
+
+            editVideo(index) {
+                alert('Edit video functionality would be implemented here');
+            }
+
+            deleteVideo(index) {
+                if (confirm('Are you sure you want to delete this video?')) {
+                    this.content.videos.splice(index, 1);
+                    this.renderVideosList();
+                    this.updateLastUpdated();
+                    this.showSuccess('Video deleted successfully!');
+                }
+            }
+
+            showVoiceForm() {
+                alert('Voice form would be implemented here');
+            }
+
+            editVoice(index) {
+                alert('Edit voice functionality would be implemented here');
+            }
+
+            deleteVoice(index) {
+                if (confirm('Are you sure you want to delete this testimonial?')) {
+                    this.content.voices.splice(index, 1);
+                    this.renderVoicesList();
+                    this.updateLastUpdated();
+                    this.showSuccess('Testimonial deleted successfully!');
+                }
+            }
+
+            updateHeroVideo() {
+                const videoId = document.getElementById('hero-video-id').value.trim();
+                const videoTitle = document.getElementById('hero-video-title').value.trim();
+                const date = document.getElementById('hero-video-date').value;
+                
+                if (!videoId || !videoTitle) {
+                    this.showError('Video ID and title are required');
+                    return;
+                }
+                
+                this.content.hero.videoId = videoId;
+                this.content.hero.videoTitle = videoTitle;
+                if (date) {
+                    this.content.hero.lastUpdated = date;
+                }
+                
+                this.renderHeroPreview();
+                this.updateLastUpdated();
+                this.showSuccess('Hero video updated successfully!');
+            }
+
+            updateBookInfo() {
+                // Collect form data
+                const title = document.getElementById('book-title').value.trim();
+                const description = document.getElementById('book-description').value.trim();
+                const internationalBadge = document.getElementById('book-international-badge').value.trim();
+                const icon = document.getElementById('book-icon').value.trim();
+                const releaseNote = document.getElementById('book-release-note').value.trim();
+                
+                // Collect languages
+                const languageInputs = document.querySelectorAll('#languages-container input[type="text"]');
+                const languages = Array.from(languageInputs)
+                    .map(input => input.value.trim())
+                    .filter(lang => lang.length > 0);
+                
+                if (!title || !description) {
+                    this.showError('Title and description are required');
+                    return;
+                }
+                
+                this.content.book.title = title;
+                this.content.book.description = description;
+                this.content.book.internationalBadge = internationalBadge;
+                this.content.book.icon = icon;
+                this.content.book.releaseNote = releaseNote;
+                this.content.book.languages = languages.length > 0 ? languages : ["English", "Espa&ntilde;ol (coming)", "Portugu&ecirc;s (coming)", "Fran&ccedil;ais (coming)"];
+                
+                this.updateLastUpdated();
+                this.showSuccess('Book information updated successfully!');
+            }
+
+            closeModal() {
+                const modal = document.querySelector('.modal');
+                if (modal) {
+                    modal.remove();
+                }
+            }
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.app = new ContentManager();
+        });
+    </script>
+</body>
+</html>

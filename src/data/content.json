@@ -1,0 +1,199 @@
+{
+  "siteInfo": {
+    "title": "WhatIfWeBelieved — Global Faith & Theology",
+    "description": "A global media ministry exploring faith, theology, and the transformative power of belief. Join millions worldwide in thought-provoking teaching and conversation.",
+    "themeColor": "#1e40af",
+    "lastUpdated": "2026-07-12"
+  },
+  "hero": {
+    "eyebrow": "Active Worldwide",
+    "title": "What If We<br><em>Believed?</em>",
+    "description": "A global media ministry exploring faith, theology, and the transformative power of belief through thought-provoking teaching and conversation.",
+    "videoId": "881ddNnGCfs",
+    "videoTitle": "How a Good Man Loses His Shape",
+    "whispers": [
+      "What would change if we truly believed?",
+      "The question that changes everything\u2026",
+      "Across every nation, one question remains\u2026",
+      "Belief is not the absence of doubt \u2014 it is the courage beyond it.",
+      "A conversation spanning continents\u2026"
+    ],
+    "ctaButtons": [
+      {
+        "text": "Subscribe on YouTube",
+        "href": "https://www.youtube.com/@paulos1844?sub_confirmation=1",
+        "class": "btn-primary",
+        "target": "_blank",
+        "rel": "noopener"
+      },
+      {
+        "text": "Latest Teachings",
+        "href": "#videos",
+        "class": "btn-outline"
+      }
+    ],
+    "lastUpdated": "2026-07-12"
+  },
+  "articles": [
+    {
+      "id": 1,
+      "title": "Hermeneutical Analysis of 2 Samuel 11",
+      "category": "Theology",
+      "description": "A multi-lens study of David's moral self-destruction \u2014 integrating historical-critical, narrative, theological, and moral-psychological approaches to the delivery of Uriah's death.",
+      "readTime": "Pastor Wentland Paul",
+      "status": "Read & Download",
+      "image": "images/theology-professor.jpg",
+      "date": "2026-07-15"
+    },
+    {
+      "id": 2,
+      "title": "The Parable of the Lost Shape",
+      "category": "Scripture",
+      "description": "Exploring how a good man loses his shape, and what that teaches us about grace, restoration, and the image of God.",
+      "readTime": "7 min read",
+      "status": "coming soon",
+      "image": "images/scripture-bible.jpg",
+      "date": "2026-07-22"
+    },
+    {
+      "id": 3,
+      "title": "No Guardrails: Faith Without a Safety Net",
+      "category": "Discipleship",
+      "description": "What happens when God removes every safety net and calls you to trust Him with nothing but a promise?",
+      "readTime": "6 min read",
+      "status": "coming soon",
+      "image": "images/discipleship-conversation.jpg",
+      "date": "2026-07-29"
+    }
+  ],
+  "videos": [
+    {
+      "id": "ea0dtxkE-bw",
+      "title": "Reprogramming an Empire: From Erased Asset to Indispensable Anchor",
+      "thumbnail": "https://i.ytimg.com/vi/ea0dtxkE-bw/hqdefault.jpg",
+      "date": "2026-06-01"
+    },
+    {
+      "id": "l9V_MDWfUkg",
+      "title": "Unstoppable: The Rebooted Asset",
+      "thumbnail": "https://i.ytimg.com/vi/l9V_MDWfUkg/hqdefault.jpg",
+      "date": "2026-05-25"
+    },
+    {
+      "id": "881ddNnGCfs",
+      "title": "How a Good Man Loses His Shape",
+      "thumbnail": "https://i.ytimg.com/vi/881ddNnGCfs/hqdefault.jpg",
+      "date": "2026-05-18"
+    },
+    {
+      "id": "vfUmeceFEhw",
+      "title": "No Guardrails: Faith Without a Safety Net",
+      "thumbnail": "https://i.ytimg.com/vi/vfUmeceFEhw/hqdefault.jpg",
+      "date": "2026-05-11"
+    },
+    {
+      "id": "AJq8H3v6z-s",
+      "title": "Not a Word: When God Goes Silent",
+      "thumbnail": "https://i.ytimg.com/vi/AJq8H3v6z-s/hqdefault.jpg",
+      "date": "2026-05-04"
+    },
+    {
+      "id": "D2FfteQ7sXI",
+      "title": "Stop Fighting for the Tent",
+      "thumbnail": "https://i.ytimg.com/vi/D2FfteQ7sXI/hqdefault.jpg",
+      "date": "2026-04-27"
+    },
+    {
+      "id": "WWHjyQqPg80",
+      "title": "System Restore: Returning to Default",
+      "thumbnail": "https://i.ytimg.com/vi/WWHjyQqPg80/hqdefault.jpg",
+      "date": "2026-04-20"
+    },
+    {
+      "id": "VKJ_a2kyTrM",
+      "title": "Transactional Success: When Faith Becomes a Contract",
+      "thumbnail": "https://i.ytimg.com/vi/VKJ_a2kyTrM/hqdefault.jpg",
+      "date": "2026-04-13"
+    },
+    {
+      "id": "TxgvfuzSrGY",
+      "title": "Default Settings: Restoring What Was Lost",
+      "thumbnail": "https://i.ytimg.com/vi/TxgvfuzSrGY/hqdefault.jpg",
+      "date": "2026-04-06"
+    }
+  ],
+  "voices": [
+    {
+      "flag": "&#127475;&#127468;",
+      "quote": "This channel changed how I see scripture. The depth of teaching is unlike anything I&rsquo;ve found online.",
+      "author": "Chidi A.",
+      "location": "Lagos, Nigeria"
+    },
+    {
+      "flag": "&#127463;&#127479;",
+      "quote": "I share every video with my small group in S&atilde;o Paulo. The questions raised here are universal.",
+      "author": "Maria L.",
+      "location": "S&atilde;o Paulo, Brazil"
+    },
+    {
+      "flag": "&#127468;&#127463;",
+      "quote": "Finally, a theology channel that respects both the intellect and the heart. Brilliant work.",
+      "author": "James R.",
+      "location": "London, England"
+    },
+    {
+      "flag": "&#127471;&#127477;",
+      "quote": "The message crosses every cultural boundary. I watch with subtitles and it still moves me deeply.",
+      "author": "Yuki T.",
+      "location": "Tokyo, Japan"
+    },
+    {
+      "flag": "&#127482;&#127480;",
+      "quote": "Watching from Atlanta. The 'No Guardrails' teaching rewired my understanding of faith entirely.",
+      "author": "David M.",
+      "location": "Atlanta, USA"
+    },
+    {
+      "flag": "&#127465;&#127466;",
+      "quote": "Theological depth meets cinematic quality. A rare combination that keeps me coming back every week.",
+      "author": "Hans K.",
+      "location": "Berlin, Germany"
+    }
+  ],
+  "book": {
+    "title": "Affirming Faith <em>Through Thought</em>",
+    "description": "A limited-release book exploring the intersection of reason and belief. Available in English, with translations planned for Spanish, Portuguese, and French.",
+    "internationalBadge": "&#127760; Translated for the World",
+    "icon": "&#128214;",
+    "releaseNote": "Limited release &middot; Free for a short time",
+    "languages": ["English", "Espa&ntilde;ol (coming)", "Portugu&ecirc;s (coming)", "Fran&ccedil;ais (coming)"],
+    "lastUpdated": "2026-07-12"
+  },
+  "stats": [
+    {
+      "number": "40+",
+      "label": "Countries Reached"
+    },
+    {
+      "number": "6",
+      "label": "Continents"
+    },
+    {
+      "number": "10+",
+      "label": "Teachings"
+    },
+    {
+      "number": "2026",
+      "label": "Active Since"
+    }
+  ],
+  "cta": {
+    "title": "Join the Global Conversation",
+    "description": "Subscribe to WhatIfWeBelieved and explore faith, theology, and the questions that resonate across every culture and continent.",
+    "buttonText": "Subscribe Now",
+    "buttonHref": "https://www.youtube.com/@paulos1844?sub_confirmation=1",
+    "buttonTarget": "_blank",
+    "buttonRel": "noopener"
+  },
+  "lastUpdated": "2026-07-12T00:00:00Z"
+}

@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theological Research — WhatIfWeBelieved</title>
+    <meta name="description" content="Ask theological questions and receive research grounded in the Seventh-day Adventist worldview, with Scripture and Spirit of Prophecy citations.">
+    <meta name="theme-color" content="#8b6914">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #faf8f5;
+            --bg-secondary: #ffffff;
+            --bg-surface: #ffffff;
+            --bg-surface-hover: #f5f0eb;
+            --blue: #8b6914;
+            --blue-light: #b8941e;
+            --blue-dark: #6b4f10;
+            --blue-muted: rgba(139,105,20,0.08);
+            --blue-subtle: rgba(139,105,20,0.04);
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4540;
+            --text-tertiary: #7a7570;
+            --text-inverse: #faf8f5;
+            --border-subtle: #ebe6e0;
+            --border-default: #d4cec6;
+            --border-strong: #a8a098;
+            --font-serif: 'EB Garamond', Georgia, serif;
+            --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --space-md: 24px;
+            --space-lg: 40px;
+            --space-xl: 64px;
+            --space-2xl: 96px;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --max-width: 1120px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300'%3E%3Ctext x='300' y='150' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' font-size='18' fill='rgba(139,105,20,0.025)' transform='rotate(-25 300 150)'%3EIn the beginning was the Word%3C/text%3E%3C/svg%3E") repeat,
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,105,20,0.03), transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 100%, rgba(139,105,20,0.02), transparent 60%);
+            opacity: 0.035;
+            pointer-events: none;
+        }
+
+        .container { position: relative; z-index: 1; max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-md); width: 100%; }
+
+        /* NAV */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 32px; height: 64px; margin-top: 12px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg); position: sticky; top: 12px; z-index: 100;
+        }
+        .logo { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; color: var(--text-primary); letter-spacing: -0.2px; display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo .globe-icon { width: 20px; height: 20px; opacity: 0.5; stroke: var(--blue); }
+        .logo span { color: var(--blue); }
+        .nav-links { display: flex; gap: 8px; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-family: var(--font-sans); font-size: 0.8rem; font-weight: 400; transition: color 0.2s, background-color 0.2s; letter-spacing: 0.2px; padding: 6px 14px; border-radius: var(--radius-sm); }
+        .nav-links a:hover { color: var(--text-primary); background: var(--blue-subtle); }
+        a.btn-subscribe { background: var(--blue); color: var(--text-inverse); border: none; padding: 8px 20px; border-radius: var(--radius-sm); font-family: var(--font-sans); font-weight: 500; font-size: 0.8rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; letter-spacing: 0.2px; }
+        a.btn-subscribe:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+        /* MAIN */
+        main { position: relative; z-index: 1; flex: 1; }
+
+        /* PAGE HEADER */
+        .page-header {
+            padding: 64px 0 48px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: var(--space-xl);
+        }
+        .page-header .breadcrumb {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-sans); font-size: 0.72rem; color: var(--text-tertiary);
+            letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px;
+        }
+        .page-header .breadcrumb a { color: var(--text-tertiary); text-decoration: none; transition: color 0.2s; }
+        .page-header .breadcrumb a:hover { color: var(--blue); }
+        .page-header .breadcrumb .sep { opacity: 0.4; }
+        .page-header h1 {
+            font-family: var(--font-serif); font-size: 2.8rem; font-weight: 500;
+            color: var(--text-primary); line-height: 1.1; letter-spacing: -0.8px;
+            margin-bottom: 12px;
+        }
+        .page-header h1 em { font-style: italic; color: var(--blue); }
+        .page-header .subtitle {
+            font-family: var(--font-serif); font-size: 1.1rem; font-style: italic;
+            color: var(--text-tertiary); max-width: 560px; margin: 0 auto; line-height: 1.6;
+        }
+
+        /* RESEARCH INTERFACE */
+        .research-section {
+            max-width: 800px; margin: 0 auto; padding: 0 0 var(--space-2xl);
+        }
+
+        /* INPUT AREA */
+        .research-input-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        .research-input-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(139,105,20,0.2), transparent);
+        }
+        .research-input-card .card-eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--blue-muted); border: 1px solid var(--border-default);
+            padding: 4px 14px; border-radius: 100px;
+            font-family: var(--font-sans); font-size: 0.65rem; color: var(--blue);
+            font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 20px;
+        }
+        .research-input-card .card-eyebrow::before {
+            content: ''; width: 6px; height: 6px; background: var(--blue); border-radius: 50%;
+        }
+        .research-input-card h2 {
+            font-family: var(--font-serif); font-size: 1.5rem; font-weight: 500;
+            color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.2px;
+        }
+        .research-input-card .card-desc {
+            font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 24px;
+            line-height: 1.7; font-weight: 300;
+        }
+
+        .question-textarea {
+            width: 100%; min-height: 120px; max-height: 300px;
+            padding: 16px 18px; border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.7;
+            color: var(--text-primary); background: var(--bg-primary);
+            resize: vertical; transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .question-textarea::placeholder { color: var(--text-tertiary); font-style: italic; }
+        .question-textarea:focus {
+            outline: none; border-color: var(--blue);
+            box-shadow: 0 0 0 3px var(--blue-muted);
+        }
+
+        .research-actions {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 20px; gap: 12px; flex-wrap: wrap;
+        }
+        .research-actions .hint {
+            font-size: 0.75rem; color: var(--text-tertiary); font-style: italic;
+        }
+        .btn-research {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--blue); color: var(--text-inverse);
+            border: none; padding: 12px 28px; border-radius: var(--radius-sm);
+            font-family: var(--font-sans); font-weight: 500; font-size: 0.88rem;
+            cursor: pointer; transition: all 0.25s; letter-spacing: 0.2px;
+        }
+        .btn-research:hover { background: var(--blue-light); transform: translateY(-1px); }
+        .btn-research:disabled {
+            opacity: 0.6; cursor: not-allowed; transform: none;
+        }
+        .btn-research svg { width: 16px; height: 16px; }
+
+        /* EXAMPLE QUESTIONS */
+        .example-questions {
+            margin-top: 20px; padding-top: 16px;
+            border-top: 1px solid var(--border-subtle);
+        }
+        .example-questions .label {
+            font-family: var(--font-sans); font-size: 0.7rem; color: var(--text-tertiary);
+            text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px;
+        }
+        .example-chips {
+            display: flex; flex-wrap: wrap; gap: 8px;
+        }
+        .example-chip {
+            background: var(--bg-primary); border: 1px solid var(--border-subtle);
+            padding: 6px 14px; border-radius: 100px; cursor: pointer;
+            font-family: var(--font-serif); font-size: 0.85rem; color: var(--text-secondary);
+            transition: all 0.2s; text-decoration: none;
+        }
+        .example-chip:hover { background: var(--blue-subtle); color: var(--blue); border-color: var(--blue); }
+
+        /* LOADING STATE */
+        .loading-card {
+            display: none;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 48px 32px;
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+        .loading-card.active { display: block; }
+        .loading-spinner {
+            width: 48px; height: 48px; margin: 0 auto 20px;
+            border: 3px solid var(--border-subtle);
+            border-top-color: var(--blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-card h3 {
+            font-family: var(--font-serif); font-size: 1.3rem; font-weight: 500;
+            color: var(--text-primary); margin-bottom: 8px;
+        }
+        .loading-card .loading-status {
+            font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 16px;
+        }
+        .loading-steps {
+            display: flex; flex-direction: column; gap: 8px;
+            max-width: 360px; margin: 0 auto;
+        }
+        .loading-step {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.8rem; color: var(--text-tertiary);
+            font-family: var(--font-sans);
+        }
+        .loading-step .step-icon {
+            width: 20px; height: 20px; border-radius: 50%;
+            border: 2px solid var(--border-subtle);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; transition: all 0.3s;
+        }
+        .loading-step.active .step-icon {
+            border-color: var(--blue); background: var(--blue-muted);
+        }
+        .loading-step.active .step-icon::after {
+            content: ''; width: 8px; height: 8px; background: var(--blue);
+            border-radius: 50%; animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+        .loading-step.done .step-icon {
+            border-color: var(--blue); background: var(--blue);
+        }
+        .loading-step.done .step-icon::after {
+            content: '✓'; color: var(--text-inverse); font-size: 0.65rem; font-weight: 600;
+        }
+        .loading-step.done { color: var(--text-secondary); }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.7); }
+        }
+
+        /* RESULT CARD */
+        .result-card {
+            display: none;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: var(--space-xl);
+        }
+        .result-card.active { display: block; animation: fadeInUp 0.6s ease-out; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 28px;
+            background: linear-gradient(170deg, #fdfcf9 0%, #f8f4ed 40%, #f0ebe0 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            flex-wrap: wrap; gap: 12px;
+        }
+        .result-header .result-meta {
+            display: flex; flex-direction: column; gap: 2px;
+        }
+        .result-header .result-meta .result-label {
+            font-family: var(--font-sans); font-size: 0.62rem; text-transform: uppercase;
+            letter-spacing: 0.8px; color: var(--text-tertiary); font-weight: 500;
+        }
+        .result-header .result-meta .result-question {
+            font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600;
+            color: var(--text-primary); line-height: 1.3;
+        }
+        .result-actions { display: flex; gap: 8px; }
+        .btn-download-md, .btn-copy, .btn-new {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px; border-radius: var(--radius-sm);
+            font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s; text-decoration: none;
+            border: 1px solid var(--border-default); background: var(--bg-surface);
+            color: var(--text-secondary);
+        }
+        .btn-download-md:hover, .btn-copy:hover { background: var(--blue-subtle); color: var(--blue); border-color: var(--blue); }
+        .btn-new {
+            background: var(--blue); color: var(--text-inverse); border-color: transparent;
+        }
+        .btn-new:hover { background: var(--blue-light); }
+        .btn-download-md svg, .btn-copy svg, .btn-new svg { width: 14px; height: 14px; }
+
+        /* REPORT CONTENT */
+        .report-body { padding: 40px 44px 48px; }
+        .report-body h1 {
+            font-family: var(--font-serif); font-size: 2rem; font-weight: 600;
+            color: var(--text-primary); line-height: 1.2; letter-spacing: -0.4px;
+            margin-bottom: 8px;
+        }
+        .report-body h2 {
+            font-family: var(--font-serif); font-size: 1.35rem; font-weight: 600;
+            color: var(--text-primary); margin: 36px 0 14px; letter-spacing: -0.2px;
+            padding-bottom: 8px; border-bottom: 1px solid var(--border-subtle);
+        }
+        .report-body h3 {
+            font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600;
+            color: var(--text-primary); margin: 28px 0 10px; font-style: italic;
+        }
+        .report-body p {
+            font-family: var(--font-serif); font-size: 1.02rem; color: var(--text-secondary);
+            line-height: 1.85; margin-bottom: 18px;
+        }
+        .report-body p strong { color: var(--text-primary); font-weight: 600; }
+        .report-body em { color: var(--text-secondary); }
+        .report-body ul, .report-body ol {
+            margin: 12px 0 18px 24px; padding: 0;
+        }
+        .report-body li {
+            font-family: var(--font-serif); font-size: 1rem; color: var(--text-secondary);
+            line-height: 1.75; margin-bottom: 8px;
+        }
+        .report-body blockquote {
+            border-left: 3px solid var(--blue);
+            padding: 12px 20px; margin: 16px 0;
+            background: var(--blue-subtle); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+        .report-body blockquote p {
+            font-style: italic; color: var(--text-primary); margin-bottom: 0;
+        }
+        .report-body code {
+            background: var(--blue-muted); padding: 2px 6px; border-radius: 3px;
+            font-size: 0.92em; color: var(--blue-dark);
+        }
+        .report-body hr {
+            border: none; height: 1px; background: var(--border-subtle);
+            margin: 32px 0;
+        }
+        .report-body a {
+            color: var(--blue); text-decoration: underline; text-underline-offset: 2px;
+            transition: color 0.2s;
+        }
+        .report-body a:hover { color: var(--blue-light); }
+
+        /* REPORT FOOTER */
+        .report-footer {
+            padding: 20px 44px;
+            border-top: 1px solid var(--border-subtle);
+            background: linear-gradient(170deg, #fdfcf9 0%, #f8f4ed 40%, #f0ebe0 100%);
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 12px;
+            font-family: var(--font-sans); font-size: 0.72rem; color: var(--text-tertiary);
+        }
+        .report-footer .disclaimer {
+            max-width: 500px; font-style: italic; line-height: 1.6;
+        }
+
+        /* ERROR STATE */
+        .error-card {
+            display: none;
+            background: var(--bg-surface);
+            border: 1px solid #e8d5d5;
+            border-radius: var(--radius-lg);
+            padding: 32px; text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+        .error-card.active { display: block; }
+        .error-card h3 {
+            font-family: var(--font-serif); font-size: 1.2rem; color: #8b3a3a;
+            margin-bottom: 8px;
+        }
+        .error-card p { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px; }
+
+        /* FOOTER */
+        footer { padding: 32px 0; border-top: 1px solid var(--border-subtle); margin-top: auto; }
+        .footer-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 12px;
+        }
+        .footer-bottom > p { font-size: 0.72rem; color: var(--text-tertiary); letter-spacing: 0.2px; }
+        .footer-bottom a { color: var(--text-tertiary); text-decoration: none; transition: color 0.2s; }
+        .footer-bottom a:hover { color: var(--blue); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav { padding: 0 16px; }
+            .nav-links a:not(.btn-subscribe) { display: none; }
+            .page-header h1 { font-size: 2rem; }
+            .research-input-card { padding: 24px; }
+            .report-body { padding: 28px 24px 36px; }
+            .result-header { padding: 16px 20px; }
+            .report-footer { padding: 16px 20px; }
+            .research-actions { flex-direction: column; align-items: stretch; }
+            .research-actions .hint { text-align: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- NAVIGATION -->
+        <nav>
+            <a href="index.html" class="logo">
+                <svg class="globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                WhatIfWe<span>Believed</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html#articles">Articles</a>
+                <a href="index.html#videos">Videos</a>
+                <a href="research.html" style="color:var(--blue);font-weight:500;">Research</a>
+                <a href="https://www.youtube.com/@paulos1844?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    Subscribe
+                </a>
+            </div>
+        </nav>
+
+        <main>
+            <!-- PAGE HEADER -->
+            <header class="page-header">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span class="sep">/</span>
+                    <span>Theological Research</span>
+                </div>
+                <h1>Theological <em>Research</em></h1>
+                <p class="subtitle">Ask a question grounded in Scripture. Receive a research report from the Seventh-day Adventist worldview, with citations from the Bible and the Spirit of Prophecy.</p>
+            </header>
+
+            <section class="research-section">
+                <!-- INPUT CARD -->
+                <div class="research-input-card">
+                    <div class="card-eyebrow">AI Research Agent</div>
+                    <h2>What would you like to study?</h2>
+                    <p class="card-desc">Submit your theological question below. The research agent will search for Adventist and Biblical sources, then produce a structured report with full citations.</p>
+
+                    <textarea
+                        id="question-input"
+                        class="question-textarea"
+                        placeholder="e.g., What does the Bible teach about the state of the dead? How does the Adventist doctrine of soul sleep compare with the mainstream Christian view of the immortal soul?"
+                        maxlength="2000"
+                        aria-label="Your theological question"
+                    ></textarea>
+
+                    <div class="research-actions">
+                        <span class="hint">Research typically takes 1–3 minutes</span>
+                        <button id="btn-research" class="btn-research" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            Research
+                        </button>
+                    </div>
+
+                    <div class="example-questions">
+                        <div class="label">Try a question</div>
+                        <div class="example-chips">
+                            <button class="example-chip" data-q="What does the Bible teach about the state of the dead?">State of the Dead</button>
+                            <button class="example-chip" data-q="Explain the Seventh-day Adventist doctrine of the Investigative Judgment from Daniel 8:14 and Hebrews.">Investigative Judgment</button>
+                            <button class="example-chip" data-q="What is the biblical basis for the seventh-day Sabbath, and why do Adventists worship on Saturday?">Sabbath Doctrine</button>
+                            <button class="example-chip" data-q="How does the Great Controversy theme shape Adventist theology and understanding of history?">Great Controversy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LOADING STATE -->
+                <div id="loading-card" class="loading-card">
+                    <div class="loading-spinner"></div>
+                    <h3>Researching your question...</h3>
+                    <p class="loading-status" id="loading-status">Initializing research pipeline</p>
+                    <div class="loading-steps">
+                        <div class="loading-step active" id="step-search">
+                            <div class="step-icon"></div>
+                            <span>Searching Adventist &amp; Biblical sources</span>
+                        </div>
+                        <div class="loading-step" id="step-analyze">
+                            <div class="step-icon"></div>
+                            <span>Analyzing with theological framework</span>
+                        </div>
+                        <div class="loading-step" id="step-report">
+                            <div class="step-icon"></div>
+                            <span>Generating structured report</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ERROR STATE -->
+                <div id="error-card" class="error-card">
+                    <h3>Research Error</h3>
+                    <p id="error-message">Something went wrong. Please try again.</p>
+                    <button class="btn-research" onclick="document.getElementById('error-card').classList.remove('active')">Try Again</button>
+                </div>
+
+                <!-- RESULT -->
+                <div id="result-card" class="result-card">
+                    <div class="result-header">
+                        <div class="result-meta">
+                            <span class="result-label">Research Report</span>
+                            <span class="result-question" id="result-question"></span>
+                        </div>
+                        <div class="result-actions">
+                            <button class="btn-new" id="btn-new-research" type="button">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                New
+                            </button>
+                            <button class="btn-copy" id="btn-copy" type="button">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                Copy
+                            </button>
+                            <button class="btn-download-md" id="btn-download-md" type="button">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Download .md
+                            </button>
+                        </div>
+                    </div>
+                    <div class="report-body" id="report-body"></div>
+                    <div class="report-footer">
+                        <div class="disclaimer">This report is generated by an AI research agent grounded in the Seventh-day Adventist worldview. Always verify with Scripture and your local church pastor.</div>
+                        <div id="report-meta"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="container">
+                <div class="footer-bottom">
+                    <p>&copy; 2026 WhatIfWeBelieved &middot; A Global Faith Ministry</p>
+                    <div>
+                        <a href="index.html">Home</a> &middot;
+                        <a href="https://www.youtube.com/@paulos1844" target="_blank" rel="noopener">YouTube</a> &middot;
+                        <a href="#">Privacy</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+    (function() {
+        // -----------------------------------------------------------------------
+        // Configuration
+        // -----------------------------------------------------------------------
+        const API_BASE = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+            ? `http://127.0.0.1:8000`
+            : `https://your-deployed-agent-url.onrender.com`; // Update for production
+
+        // -----------------------------------------------------------------------
+        // DOM References
+        // -----------------------------------------------------------------------
+        const questionInput = document.getElementById('question-input');
+        const btnResearch = document.getElementById('btn-research');
+        const loadingCard = document.getElementById('loading-card');
+        const loadingStatus = document.getElementById('loading-status');
+        const stepSearch = document.getElementById('step-search');
+        const stepAnalyze = document.getElementById('step-analyze');
+        const stepReport = document.getElementById('step-report');
+        const errorCard = document.getElementById('error-card');
+        const errorMessage = document.getElementById('error-message');
+        const resultCard = document.getElementById('result-card');
+        const resultQuestion = document.getElementById('result-question');
+        const reportBody = document.getElementById('report-body');
+        const reportMeta = document.getElementById('report-meta');
+        const btnDownloadMd = document.getElementById('btn-download-md');
+        const btnCopy = document.getElementById('btn-copy');
+        const btnNewResearch = document.getElementById('btn-new-research');
+
+        let currentReport = '';
+        let currentQuestion = '';
+
+        // -----------------------------------------------------------------------
+        // Configure marked.js
+        // -----------------------------------------------------------------------
+        if (typeof marked !== 'undefined') {
+            marked.setOptions({
+                breaks: true,
+                gfm: true,
+            });
+        }
+
+        // -----------------------------------------------------------------------
+        // Example question chips
+        // -----------------------------------------------------------------------
+        document.querySelectorAll('.example-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                questionInput.value = this.getAttribute('data-q');
+                questionInput.focus();
+            });
+        });
+
+        // -----------------------------------------------------------------------
+        // Research submission
+        // -----------------------------------------------------------------------
+        btnResearch.addEventListener('click', startResearch);
+        questionInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                startResearch();
+            }
+        });
+
+        async function startResearch() {
+            const question = questionInput.value.trim();
+            if (!question || question.length < 5) {
+                questionInput.focus();
+                return;
+            }
+
+            currentQuestion = question;
+            currentReport = '';
+            window._liveReport = null;
+
+            // UI: show loading, hide others
+            btnResearch.disabled = true;
+            loadingCard.classList.add('active');
+            errorCard.classList.remove('active');
+            resultCard.classList.remove('active');
+            stepSearch.className = 'loading-step active';
+            stepAnalyze.className = 'loading-step';
+            stepReport.className = 'loading-step';
+            loadingStatus.textContent = 'Connecting to research agent...';
+
+            try {
+                // Use streaming endpoint for progress updates
+                const response = await fetch(`${API_BASE}/research/stream`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: question }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop();
+
+                    for (const line of lines) {
+                        if (!line.startsWith('data: ')) continue;
+                        try {
+                            const event = JSON.parse(line.slice(6));
+
+                            if (event.type === 'status') {
+                                loadingStatus.textContent = event.message;
+                                const msg = event.message.toLowerCase();
+                                if (msg.includes('searching')) {
+                                    stepSearch.className = 'loading-step active';
+                                } else if (msg.includes('found') || msg.includes('source')) {
+                                    stepSearch.className = 'loading-step done';
+                                    stepAnalyze.className = 'loading-step active';
+                                } else if (msg.includes('calling') || msg.includes('generating') || msg.includes('streaming')) {
+                                    stepSearch.className = 'loading-step done';
+                                    stepAnalyze.className = 'loading-step done';
+                                    stepReport.className = 'loading-step active';
+                                }
+                            } else if (event.type === 'token') {
+                                // Live streaming: append tokens as they arrive
+                                if (!window._liveReport) {
+                                    window._liveReport = '';
+                                    // Switch from loading to result view for live display
+                                    loadingCard.classList.remove('active');
+                                    resultCard.classList.add('active');
+                                    resultQuestion.textContent = currentQuestion;
+                                    reportBody.innerHTML = '';
+                                }
+                                window._liveReport += event.content;
+                                if (typeof marked !== 'undefined') {
+                                    reportBody.innerHTML = marked.parse(window._liveReport);
+                                } else {
+                                    reportBody.textContent = window._liveReport;
+                                }
+                                reportBody.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                            } else if (event.type === 'complete') {
+                                stepSearch.className = 'loading-step done';
+                                stepAnalyze.className = 'loading-step done';
+                                stepReport.className = 'loading-step done';
+                                window._liveReport = null;
+                                showResult(event.data);
+                            } else if (event.type === 'error') {
+                                window._liveReport = null;
+                                showError(event.message);
+                            }
+                        } catch (e) {
+                            // skip malformed lines
+                        }
+                    }
+                }
+            } catch (err) {
+                showError(err.message || 'Failed to connect to the research agent.');
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Display results
+        // -----------------------------------------------------------------------
+        function showResult(data) {
+            currentReport = data.report;
+            resultQuestion.textContent = data.question;
+
+            // Render Markdown as HTML
+            if (typeof marked !== 'undefined') {
+                reportBody.innerHTML = marked.parse(data.report);
+            } else {
+                reportBody.innerHTML = '<p>' + data.report.replace(/\n/g, '</p><p>') + '</p>';
+            }
+
+            reportMeta.innerHTML = `Model: ${data.model_used} &middot; Sources: ${data.search_results_count} &middot; ${new Date(data.generated_at).toLocaleDateString()}`;
+
+            loadingCard.classList.remove('active');
+            resultCard.classList.add('active');
+            btnResearch.disabled = false;
+
+            // Scroll to result
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showError(msg) {
+            loadingCard.classList.remove('active');
+            errorCard.classList.add('active');
+            errorMessage.textContent = msg;
+            btnResearch.disabled = false;
+        }
+
+        // -----------------------------------------------------------------------
+        // Download as Markdown
+        // -----------------------------------------------------------------------
+        btnDownloadMd.addEventListener('click', function() {
+            if (!currentReport) return;
+            const blob = new Blob([currentReport], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            const safeFilename = currentQuestion
+                .replace(/[^a-zA-Z0-9\s]/g, '')
+                .trim()
+                .substring(0, 60)
+                .replace(/\s+/g, '_');
+            a.href = url;
+            a.download = `WhatIfWeBelieved_Research_${safeFilename}.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // -----------------------------------------------------------------------
+        // Copy to clipboard
+        // -----------------------------------------------------------------------
+        btnCopy.addEventListener('click', async function() {
+            if (!currentReport) return;
+            try {
+                await navigator.clipboard.writeText(currentReport);
+                btnCopy.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+                setTimeout(() => {
+                    btnCopy.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+                }, 2000);
+            } catch (e) {
+                // Fallback for older browsers
+                const ta = document.createElement('textarea');
+                ta.value = currentReport;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        });
+
+        // -----------------------------------------------------------------------
+        // New research
+        // -----------------------------------------------------------------------
+        btnNewResearch.addEventListener('click', function() {
+            resultCard.classList.remove('active');
+            errorCard.classList.remove('active');
+            questionInput.value = '';
+            questionInput.focus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+    </script>
+</body>
+</html>

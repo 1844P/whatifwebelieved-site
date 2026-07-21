@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatIfWeBelieved — Global Faith &amp; Theology</title>
+    <meta name="description" content="A global media ministry exploring faith, theology, and the transformative power of belief. Join millions worldwide in thought-provoking teaching and conversation.">
+    <meta name="theme-color" content="#8b6914">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://whatifwebelieved.com">
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://i.ytimg.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://i.ytimg.com">
+    <link rel="dns-prefetch" href="https://www.youtube.com">
+    <meta property="og:title" content="WhatIfWeBelieved — Global Faith &amp; Theology">
+    <meta property="og:description" content="A global media ministry exploring faith, theology, and the transformative power of belief.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://whatifwebelieved.com">
+    <meta property="og:site_name" content="WhatIfWeBelieved">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:locale:alternate" content="pt_BR">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="ja_JP">
+    
+    <!-- Open Graph Enhanced -->
+    <meta property="og:site_name" content="WhatIfWeBelieved">
+    <meta property="og:title" content="WhatIfWeBelieved — Global Faith &amp; Theology">
+    <meta property="og:description" content="A global media ministry exploring faith, theology, and the transformative power of belief.">
+    <meta property="og:url" content="https://whatifwebelieved.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://i.ytimg.com/vi/881ddNnGCfs/hqdefault.jpg">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta property="og:image:alt" content="Featured teaching: How a Good Man Loses His Shape">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="WhatIfWeBelieved">
+    <meta property="og:updated_time" content="2026-07-12T00:00:00+00:00">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WhatIfWeBelieved — Global Faith &amp; Theology">
+    <meta name="twitter:description" content="A global media ministry exploring faith, theology, and the transformative power of belief.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "WhatIfWeBelieved",
+        "url": "https://whatifwebelieved.com",
+        "description": "A global media ministry exploring faith, theology, and the transformative power of belief.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WhatIfWeBelieved",
+            "url": "https://whatifwebelieved.com",
+            "sameAs": [
+                "https://www.youtube.com/@paulos1844",
+                "https://www.youtube.com/@Whatifwebelieved"
+            ]
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://whatifwebelieved.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "WhatIfWeBelieved",
+        "url": "https://whatifwebelieved.com",
+        "logo": "https://whatifwebelieved.com/logo.png",
+        "sameAs": [
+            "https://www.youtube.com/@paulos1844",
+            "https://www.youtube.com/@Whatifwebelieved"
+        ],
+        "contactPoint": [{
+            "@type": "ContactPoint",
+            "telephone": "+1-800-555-0199",
+            "contactType": "Customer service"
+        }]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "url": "https://whatifwebelieved.com/articles",
+        "name": "WhatIfWeBelieved Articles",
+        "description": "Thoughts on faith, theology, and the life of belief.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "WhatIfWeBelieved",
+            "url": "https://whatifwebelieved.com"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "What is WhatIfWeBelieved?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "WhatIfWeBelieved is a global media ministry exploring faith, theology, and the transformative power of belief through thought-provoking teaching and conversation."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Where can I watch the teachings?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "All teachings are available on our YouTube channel at youtube.com/@paulos1844 and featured in the Videos section of this website."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Is there a cost to access the content?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "All content on WhatIfWeBelieved is free to access. Our book is available as a free PDF download for a limited time."
+            }
+        }]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://whatifwebelieved.com/"
+      }, {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Videos",
+        "item": "https://whatifwebelieved.com/#videos"
+      }]
+    }
+    </script>
+
+    <!-- VideoObject Schema for Hero Video -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "How a Good Man Loses His Shape",
+      "description": "Exploring how a good man loses his shape, and what that teaches us about grace, restoration, and the image of God.",
+      "thumbnailUrl": "https://i.ytimg.com/vi/881ddNnGCfs/hqdefault.jpg",
+      "uploadDate": "2026-05-18T00:00:00Z",
+      "duration": "PT1H30M0S",
+      "contentUrl": "https://www.youtube.com/watch?v=881ddNnGCfs",
+      "embedUrl": "https://www.youtube.com/embed/881ddNnGCfs",
+      "interactionStatistic": {
+        "@type": "InteractionCounter",
+        "interactionType": { "@type": "WatchAction" },
+        "userInteractionCount": 125000
+      },
+      "regionsAllowed": "US,UK,CA,AU,NZ,ZA,NG,KE,GH,JM,BB"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #faf8f5;
+            --bg-secondary: #ffffff;
+            --bg-surface: #ffffff;
+            --bg-surface-hover: #f5f0eb;
+            --blue: #8b6914;
+            --blue-light: #b8941e;
+            --blue-dark: #6b4f10;
+            --blue-muted: rgba(139,105,20,0.08);
+            --blue-subtle: rgba(139,105,20,0.04);
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4540;
+            --text-tertiary: #7a7570;
+            --text-inverse: #faf8f5;
+            --border-subtle: #ebe6e0;
+            --border-default: #d4cec6;
+            --border-strong: #a8a098;
+            --font-serif: 'EB Garamond', Georgia, serif;
+            --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --space-md: 24px;
+            --space-lg: 40px;
+            --space-xl: 64px;
+            --space-2xl: 96px;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --max-width: 1120px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Enhanced focus styles for accessibility */
+        *:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+        }
+        
+        /* Ensure interactive elements have visible focus states */
+        a:focus-visible,
+        button:focus-visible,
+        [role="button"]:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                /* Paper grain noise — aged parchment warmth */
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"),
+                /* Diagonal scripture watermark */
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300'%3E%3Ctext x='300' y='150' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' font-size='18' fill='rgba(139,105,20,0.025)' transform='rotate(-25 300 150)'%3EIn the beginning was the Word%3C/text%3E%3C/svg%3E") repeat,
+                /* Warm golden radial glow from top */
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,105,20,0.03), transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 100%, rgba(139,105,20,0.02), transparent 60%);
+            opacity: 0.035;
+            pointer-events: none;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .fade-in { animation: fadeInUp 0.7s ease-out both; }
+        .fade-in-delay-1 { animation-delay: 0.1s; }
+        .fade-in-delay-2 { animation-delay: 0.2s; }
+        .fade-in-delay-3 { animation-delay: 0.3s; }
+        .fade-in-delay-4 { animation-delay: 0.4s; }
+
+        .container { position: relative; z-index: 1; max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-md); }
+        main { position: relative; z-index: 1; }
+        section { padding: var(--space-2xl) 0; }
+
+        /* NAV */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 32px; height: 64px; margin-top: 12px;
+            background:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23ffffff'/%3E%3Crect width='1' height='1' x='0' y='0' fill='rgba(139,105,20,0.015)'/%3E%3Crect width='1' height='1' x='2' y='2' fill='rgba(139,105,20,0.015)'/%3E%3C/svg%3E") repeat,
+                var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg); position: sticky; top: 12px; z-index: 100;
+        }
+
+        .nav-search-btn {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-search-btn:hover {
+            background: var(--blue-subtle);
+        }
+
+        .nav-search-btn:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+        }
+        .logo { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; color: var(--text-primary); letter-spacing: -0.2px; display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo .globe-icon { width: 20px; height: 20px; opacity: 0.5; stroke: var(--blue); }
+        .logo span { color: var(--blue); }
+        .nav-links { display: flex; gap: 8px; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-family: var(--font-sans); font-size: 0.8rem; font-weight: 400; transition: color 0.2s, background-color 0.2s; letter-spacing: 0.2px; padding: 6px 14px; border-radius: var(--radius-sm); }
+        .nav-links a:hover { color: var(--text-primary); background: var(--blue-subtle); }
+        .nav-links a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+        .btn-subscribe { background: var(--blue); color: var(--text-inverse); border: none; padding: 8px 20px; border-radius: var(--radius-sm); font-family: var(--font-sans); font-weight: 500; font-size: 0.8rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; letter-spacing: 0.2px; }
+        .btn-subscribe:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+        /* HERO */
+        .hero {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 56px; padding: 80px 0 72px; min-height: 82vh;
+            position: relative; overflow: hidden;
+            background: url('images/hero-wallpaper.jpg') center/cover no-repeat;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(250,248,245,0.82) 0%,
+                rgba(250,248,245,0.60) 35%,
+                rgba(250,248,245,0.35) 65%,
+                rgba(250,248,245,0.12) 100%
+            );
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 70% 50% at 70% 40%, rgba(139,105,20,0.06), transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        #hero-particles {
+            position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        }
+        .hero-content { flex: 1; position: relative; z-index: 2; }
+        .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--blue-muted); border: 1px solid var(--border-default); padding: 5px 14px; border-radius: 100px; font-family: var(--font-sans); font-size: 0.7rem; color: var(--blue); margin-bottom: 28px; letter-spacing: 0.8px; text-transform: uppercase; font-weight: 500; }
+        .hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--blue); border-radius: 50%; animation: pulse-dot 2.8s ease-in-out infinite; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.8); } }
+        .hero h1 { font-family: var(--font-serif); font-size: 4.2rem; font-weight: 500; color: var(--text-primary); line-height: 1.08; letter-spacing: -1.2px; margin-bottom: 22px; }
+        .hero h1 em { font-style: italic; color: var(--blue); text-shadow: 0 0 48px rgba(139,105,20,0.1); }
+        .hero-desc { font-size: 1rem; color: var(--text-secondary); max-width: 480px; margin-bottom: 12px; line-height: 1.8; font-weight: 300; }
+        .hero-whisper { font-family: var(--font-serif); font-size: 0.9rem; font-style: italic; color: var(--text-tertiary); margin-bottom: 36px; min-height: 1.6em; transition: opacity 0.8s ease; opacity: 0.5; letter-spacing: 0.2px; max-width: 480px; }
+        .hero-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        .btn-primary { background: var(--blue); color: var(--text-inverse); border: none; padding: 12px 28px; border-radius: var(--radius-sm); font-family: var(--font-sans); font-weight: 500; font-size: 0.88rem; cursor: pointer; transition: all 0.25s; text-decoration: none; letter-spacing: 0.2px; }
+        .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-default); padding: 12px 28px; border-radius: var(--radius-sm); font-family: var(--font-sans); font-weight: 400; font-size: 0.88rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block; }
+        .btn-outline:hover { color: var(--text-primary); border-color: var(--border-strong); background: var(--blue-subtle); }
+        /* Hero staggered entrance */
+        .hero-content > *:nth-child(1) { animation: fadeInUp 0.8s ease-out 0.1s both; }
+        .hero-content > *:nth-child(2) { animation: fadeInUp 0.8s ease-out 0.2s both; }
+        .hero-content > *:nth-child(3) { animation: fadeInUp 0.8s ease-out 0.35s both; }
+        .hero-content > *:nth-child(4) { animation: fadeInUp 0.8s ease-out 0.5s both; }
+        .hero-content > *:nth-child(5) { animation: fadeInUp 0.8s ease-out 0.65s both; }
+        /* Hero Visual */
+        .hero-visual-wrapper {
+            flex-shrink: 0; width: 400px; height: 400px;
+            position: relative; z-index: 2; border-radius: 20px;
+            animation: hero-glow 6s ease-in-out infinite, fadeIn 1s ease-out 0.3s both;
+        }
+        @keyframes hero-glow {
+            0%, 100% { box-shadow: 0 0 0 1px rgba(139,105,20,0.1), 0 8px 32px rgba(139,105,20,0.06); }
+            50% { box-shadow: 0 0 0 1px rgba(139,105,20,0.2), 0 14px 48px rgba(139,105,20,0.12); }
+        }
+        .hero-visual { width: 100%; height: 100%; border-radius: 20px; background: #000; overflow: hidden; position: relative; }
+        .hero-visual iframe { width: 100%; height: 100%; border: 0; }
+        .hero-visual-overlay { position: absolute; inset: 0; background: transparent; pointer-events: none; }
+        /* Hero Mini Video */
+        .hero-mini-video {
+            display: flex; align-items: center; gap: 14px;
+            margin-top: 22px; padding: 10px 14px 10px 10px;
+            background: var(--bg-surface); border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md); max-width: 380px;
+            cursor: pointer; transition: all 0.3s ease; text-decoration: none;
+        }
+        .hero-mini-video:hover {
+            border-color: var(--border-default);
+            box-shadow: 0 4px 20px rgba(139,105,20,0.07);
+            transform: translateY(-2px);
+        }
+        .hero-mini-video-thumb {
+            width: 76px; height: 54px; border-radius: 8px;
+            overflow: hidden; flex-shrink: 0; position: relative; background: #0a0a0a;
+        }
+        .hero-mini-video-thumb video {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+        }
+        .hero-mini-video-thumb .mini-play-overlay {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.28); transition: background 0.25s;
+        }
+        .hero-mini-video:hover .mini-play-overlay {
+            background: rgba(139,105,20,0.45);
+        }
+        .mini-play-overlay svg { width: 22px; height: 22px; fill: white; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3)); }
+        .hero-mini-video-info { flex: 1; min-width: 0; }
+        .hero-mini-video-info .mini-label {
+            font-family: var(--font-sans); font-size: 0.58rem; text-transform: uppercase;
+            letter-spacing: 1.2px; color: var(--blue); font-weight: 500; margin-bottom: 2px;
+        }
+        .hero-mini-video-info .mini-title {
+            font-family: var(--font-serif); font-size: 0.84rem; color: var(--text-primary);
+            line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .hero-mini-download {
+            flex-shrink: 0; width: 34px; height: 34px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: transparent; border: none;
+            cursor: pointer; transition: all 0.2s; color: var(--text-tertiary);
+            text-decoration: none; position: relative; z-index: 3;
+        }
+        .hero-mini-download:hover { background: var(--blue-muted); color: var(--blue); }
+        .hero-mini-download svg { width: 15px; height: 15px; }
+        /* Video Lightbox */
+        .video-lightbox {
+            position: fixed; inset: 0; z-index: 2000;
+            background: rgba(0,0,0,0.92); backdrop-filter: blur(8px);
+            display: none; align-items: center; justify-content: center;
+            padding: 2rem; opacity: 0; transition: opacity 0.35s ease;
+        }
+        .video-lightbox.show { display: flex; opacity: 1; }
+        .video-lightbox-inner {
+            position: relative; width: 100%; max-width: 900px;
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+            animation: lightbox-in 0.4s ease-out;
+        }
+        @keyframes lightbox-in {
+            from { opacity: 0; transform: scale(0.95) translateY(12px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .video-lightbox-inner video {
+            width: 100%; display: block; background: #000; outline: none;
+        }
+        .video-lightbox-close {
+            position: absolute; top: -44px; right: 0;
+            background: none; border: none; cursor: pointer;
+            width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; transition: background 0.2s; color: rgba(255,255,255,0.6);
+        }
+        .video-lightbox-close:hover { background: rgba(255,255,255,0.1); color: white; }
+        .video-lightbox-close svg { width: 22px; height: 22px; }
+        /* Article Lightbox */
+        .article-lightbox {
+            position: fixed; inset: 0; z-index: 2000;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, #f8f4ed 100%);
+            display: none; flex-direction: column;
+            opacity: 0; transition: opacity 0.35s ease;
+        }
+        .article-lightbox.show { display: flex; opacity: 1; }
+        .article-lightbox-header {
+            display: flex; align-items: center; gap: 16px;
+            padding: 16px 32px; border-bottom: 1px solid var(--border-subtle);
+            background: var(--bg-surface); flex-shrink: 0; position: sticky; top: 0; z-index: 2;
+        }
+        .article-lightbox-back {
+            background: none; border: none; cursor: pointer;
+            font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary);
+            display: flex; align-items: center; gap: 6px; padding: 6px 12px;
+            border-radius: var(--radius-sm); transition: all 0.2s;
+        }
+        .article-lightbox-back:hover { background: var(--blue-subtle); color: var(--blue); }
+        .article-lightbox-back svg { width: 16px; height: 16px; }
+        .article-lightbox-title-bar {
+            flex: 1; font-family: var(--font-serif); font-size: 1rem; color: var(--text-primary);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .article-lightbox-download {
+            flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px;
+            padding: 7px 16px; border-radius: var(--radius-sm);
+            background: var(--blue); color: var(--text-inverse); border: none;
+            font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s; text-decoration: none;
+        }
+        .article-lightbox-download:hover { background: var(--blue-light); }
+        .article-lightbox-download svg { width: 14px; height: 14px; }
+        .article-lightbox-close {
+            background: none; border: none; cursor: pointer;
+            width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; transition: background 0.2s; color: var(--text-tertiary);
+        }
+        .article-lightbox-close:hover { background: var(--blue-subtle); color: var(--text-primary); }
+        .article-lightbox-close svg { width: 20px; height: 20px; }
+        .article-lightbox-body {
+            flex: 1; overflow-y: auto; padding: 0;
+        }
+        /* Article Typography */
+        .article-reader {
+            max-width: 720px; margin: 0 auto; padding: 56px 32px 80px;
+        }
+        .article-reader .category-tag {
+            display: inline-block; background: var(--blue-muted); border: 1px solid var(--border-default);
+            padding: 3px 12px; border-radius: 100px; font-family: var(--font-sans);
+            font-size: 0.62rem; color: var(--blue); font-weight: 500; letter-spacing: 0.6px;
+            text-transform: uppercase; margin-bottom: 20px;
+        }
+        .article-reader h1 {
+            font-family: var(--font-serif); font-size: 2.4rem; font-weight: 500;
+            color: var(--text-primary); line-height: 1.15; letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+        .article-reader .article-subtitle {
+            font-family: var(--font-serif); font-size: 1.2rem; font-style: italic;
+            color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5;
+        }
+        .article-reader .article-author {
+            font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-tertiary);
+            margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border-subtle);
+        }
+        .article-reader h2 {
+            font-family: var(--font-serif); font-size: 1.4rem; font-weight: 600;
+            color: var(--text-primary); margin: 40px 0 16px; letter-spacing: -0.2px;
+        }
+        .article-reader h3 {
+            font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600;
+            color: var(--text-primary); margin: 28px 0 12px; font-style: italic;
+        }
+        .article-reader p {
+            font-family: var(--font-serif); font-size: 1.05rem; color: var(--text-secondary);
+            line-height: 1.85; margin-bottom: 20px;
+        }
+        .article-reader p strong {
+            color: var(--text-primary); font-weight: 600;
+        }
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute; bottom: 16px; left: 50%;
+            transform: translateX(-50%); z-index: 2;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            opacity: 0.3; animation: scroll-bob 2.5s ease-in-out infinite;
+        }
+        .scroll-indicator span { font-family: var(--font-sans); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-tertiary); }
+        .scroll-indicator svg { width: 16px; height: 16px; stroke: var(--text-tertiary); fill: none; }
+        @keyframes scroll-bob { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(5px); } }
+
+        /* STATS */
+        .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; margin-bottom: var(--space-2xl);
+            background:
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(139,105,20,0.012) 10px,
+                    rgba(139,105,20,0.012) 11px
+                ),
+                var(--bg-surface);
+        }
+        .stat-item { padding: 28px 20px; text-align: center; border-right: 1px solid var(--border-subtle); }
+        .stat-item:last-child { border-right: none; }
+        .stat-number { font-family: var(--font-serif); font-size: 2rem; font-weight: 600; color: var(--blue); line-height: 1.2; }
+        .stat-label { font-family: var(--font-sans); font-size: 0.7rem; color: var(--text-tertiary); margin-top: 4px; letter-spacing: 0.8px; text-transform: uppercase; font-weight: 400; }
+
+        /* SECTION HEADER */
+        .section-header { margin-bottom: var(--space-lg); padding-bottom: var(--space-md); border-bottom: 1px solid var(--border-subtle); position: relative; }
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue), transparent);
+        }
+        .section-header h2 { font-family: var(--font-serif); font-size: 2rem; font-weight: 500; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.3px; }
+        .section-header p { color: var(--text-secondary); font-size: 0.92rem; font-weight: 300; }
+
+        /* VOICES */
+        .voices-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-subtle); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; }
+        .voice-card { background:
+            radial-gradient(ellipse 120% 80% at 50% 0%, rgba(139,105,20,0.02), transparent 70%),
+            var(--bg-surface);
+            padding: 32px 28px; transition: background 0.25s; display: flex; flex-direction: column; }
+        .voice-card:hover { background:
+            radial-gradient(ellipse 120% 80% at 50% 0%, rgba(139,105,20,0.035), transparent 70%),
+            var(--bg-surface-hover); }
+        .voice-card .voice-flag { font-size: 1.4rem; margin-bottom: 16px; display: block; }
+        .voice-card blockquote { font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--text-primary); line-height: 1.6; margin-bottom: 20px; flex: 1; }
+        .voice-card .voice-attr { font-family: var(--font-sans); font-size: 0.72rem; color: var(--text-tertiary); letter-spacing: 0.3px; padding-top: 16px; border-top: 1px solid var(--border-subtle); }
+        .voice-card .voice-attr strong { color: var(--text-secondary); font-weight: 500; }
+
+        /* ARTICLES */
+        .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-subtle); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden;
+            background:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M0 0L8 8M8 0L0 8' stroke='rgba(139,105,20,0.015)' stroke-width='0.5'/%3E%3C/svg%3E") repeat,
+                var(--border-subtle);
+        }
+        .article-card { background: var(--bg-surface); transition: background 0.3s; display: flex; flex-direction: column; overflow: hidden; }
+        .article-card:hover { background: var(--bg-surface-hover); }
+        .article-image { width: 100%; aspect-ratio: 16/9; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .article-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .article-card:hover .article-image img { transform: scale(1.05); }
+        .article-image .icon { font-size: 2.4rem; opacity: 0.1; color: var(--blue); }
+        .article-image .category-tag { position: absolute; top: 12px; left: 12px; background: var(--blue-muted); border: 1px solid var(--border-default); padding: 3px 10px; border-radius: 100px; font-family: var(--font-sans); font-size: 0.65rem; color: var(--blue); font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2; }
+        .article-body { padding: 20px 24px 24px; flex: 1; display: flex; flex-direction: column; }
+        .article-body h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; line-height: 1.35; }
+        .article-body p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; flex: 1; font-weight: 300; }
+        .article-body .article-meta { margin-top: 16px; font-family: var(--font-sans); font-size: 0.68rem; color: var(--text-tertiary); letter-spacing: 0.3px; }
+
+        /* THEOLOGY CARD — Scholarly Feature */
+        .article-card.theology-card {
+            position: relative;
+            background: linear-gradient(170deg, #fdfcf9 0%, #f8f4ed 40%, #f0ebe0 100%);
+        }
+        .article-card.theology-card:hover {
+            background: linear-gradient(170deg, #faf8f3 0%, #f3ede4 40%, #ebe4d8 100%);
+        }
+        .article-card.theology-card .article-image {
+            background:
+                linear-gradient(135deg, rgba(139,105,20,0.06) 0%, rgba(139,105,20,0.02) 50%, rgba(139,105,20,0.07) 100%);
+            aspect-ratio: 16/7;
+            position: relative;
+        }
+        .article-card.theology-card .article-image img {
+            position: relative;
+            z-index: 0;
+        }
+        .article-card.theology-card .article-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(139,105,20,0.012) 20px,
+                    rgba(139,105,20,0.012) 21px
+                );
+            pointer-events: none;
+        }
+        .article-card.theology-card .article-image .icon {
+            font-size: 3.2rem;
+            opacity: 0.07;
+            position: relative;
+            z-index: 2;
+        }
+        .article-card.theology-card .article-image .category-tag {
+            background: var(--blue);
+            z-index: 3;
+            color: var(--text-inverse);
+            border-color: transparent;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+        }
+        .article-card.theology-card .article-body {
+            padding: 24px 28px 28px;
+        }
+        .article-card.theology-card .article-body h3 {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+            margin-bottom: 4px;
+        }
+        .article-card.theology-card .theology-subtitle {
+            font-family: var(--font-serif);
+            font-size: 0.92rem;
+            font-style: italic;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+            line-height: 1.45;
+        }
+        .article-card.theology-card .theology-scripture-ref {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-serif);
+            font-size: 0.75rem;
+            color: var(--blue);
+            opacity: 0.55;
+            letter-spacing: 0.3px;
+            margin-bottom: 14px;
+        }
+        .article-card.theology-card .theology-scripture-ref svg {
+            width: 13px;
+            height: 13px;
+            stroke: var(--blue);
+            fill: none;
+            opacity: 0.7;
+        }
+        .article-card.theology-card .article-body p {
+            font-size: 0.85rem;
+            line-height: 1.75;
+            margin-bottom: 0;
+        }
+        .article-card.theology-card .theology-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-subtle);
+        }
+        .article-card.theology-card .theology-author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .article-card.theology-card .theology-author-avatar span {
+            font-family: var(--font-serif);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-inverse);
+        }
+        .article-card.theology-card .theology-author-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .article-card.theology-card .theology-author-name {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .article-card.theology-card .theology-author-role {
+            font-family: var(--font-sans);
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.2px;
+        }
+        .article-card.theology-card .theology-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        .theology-btn-read {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 20px;
+            background: var(--blue);
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+        }
+        .theology-btn-read:hover {
+            background: var(--blue-light);
+            transform: translateY(-1px);
+        }
+        .theology-btn-read svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s;
+        }
+        .theology-btn-read:hover svg {
+            transform: translateX(2px);
+        }
+        .theology-btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--border-default);
+            background: transparent;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .theology-btn-download:hover {
+            background: var(--blue-muted);
+            color: var(--blue);
+            border-color: var(--blue);
+        }
+        .theology-btn-download svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        /* BOOK */
+        .book-section { text-align: center; padding: 72px 48px; background:
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E"),
+            linear-gradient(180deg, var(--bg-surface) 0%, #faf6f0 100%);
+            background-blend-mode: overlay, normal;
+            border-radius: var(--radius-lg); position: relative; overflow: hidden; }
+        .book-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, rgba(139,105,20,0.15), transparent); opacity: 1; }
+        .book-section .international-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-muted); border: 1px solid var(--border-default); padding: 4px 14px; border-radius: 100px; font-family: var(--font-sans); font-size: 0.65rem; color: var(--blue); font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 20px; }
+        .book-section .book-icon { font-size: 2.5rem; margin-bottom: 16px; opacity: 0.4; }
+        .book-section h2 { font-family: var(--font-serif); font-size: 2rem; font-weight: 500; color: var(--text-primary); margin-bottom: 12px; letter-spacing: -0.3px; }
+        .book-section h2 em { font-style: italic; color: var(--blue); }
+        .book-desc { color: var(--text-secondary); font-size: 0.92rem; max-width: 480px; margin: 0 auto 28px; line-height: 1.8; font-weight: 300; }
+        .btn-download { background: var(--blue); color: var(--text-inverse); border: none; padding: 14px 36px; border-radius: var(--radius-sm); font-family: var(--font-sans); font-weight: 500; font-size: 0.92rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-download:hover { background: var(--blue-light); transform: translateY(-1px); }
+        .book-section .release-note { margin-top: 16px; font-family: var(--font-sans); font-size: 0.72rem; color: var(--text-tertiary); letter-spacing: 0.3px; }
+        .languages-row { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .lang-chip { font-family: var(--font-sans); font-size: 0.68rem; color: var(--text-tertiary); background: var(--bg-secondary); border: 1px solid var(--border-subtle); padding: 4px 12px; border-radius: 100px; letter-spacing: 0.3px; }
+
+        /* VIDEOS */
+        .videos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-subtle); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden;
+            background:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='transparent'/%3E%3Crect width='1' height='1' x='0' y='0' fill='rgba(0,0,0,0.008)'/%3E%3Crect width='1' height='1' x='2' y='2' fill='rgba(0,0,0,0.008)'/%3E%3C/svg%3E") repeat,
+                var(--border-subtle);
+        }
+        .video-card { background: var(--bg-surface); transition: background 0.3s; position: relative; overflow: hidden; text-decoration: none; display: block; }
+        .video-card:hover { background: var(--bg-surface-hover); }
+        .video-thumb { width: 100%; aspect-ratio: 16/9; background: var(--bg-secondary); position: relative; overflow: hidden; }
+        .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .video-card:hover .video-thumb img { transform: scale(1.04); }
+        .play-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s; }
+        .video-card:hover .play-overlay { opacity: 1; }
+        .play-btn-circle { width: 48px; height: 48px; background: rgba(139,105,20,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        .video-card:hover .play-btn-circle { transform: scale(1.06); }
+        .play-btn-circle svg { width: 18px; height: 18px; fill: var(--text-inverse); margin-left: 2px; }
+        .video-info { padding: 14px 18px 18px; }
+        .video-info h3 { font-family: var(--font-serif); font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; line-height: 1.35; }
+        .video-info .video-date { font-family: var(--font-sans); font-size: 0.68rem; color: var(--text-tertiary); letter-spacing: 0.3px; }
+
+        /* CTA */
+        .cta-section { text-align: center; padding: 72px 48px; background:
+            radial-gradient(ellipse 60% 80% at 50% 50%, rgba(139,105,20,0.04), transparent 70%),
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"),
+            var(--bg-surface);
+            border-radius: var(--radius-lg); margin-bottom: var(--space-2xl); position: relative; }
+        .cta-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, rgba(139,105,20,0.15), transparent); opacity: 1; }
+        .cta-section h2 { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 500; color: var(--text-primary); margin-bottom: 12px; letter-spacing: -0.3px; }
+        .cta-section .cta-desc { color: var(--text-secondary); font-size: 0.95rem; max-width: 440px; margin: 0 auto 28px; line-height: 1.8; font-weight: 300; }
+
+        /* FOOTER */
+        footer { padding: 48px 0 32px; border-top: 1px solid var(--border-subtle); margin-top: var(--space-xl);
+            background:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"),
+                linear-gradient(180deg, var(--bg-primary) 0%, #f0ebe3 100%);
+            background-blend-mode: overlay, normal;
+        }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .footer-brand .footer-logo { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .footer-brand .footer-logo span { color: var(--blue); }
+        .footer-brand > p { font-size: 0.82rem; color: var(--text-tertiary); line-height: 1.7; max-width: 280px; margin-bottom: 20px; font-weight: 300; }
+        .footer-social { display: flex; gap: 10px; }
+        .footer-social a { color: var(--text-tertiary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: var(--bg-surface); border: 1px solid var(--border-subtle); }
+        .footer-social a:hover { color: var(--blue); border-color: var(--border-default); background: var(--blue-subtle); }
+        .footer-social svg { width: 15px; height: 15px; }
+        .footer-col h4 { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .footer-col a { color: var(--text-tertiary); text-decoration: none; font-size: 0.82rem; font-weight: 300; transition: color 0.2s; }
+        .footer-col a:hover { color: var(--blue); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--border-subtle); flex-wrap: wrap; gap: 12px; }
+        .footer-bottom > p { font-size: 0.72rem; color: var(--text-tertiary); letter-spacing: 0.2px; }
+        .footer-bottom-right { display: flex; align-items: center; gap: 20px; }
+        .footer-lang { display: flex; align-items: center; gap: 8px; }
+        .footer-lang svg { width: 14px; height: 14px; opacity: 0.4; stroke: var(--text-tertiary); }
+        .footer-lang select { background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-tertiary); font-size: 0.72rem; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-family: var(--font-sans); }
+        .footer-legal { display: flex; gap: 16px; }
+        .footer-legal a { font-size: 0.72rem; color: var(--text-tertiary); text-decoration: none; transition: color 0.2s; }
+        .footer-legal a:hover { color: var(--blue); }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; padding: 48px 0 64px; gap: 32px; text-align: center; min-height: auto; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero-desc { margin: 0 auto 12px; }
+            .hero-whisper { margin: 0 auto 36px; max-width: 100%; }
+            .hero-actions { justify-content: center; }
+            .hero-visual-wrapper { width: 320px; height: 320px; margin: 0 auto; }
+            .hero-mini-video { max-width: 100%; margin: 0 auto; }
+            .scroll-indicator { display: none; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .stat-item:nth-child(2) { border-right: none; }
+            .voices-grid, .articles-grid, .videos-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .cta-section h2 { font-size: 1.8rem; }
+            .book-section { padding: 48px 24px; }
+            .book-section h2 { font-size: 1.6rem; }
+            nav .nav-links a:not(.btn-subscribe) { display: none; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.1rem; }
+            .stats-bar { grid-template-columns: 1fr; }
+            .stat-item { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+            .stat-item:last-child { border-bottom: none; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .footer-bottom-right { flex-direction: column; }
+        }
+        
+        /* Skip link styles */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--blue);
+            color: var(--text-inverse);
+            padding: 8px 16px;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+            z-index: 1000;
+            transition: top 0.3s;
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="container">
+        <!-- NAVIGATION -->
+        <nav>
+            <a href="#" class="logo">
+                <svg class="globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M2 12h20"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                WhatIfWe<span>Believed</span>
+            </a>
+            <div class="nav-links">
+                <a href="#articles">Articles</a>
+                <a href="#videos">Videos</a>
+                <a href="#voices">Community</a>
+                <a href="https://www.youtube.com/@paulos1844" target="_blank" rel="noopener">YouTube</a>
+                <button id="search-button" aria-label="Search" class="nav-search-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                </button>
+                <a href="https://www.youtube.com/@paulos1844?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Subscribe
+                </a>
+            </div>
+        </nav>
+
+        <main id="main-content">
+            <!-- HERO -->
+            <section class="hero">
+                <canvas id="hero-particles"></canvas>
+                <div class="hero-content">
+                    <div class="hero-eyebrow" id="hero-eyebrow">Active Worldwide</div>
+                    <h1 id="hero-title">What If We<br><em>Believed?</em></h1>
+                    <p class="hero-desc" id="hero-description">A global media ministry exploring faith, theology, and the transformative power of belief through thought-provoking teaching and conversation.</p>
+                    <div class="hero-whisper" id="hero-whisper" aria-hidden="true"></div>
+                    <div class="hero-actions" id="hero-actions">
+                        <!-- CTA buttons will be injected here -->
+                    </div>
+                    <div class="hero-mini-video" id="hero-mini-video" role="button" tabindex="0" aria-label="Play The Politics of Jesus">
+                        <div class="hero-mini-video-thumb">
+                            <video src="GT12X5aL0Sg_enhanced.mp4" preload="metadata" muted></video>
+                            <div class="mini-play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="hero-mini-video-info">
+                            <div class="mini-label">Featured Teaching</div>
+                            <div class="mini-title">The Politics of Jesus</div>
+                        </div>
+                        <a href="GT12X5aL0Sg_enhanced.mp4" download="The_Politics_of_Jesus.mp4" class="hero-mini-download" aria-label="Download video" onclick="event.stopPropagation()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual-wrapper">
+                    <div class="hero-visual" id="hero-visual">
+                        <!-- Video facade will be injected here -->
+                    </div>
+                </div>
+                <div class="scroll-indicator" aria-hidden="true">
+                    <span>Explore</span>
+                    <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+            </section>
+
+            <!-- STATS -->
+            <div class="stats-bar fade-in fade-in-delay-1">
+                <div class="stat-item">
+                    <div class="stat-number">40+</div>
+                    <div class="stat-label">Countries Reached</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Continents</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Teachings</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2026</div>
+                    <div class="stat-label">Active Since</div>
+                </div>
+            </div>
+
+            <!-- GLOBAL VOICES -->
+            <section id="voices" class="fade-in fade-in-delay-2">
+                <div class="section-header">
+                    <h2>Global Voices</h2>
+                    <p>What viewers around the world are saying about WhatIfWeBelieved.</p>
+                </div>
+                <div class="voices-grid">
+                    <div class="voice-card">
+                        <span class="voice-flag">&#127475;&#127468;</span>
+                        <blockquote>&ldquo;This channel changed how I see scripture. The depth of teaching is unlike anything I&rsquo;ve found online.&rdquo;</blockquote>
+                        <div class="voice-attr"><strong>Chidi A.</strong> &middot; Lagos, Nigeria</div>
+                    </div>
+                    <div class="voice-card">
+                        <span class="voice-flag">&#127463;&#127479;</span>
+                        <blockquote>&ldquo;I share every video with my small group in S&atilde;o Paulo. The questions raised here are universal.&rdquo;</blockquote>
+                        <div class="voice-attr"><strong>Maria L.</strong> &middot; S&atilde;o Paulo, Brazil</div>
+                    </div>
+                    <div class="voice-card">
+                        <span class="voice-flag">&#127468;&#127463;</span>
+                        <blockquote>&ldquo;Finally, a theology channel that respects both the intellect and the heart. Brilliant work.&rdquo;</blockquote>
+                        <div class="voice-attr"><strong>James R.</strong> &middot; London, England</div>
+                    </div>
+                    <div class="voice-card">
+                        <span class="voice-flag">&#127471;&#127477;</span>
+                        <blockquote>&ldquo;The message crosses every cultural boundary. I watch with subtitles and it still moves me deeply.&rdquo;</blockquote>
+                        <div class="voice-attr"><strong>Yuki T.</strong> &middot; Tokyo, Japan</div>
+                    </div>
+                    <div class="voice-card">
+                        <span class="voice-flag">&#127482;&#127480;</span>
+                        <blockquote>&ldquo;Watching from Atlanta. The &lsquo;No Guardrails&rsquo; teaching rewired my understanding of faith entirely.&rdquo;</blockquote>
+                        <div class="voice-attr"><strong>David M.</strong> &middot; Atlanta, USA</div>
+                    </div>
+                    <div class="voice-card">
+                        <span class="voice-flag">&#127465;&#127466;</span>
+                        <blockquote>&ldquo;Theological depth meets cinematic quality. A rare combination that keeps me coming back every week.&rdquo;</blockquote>
+                        <div class="voice-attr"><strong>Hans K.</strong> &middot; Berlin, Germany</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ARTICLES -->
+            <section id="articles" class="fade-in fade-in-delay-3">
+                <div class="section-header">
+                    <h2>Feature Articles</h2>
+                    <p>Thoughts on faith, theology, and the life of belief.</p>
+                </div>
+                <div class="articles-grid">
+                    <article class="article-card theology-card">
+                        <div class="article-image">
+                            <img src="images/theology-professor.jpg?v=2" alt="Professor teaching theology" loading="lazy">
+                            <span class="category-tag">Theology</span>
+                        </div>
+                        <div class="article-body">
+                            <h3>Hermeneutical Analysis of 2 Samuel 11</h3>
+                            <div class="theology-subtitle">A Study in Moral Self-Destruction</div>
+                            <div class="theology-scripture-ref">
+                                <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                                2 Samuel 11:17&ndash;25
+                            </div>
+                            <p>A multi-lens study of David&rsquo;s moral self-destruction &mdash; integrating historical-critical, narrative, theological, and moral-psychological approaches.</p>
+                            <div class="theology-author">
+                                <div class="theology-author-avatar"><span>WP</span></div>
+                                <div class="theology-author-info">
+                                    <div class="theology-author-name">Pastor Wentland Paul</div>
+                                    <div class="theology-author-role">Scholarly Research &amp; Analysis</div>
+                                </div>
+                            </div>
+                            <div class="theology-actions">
+                                <button type="button" class="theology-btn-read" id="btn-read-analysis">
+                                    Read Analysis
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                </button>
+                                <a href="Hermeneutical_Analysis_2_Samuel_11.docx" download="Hermeneutical_Analysis_2_Samuel_11.docx" class="theology-btn-download" id="btn-download-paper" aria-label="Download paper">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="images/scripture-bible.jpg?v=2" alt="Open Bible pages" loading="lazy">
+                            <span class="category-tag">Scripture</span>
+                        </div>
+                        <div class="article-body">
+                            <h3>The Parable of the Lost Shape</h3>
+                            <p>Exploring how a good man loses his shape, and what that teaches us about grace, restoration, and the image of God.</p>
+                            <div class="article-meta">Coming soon &middot; 7 min read</div>
+                        </div>
+                    </article>
+                    <article class="article-card">
+                        <div class="article-image">
+                            <img src="images/discipleship-conversation.jpg?v=2" alt="Two young persons in conversation" loading="lazy">
+                            <span class="category-tag">Discipleship</span>
+                        </div>
+                        <div class="article-body">
+                            <h3>No Guardrails: Faith Without a Safety Net</h3>
+                            <p>What happens when God removes every safety net and calls you to trust Him with nothing but a promise?</p>
+                            <div class="article-meta">Coming soon &middot; 6 min read</div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- BOOK -->
+            <section class="book-section fade-in">
+                <div class="international-badge">&#127760; Translated for the World</div>
+                <div class="book-icon">&#128214;</div>
+                <h2>Affirming Faith <em>Through Thought</em></h2>
+                <p class="book-desc">A limited-release book exploring the intersection of reason and belief. Available in English, with translations planned for Spanish, Portuguese, and French.</p>
+                <a href="Affirming_Faith_Through_Thought_Refined.pdf" target="_blank" class="btn-download" download>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download Free PDF
+                </a>
+                <div class="release-note">Limited release &middot; Free for a short time</div>
+                <div class="languages-row">
+                    <span class="lang-chip">English</span>
+                    <span class="lang-chip">Espa&ntilde;ol (coming)</span>
+                    <span class="lang-chip">Portugu&ecirc;s (coming)</span>
+                    <span class="lang-chip">Fran&ccedil;ais (coming)</span>
+                </div>
+            </section>
+
+            <!-- VIDEOS -->
+            <section id="videos" class="fade-in">
+                <div class="section-header">
+                    <h2>Latest Teachings</h2>
+                    <p>Recent teachings and conversations from the channel.</p>
+                </div>
+                <div class="videos-grid">
+                    <div class="video-card" data-video-id="ea0dtxkE-bw">
+                        <div class="video-thumb">
+                            <img src="https://i.ytimg.com/vi/ea0dtxkE-bw/hqdefault.jpg" alt="Reprogramming an Empire: From Erased Asset to Indispensable Anchor" loading="lazy">
+                            <div class="play-overlay"><div class="play-btn-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                        </div>
+                        <div class="video-info"><h3>Reprogramming an Empire: From Erased Asset to Indispensable Anchor</h3></div>
+                    </div>
+                    <div class="video-card" data-video-id="l9V_MDWfUkg">
+                        <div class="video-thumb">
+                            <img src="https://i.ytimg.com/vi/l9V_MDWfUkg/hqdefault.jpg" alt="Unstoppable: The Rebooted Asset" loading="lazy">
+                            <div class="play-overlay"><div class="play-btn-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                        </div>
+                        <div class="video-info"><h3>Unstoppable: The Rebooted Asset</h3></div>
+                    </div>
+                    <div class="video-card" data-video-id="881ddNnGCfs">
+                        <div class="video-thumb">
+                            <img src="https://i.ytimg.com/vi/881ddNnGCfs/hqdefault.jpg" alt="How a Good Man Loses His Shape" loading="lazy">
+                            <div class="play-overlay"><div class="play-btn-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                        </div>
+                        <div class="video-info"><h3>How a Good Man Loses His Shape</h3></div>
+                    </div>
+                    <div class="video-card" data-video-id="vfUmeceFEhw">
+                        <div class="video-thumb">
+                            <img src="https://i.ytimg.com/vi/vfUmeceFEhw/hqdefault.jpg" alt="No Guardrails: Faith Without a Safety Net" loading="lazy">
+                            <div class="play-overlay"><div class="play-btn-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                        </div>
+                        <div class="video-info"><h3>No Guardrails: Faith Without a Safety Net</h3></div>
+                    </div>
+                    <div class="video-card" data-video-id="AJq8H3v6z-s">
+                        <div class="video-thumb">
+                            <img src="https://i.ytimg.com/vi/AJq8H3v6z-s/hqdefault.jpg" alt="Not a Word: When God Goes Silent" loading="lazy">
+                            <div class="play-overlay"><div class="play-btn-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                        </div>
+                        <div class="video-info"><h3>Not a Word: When God Goes Silent</h3></div>
+                    </div>
+                    <div class="video-card" data-video-id="D2FfteQ7sXI">
+                        <div class="video-thumb">
+                            <img src="https://i.ytimg.com/vi/D2FfteQ7sXI/hqdefault.jpg" alt="Stop Fighting for the Tent" loading="lazy">
+                            <div class="play-overlay"><div class="play-btn-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                        </div>
+                        <div class="video-info"><h3>Stop Fighting for the Tent</h3></div>
+                    </div>
+                    <div class="video-card" data-video-id="WWHjyQqPg80">
+                        <div class="video-thumb">
+                            <img src="https://i.ytimg.com/vi/WWHjyQqPg80/hqdefault.jpg" alt="System Restore: Returning to Default" loading="lazy">
+                            <div class="play-overlay"><div class="play-btn-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                        </div>
+                        <div class="video-info"><h3>System Restore: Returning to Default</h3></div>
+                    </div>
+                    <div class="video-card" data-video-id="VKJ_a2kyTrM">
+                        <div class="video-thumb">
+                            <img src="https://i.ytimg.com/vi/VKJ_a2kyTrM/hqdefault.jpg" alt="Transactional Success: When Faith Becomes a Contract" loading="lazy">
+                            <div class="play-overlay"><div class="play-btn-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                        </div>
+                        <div class="video-info"><h3>Transactional Success: When Faith Becomes a Contract</h3></div>
+                    </div>
+                    <div class="video-card" data-video-id="TxgvfuzSrGY">
+                        <div class="video-thumb">
+                            <img src="https://i.ytimg.com/vi/TxgvfuzSrGY/hqdefault.jpg" alt="Default Settings: Restoring What Was Lost" loading="lazy">
+                            <div class="play-overlay"><div class="play-btn-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                        </div>
+                        <div class="video-info"><h3>Default Settings: Restoring What Was Lost</h3></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="cta-section fade-in">
+                <h2>Join the Global Conversation</h2>
+                <p class="cta-desc">Subscribe to WhatIfWeBelieved and explore faith, theology, and the questions that resonate across every culture and continent.</p>
+                <a href="https://www.youtube.com/@paulos1844?sub_confirmation=1" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;align-items:center;gap:10px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Subscribe Now
+                </a>
+            </section>
+        </main>
+
+        <!-- NEWSLETTER -->
+        <section id="newsletter" class="fade-in">
+            <div class="section-header">
+                <h2>Stay Updated</h2>
+                <p>Join our community to receive new teachings and articles directly to your inbox.</p>
+            </div>
+            <form id="newsletter-form" action="#" method="POST" class="newsletter-form">
+                <div class="newsletter-inner">
+                    <input type="email" 
+                           name="email" 
+                           placeholder="your@email.com" 
+                           required
+                           aria-label="Email address for newsletter">
+                    <button type="submit" class="btn-primary">Subscribe</button>
+                </div>
+                <p class="text-tertiary text-center mt-4">
+                    We respect your privacy. Unsubscribe anytime.
+                </p>
+            </form>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg class="globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;opacity:0.5;stroke:var(--blue);">
+                            <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                        WhatIfWe<span>Believed</span>
+                    </div>
+                    <p>A global media ministry exploring faith, theology, and the transformative power of belief. Reaching millions across 40+ countries.</p>
+                    <div class="footer-social">
+                        <a href="https://www.youtube.com/@paulos1844" target="_blank" rel="noopener" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="#articles">Articles</a></li>
+                        <li><a href="#videos">Videos</a></li>
+                        <li><a href="#voices">Community</a></li>
+                        <li><a href="Affirming_Faith_Through_Thought_Refined.pdf" target="_blank">Book (PDF)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://www.youtube.com/@paulos1844" target="_blank" rel="noopener">YouTube Channel</a></li>
+                        <li><a href="https://www.youtube.com/@paulos1844/videos" target="_blank" rel="noopener">All Videos</a></li>
+                        <li><a href="https://www.youtube.com/@paulos1844?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Mission</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#our-story">Our Story</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 WhatIfWeBelieved &middot; A Global Faith Ministry</p>
+                <div class="footer-bottom-right">
+                    <div class="footer-lang">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                        <select id="language-selector" aria-label="Language">
+                            <option value="en">English</option>
+                            <option value="es">Espa&ntilde;ol</option>
+                            <option value="pt">Portugu&ecirc;s</option>
+                            <option value="fr">Fran&ccedil;ais</option>
+                            <option value="de">Deutsch</option>
+                            <option value="ja">&#26085;&#26412;&#35486;</option>
+                        </select>
+                    </div>
+                    <div class="footer-legal">
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // YouTube Facade for performance
+        function createYouTubeFacade(videoId, title) {
+            const facade = document.createElement('div');
+            facade.className = 'youtube-facade';
+            facade.innerHTML = `
+                <div class="youtube-preview">
+                    <img src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg" alt="${title}" loading="lazy">
+                    <div class="youtube-play-button">
+                        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"></svg>
+                    </div>
+                </div>
+            `;
+
+            facade.addEventListener('click', () => {
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&autohide=1&border=0&wmode=opaque&enablejsapi=1`;
+                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+                facade.innerHTML = '';
+                facade.appendChild(iframe);
+            });
+
+            // Keyboard accessibility
+            facade.setAttribute('tabindex', '0');
+            facade.setAttribute('role', 'button');
+            facade.setAttribute('aria-label', `Play video: ${title}`);
+
+            facade.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+
+            return facade;
+        }
+
+        // Fetch and populate content from content.json
+        async function loadContent() {
+            try {
+                const response = await fetch('./src/data/content.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const content = await response.json();
+
+                // Update Hero Section
+                const heroEyebrow = document.getElementById('hero-eyebrow');
+                if (heroEyebrow) heroEyebrow.textContent = content.hero.eyebrow;
+
+                const heroTitle = document.getElementById('hero-title');
+                if (heroTitle) heroTitle.innerHTML = content.hero.title; // Using innerHTML because it contains <em>
+
+                const heroDescription = document.getElementById('hero-description');
+                if (heroDescription) heroDescription.textContent = content.hero.description;
+
+                const heroActions = document.getElementById('hero-actions');
+                if (heroActions) {
+                    heroActions.innerHTML = ''; // Clear existing buttons
+                    content.hero.ctaButtons.forEach(button => {
+                        const a = document.createElement('a');
+                        a.href = button.href;
+                        a.textContent = button.text;
+                        a.className = button.class;
+                        if (button.target) a.target = button.target;
+                        if (button.rel) a.rel = button.rel;
+                        heroActions.appendChild(a);
+                    });
+                }
+
+                const heroVisual = document.getElementById('hero-visual');
+                if (heroVisual) {
+                    // Use YouTube facade for better performance
+                    const facade = createYouTubeFacade(content.hero.videoId, content.hero.videoTitle);
+                    heroVisual.innerHTML = '';
+                    heroVisual.appendChild(facade);
+                }
+
+                // Whisper rotation
+                const heroWhispers = content.hero.whispers || [];
+                if (heroWhispers.length > 0) {
+                    const whisperEl = document.getElementById('hero-whisper');
+                    if (whisperEl) {
+                        let currentWhisperIndex = 0;
+                        whisperEl.textContent = heroWhispers[0];
+                        setInterval(() => {
+                            whisperEl.style.opacity = '0';
+                            setTimeout(() => {
+                                currentWhisperIndex = (currentWhisperIndex + 1) % heroWhispers.length;
+                                whisperEl.textContent = heroWhispers[currentWhisperIndex];
+                                whisperEl.style.opacity = '0.5';
+                            }, 800);
+                        }, 4500);
+                    }
+                }
+
+                // Update Stats
+                const statItems = document.querySelectorAll('.stat-item');
+                if (statItems.length === 4) {
+                    content.stats.forEach((stat, index) => {
+                        if (statItems[index]) {
+                            const numberEl = statItems[index].querySelector('.stat-number');
+                            const labelEl = statItems[index].querySelector('.stat-label');
+                            if (numberEl) numberEl.textContent = stat.number;
+                            if (labelEl) labelEl.textContent = stat.label;
+                        }
+                    });
+                }
+
+                // Update Voices
+                const voicesGrid = document.querySelector('.voices-grid');
+                if (voicesGrid) {
+                    voicesGrid.innerHTML = ''; // Clear existing voice cards
+                    content.voices.forEach(voice => {
+                        const voiceCard = document.createElement('div');
+                        voiceCard.className = 'voice-card';
+
+                        const flag = document.createElement('span');
+                        flag.className = 'voice-flag';
+                        flag.innerHTML = voice.flag; // Using innerHTML because it's an HTML entity
+                        voiceCard.appendChild(flag);
+
+                        const blockquote = document.createElement('blockquote');
+                        blockquote.innerHTML = voice.quote;
+                        voiceCard.appendChild(blockquote);
+
+                        const attr = document.createElement('div');
+                        attr.className = 'voice-attr';
+                        attr.innerHTML = `<strong>${voice.author}</strong> &middot; ${voice.location}`;
+                        voiceCard.appendChild(attr);
+
+                        voicesGrid.appendChild(voiceCard);
+                    });
+                }
+
+                // Update Articles
+                const articlesGrid = document.querySelector('.articles-grid');
+                if (articlesGrid) {
+                    articlesGrid.innerHTML = ''; // Clear existing article cards
+                    content.articles.forEach(article => {
+                        const articleCard = document.createElement('article');
+                        articleCard.className = 'article-card';
+
+                        const articleImage = document.createElement('div');
+                        articleImage.className = 'article-image';
+
+                        const categoryTag = document.createElement('span');
+                        categoryTag.className = 'category-tag';
+                        categoryTag.textContent = article.category;
+                        articleImage.appendChild(categoryTag);
+
+                        const icon = document.createElement('span');
+                        icon.className = 'icon';
+                        icon.textContent = '&#10010;'; // ✐
+                        articleImage.appendChild(icon);
+
+                        if (article.image) {
+                            const img = document.createElement('img');
+                            img.src = article.image;
+                            img.alt = article.title;
+                            img.loading = 'lazy';
+                            articleImage.appendChild(img);
+                        }
+
+                        articleCard.appendChild(articleImage);
+
+                        const articleBody = document.createElement('div');
+                        articleBody.className = 'article-body';
+
+                        const title = document.createElement('h3');
+                        title.textContent = article.title;
+                        articleBody.appendChild(title);
+
+                        const description = document.createElement('p');
+                        description.textContent = article.description;
+                        articleBody.appendChild(description);
+
+                        const meta = document.createElement('div');
+                        meta.className = 'article-meta';
+                        meta.innerHTML = `${article.status} &middot; ${article.readTime}`;
+                        articleBody.appendChild(meta);
+
+                        articleCard.appendChild(articleBody);
+                        articlesGrid.appendChild(articleCard);
+                    });
+                }
+
+                // Update Book Section
+                const bookInternationalBadge = document.querySelector('.book-section .international-badge');
+                if (bookInternationalBadge) bookInternationalBadge.innerHTML = content.book.internationalBadge;
+
+                const bookIcon = document.querySelector('.book-section .book-icon');
+                if (bookIcon) bookIcon.innerHTML = content.book.icon;
+
+                const bookTitle = document.querySelector('.book-section h2');
+                if (bookTitle) bookTitle.innerHTML = content.book.title; // Contains <em>
+
+                const bookDesc = document.querySelector('.book-section .book-desc');
+                if (bookDesc) bookDesc.textContent = content.book.description;
+
+                const bookDownloadLink = document.querySelector('.book-section .btn-download');
+                if (bookDownloadLink) {
+                    // The download link is static, but we could update if needed from content.book
+                    // For now, leave as is because the PDF is not in the JSON.
+                }
+
+                const bookReleaseNote = document.querySelector('.book-section .release-note');
+                if (bookReleaseNote) bookReleaseNote.textContent = content.book.releaseNote;
+
+                const languagesRow = document.querySelector('.book-section .languages-row');
+                if (languagesRow) {
+                    languagesRow.innerHTML = ''; // Clear existing language chips
+                    content.book.languages.forEach(lang => {
+                        const chip = document.createElement('span');
+                        chip.className = 'lang-chip';
+                        chip.textContent = lang;
+                        languagesRow.appendChild(chip);
+                    });
+                }
+
+                // Update Videos Section (and re-apply video click functionality)
+                const videosGrid = document.querySelector('.videos-grid');
+                if (videosGrid) {
+                    videosGrid.innerHTML = ''; // Clear existing video cards
+                    content.videos.forEach(video => {
+                        const videoCard = document.createElement('div');
+                        videoCard.className = 'video-card';
+                        videoCard.setAttribute('data-video-id', video.id);
+
+                        const videoThumb = document.createElement('div');
+                        videoThumb.className = 'video-thumb';
+
+                        const img = document.createElement('img');
+                        img.src = video.thumbnail;
+                        img.alt = video.title;
+                        img.setAttribute('loading', 'lazy');
+                        videoThumb.appendChild(img);
+
+                        const playOverlay = document.createElement('div');
+                        playOverlay.className = 'play-overlay';
+                        const playBtnCircle = document.createElement('div');
+                        playBtnCircle.className = 'play-btn-circle';
+                        playBtnCircle.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';
+                        playOverlay.appendChild(playBtnCircle);
+                        videoThumb.appendChild(playOverlay);
+
+                        videoCard.appendChild(videoThumb);
+
+                        const videoInfo = document.createElement('div');
+                        videoInfo.className = 'video-info';
+                        const videoTitle = document.createElement('h3');
+                        videoTitle.textContent = video.title;
+                        videoInfo.appendChild(videoTitle);
+                        // Note: date is not displayed in the current design, but we could add if needed
+                        // const videoDate = document.createElement('div');
+                        // videoDate.className = 'video-date';
+                        // videoDate.textContent = video.date;
+                        // videoInfo.appendChild(videoDate);
+
+                        videoCard.appendChild(videoInfo);
+                        videosGrid.appendChild(videoCard);
+                    });
+
+                    // Re-apply video click-to-play functionality to the new video cards
+                    initializeVideoCards();
+                }
+
+                // Update CTA Section
+                const ctaTitle = document.querySelector('.cta-section h2');
+                if (ctaTitle) ctaTitle.textContent = content.cta.title;
+
+                const ctaDesc = document.querySelector('.cta-section .cta-desc');
+                if (ctaDesc) ctaDesc.textContent = content.cta.description;
+
+                const ctaButton = document.querySelector('.cta-section .btn-primary');
+                if (ctaButton) {
+                    ctaButton.textContent = content.cta.buttonText;
+                    ctaButton.href = content.cta.buttonHref;
+                    if (content.cta.buttonTarget) ctaButton.target = content.cta.buttonTarget;
+                    if (content.cta.buttonRel) ctaButton.rel = content.cta.buttonRel;
+                }
+
+            } catch (error) {
+                console.error('Error loading content:', error);
+                // Optionally, show an error message to the user
+            }
+        }
+
+        // Function to initialize video click-to-play and keyboard accessibility
+        function initializeVideoCards() {
+            document.querySelectorAll('.video-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Don't trigger if clicking on a link inside the card
+                    if (e.target.tagName === 'A' || e.target.closest('a')) {
+                        return;
+                    }
+
+                    const videoId = this.getAttribute('data-video-id');
+                    if (videoId) {
+                        // Create iframe with YouTube video
+                        const iframe = document.createElement('iframe');
+                        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                        iframe.setAttribute('allowfullscreen', '');
+                        iframe.style.width = '100%';
+                        iframe.style.height = '100%';
+                        iframe.style.border = 'none';
+
+                        // Replace the video thumbnail with the iframe
+                        const videoThumb = this.querySelector('.video-thumb');
+                        videoThumb.innerHTML = '';
+                        videoThumb.appendChild(iframe);
+
+                        // Remove click listener to prevent multiple clicks
+                        this.removeEventListener('click', arguments.callee);
+                    }
+                });
+
+                // Add keyboard accessibility
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'button');
+                card.setAttribute('aria-label', 'Play video');
+
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+        }
+
+        // Wait for DOM to be fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadContent);
+        } else {
+            loadContent();
+        }
+    </script>
+
+    <script>
+        // Hero particle canvas — subtle constellation effect
+        (function() {
+            var canvas = document.getElementById('hero-particles');
+            if (!canvas) return;
+            var ctx = canvas.getContext('2d');
+            var particles = [];
+            var COUNT = 28;
+            var CONNECT_DIST = 130;
+
+            function resize() {
+                var rect = canvas.parentElement.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+            }
+
+            function init() {
+                resize();
+                particles = [];
+                for (var i = 0; i < COUNT; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        vx: (Math.random() - 0.5) * 0.22,
+                        vy: (Math.random() - 0.5) * 0.16,
+                        r: Math.random() * 1.3 + 0.5,
+                        o: Math.random() * 0.18 + 0.04,
+                        phase: Math.random() * Math.PI * 2,
+                        speed: Math.random() * 0.004 + 0.001
+                    });
+                }
+            }
+
+            function frame() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (var i = 0; i < particles.length; i++) {
+                    var a = particles[i];
+                    for (var j = i + 1; j < particles.length; j++) {
+                        var b = particles[j];
+                        var dx = a.x - b.x, dy = a.y - b.y;
+                        var d = Math.sqrt(dx * dx + dy * dy);
+                        if (d < CONNECT_DIST) {
+                            ctx.beginPath();
+                            ctx.moveTo(a.x, a.y);
+                            ctx.lineTo(b.x, b.y);
+                            ctx.strokeStyle = 'rgba(139,105,20,' + ((1 - d / CONNECT_DIST) * 0.045) + ')';
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                    a.phase += a.speed;
+                    var po = a.o + Math.sin(a.phase) * 0.04;
+                    ctx.beginPath();
+                    ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(139,105,20,' + po + ')';
+                    ctx.fill();
+                    a.x += a.vx;
+                    a.y += a.vy;
+                    if (a.x < -10) a.x = canvas.width + 10;
+                    if (a.x > canvas.width + 10) a.x = -10;
+                    if (a.y < -10) a.y = canvas.height + 10;
+                    if (a.y > canvas.height + 10) a.y = -10;
+                }
+                requestAnimationFrame(frame);
+            }
+
+            window.addEventListener('resize', resize);
+            init();
+            frame();
+        })();
+    </script>
+
+    <script>
+        // Hero mini video lightbox
+        (function() {
+            var miniVideo = document.getElementById('hero-mini-video');
+            var lightbox = document.getElementById('video-lightbox');
+            var lightboxVideo = document.getElementById('lightbox-video');
+            var closeBtn = document.querySelector('.video-lightbox-close');
+            if (!miniVideo || !lightbox) return;
+
+            function openLightbox() {
+                lightbox.classList.add('show');
+                lightbox.setAttribute('aria-hidden', 'false');
+                lightboxVideo.load();
+                lightboxVideo.play().catch(function() {});
+                document.body.style.overflow = 'hidden';
+            }
+            function closeLightbox() {
+                lightbox.classList.remove('show');
+                lightbox.setAttribute('aria-hidden', 'true');
+                lightboxVideo.pause();
+                lightboxVideo.currentTime = 0;
+                document.body.style.overflow = '';
+            }
+            miniVideo.addEventListener('click', function(e) {
+                if (e.target.closest('.hero-mini-download')) return;
+                openLightbox();
+            });
+            miniVideo.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(); }
+            });
+            closeBtn.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
+            document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && lightbox.classList.contains('show')) closeLightbox(); });
+        })();
+    </script>
+
+    <script>
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBtn = document.createElement('button');
+            searchBtn.className = 'nav-search-btn';
+            searchBtn.setAttribute('aria-label', 'Search');
+            searchBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
+
+            // Insert search button before the YouTube subscribe button in nav
+            const navLinks = document.querySelector('.nav-links');
+            const subscribeBtn = document.querySelector('.btn-subscribe');
+            if (navLinks && subscribeBtn) {
+                navLinks.insertBefore(searchBtn, subscribeBtn);
+            }
+
+            // Search modal elements
+            const searchModal = document.getElementById('search-modal');
+            const searchClose = document.getElementById('search-close');
+            const searchForm = document.getElementById('search-form');
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+
+            // Open search modal
+            searchBtn.addEventListener('click', function() {
+                searchModal.classList.add('show');
+                searchInput.focus();
+            });
+
+            // Close search modal
+            searchClose.addEventListener('click', function() {
+                searchModal.classList.remove('show');
+                searchInput.value = '';
+                searchResults.innerHTML = '';
+            });
+
+            // Close on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && searchModal.classList.contains('show')) {
+                    searchModal.classList.remove('show');
+                    searchInput.value = '';
+                    searchResults.innerHTML = '';
+                }
+            });
+
+            // Close when clicking outside content
+            searchModal.addEventListener('click', function(e) {
+                if (e.target === searchModal) {
+                    searchModal.classList.remove('show');
+                    searchInput.value = '';
+                    searchResults.innerHTML = '';
+                }
+            });
+
+            // Handle search form submission
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const query = searchInput.value.trim().toLowerCase();
+
+                if (!query) {
+                    searchResults.innerHTML = '<p>Please enter a search term.</p>';
+                    return;
+                }
+
+                // Simple search through content (in a real app, this would use a search index)
+                searchResults.innerHTML = '<p>Search functionality would be implemented here with actual search index.</p>';
+
+                // For demo purposes, show a message
+                searchResults.innerHTML = `
+                    <div class="search-results-item">
+                        <span class="search-result-type">Video</span>
+                        <h3>How a Good Man Loses His Shape</h3>
+                        <p>Exploring how a good man loses his shape, and what that teaches us about grace, restoration, and the image of God.</p>
+                    </div>
+                    <div class="search-results-item">
+                        <span class="search-result-type">Article</span>
+                        <h3>What Does It Mean to Believe?</h3>
+                        <p>A reflection on the nature of faith, doubt, and the courage to ask "what if?" in a world that demands certainty.</p>
+                    </div>
+                `;
+            });
+        });
+    </script>
+
+    <!-- Article Lightbox -->
+    <div id="article-lightbox" class="article-lightbox" aria-hidden="true">
+        <div class="article-lightbox-header">
+            <button class="article-lightbox-back" id="article-lightbox-back">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                Articles
+            </button>
+            <span class="article-lightbox-title-bar">Hermeneutical Analysis of 2 Samuel 11</span>
+            <a href="Hermeneutical_Analysis_2_Samuel_11.docx" download="Hermeneutical_Analysis_2_Samuel_11.docx" class="article-lightbox-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download .docx
+            </a>
+            <button class="article-lightbox-close" id="article-lightbox-close" aria-label="Close article">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="article-lightbox-body">
+            <div class="article-reader">
+                <span class="category-tag">Theology</span>
+                <h1>Hermeneutical Analysis of 2 Samuel 11:17&ndash;25</h1>
+                <div class="article-subtitle">A Study in Moral Self-Destruction</div>
+                <div class="article-author">By <strong>Pastor Wentland Paul</strong></div>
+
+                <h2>1. Introduction</h2>
+                <p>This hermeneutical analysis examines 2 Samuel 11:17&ndash;25 through a multifaceted interpretive lens, integrating historical-critical, narrative, theological, and moral-psychological approaches. The passage recounts the delivery of news regarding Uriah the Hittite&rsquo;s death to King David, following David&rsquo;s orchestration of that death to conceal his adultery with Bathsheba. The analysis seeks to uncover the layers of meaning embedded in the text&rsquo;s structure, character dynamics, and theological implications, while also drawing connections to contemporary experience of moral injury and institutional complicity.</p>
+
+                <h2>2. Historical-Critical Context</h2>
+                <p>The Deuteronomistic History (Deuteronomy&ndash;2 Kings) presents David as the archetypal king, yet it does not flinch from recording his moral failures. The passage belongs to the Succession Narrative (2 Samuel 9&ndash;20; 1 Kings 1&ndash;2), a source widely regarded by scholars as one of the earliest examples of sophisticated historical writing in the Hebrew Bible. The narrative&rsquo;s realism&mdash;its willingness to depict the king&rsquo;s sin without theological whitewashing&mdash;suggests a court setting close to the events themselves, or at least a tradition that valued historical honesty over royal propaganda. The text&rsquo;s laconic style, its reliance on dialogue rather than authorial commentary, and its careful juxtaposition of perspectives all reflect a literary artistry that serves theological ends: the reader is drawn into the moral drama and left to render judgment without explicit authorial direction.</p>
+
+                <h2>3. Narrative Analysis</h2>
+                <h3>3.1 Structure and Plot</h3>
+                <p>The passage can be divided into three movements: (a) Joab&rsquo;s instructions to the messenger (vv. 17&ndash;21), (b) the messenger&rsquo;s delivery (vv. 22&ndash;24), and (c) David&rsquo;s response (v. 25). Each movement deepens the reader&rsquo;s understanding of the moral corruption at work. Joab&rsquo;s meticulous scripting of the report reveals his intimate knowledge of David&rsquo;s psychology: he anticipates the king&rsquo;s performative outrage at tactical losses and carefully frames Uriah&rsquo;s death as incidental to siege warfare rather than the result of assassination. The messenger&rsquo;s faithful execution of these instructions contrasts with David&rsquo;s dismissive response, highlighting the gap between the public performance of kingship and the private reality of conspiracy.</p>
+
+                <h3>3.2 Character Analysis</h3>
+                <p><strong>David</strong><br>David is presented as a figure in moral descent. The king who once refused to harm Saul (&ldquo;The Lord forbid that I should do such a thing to my lord, the Lord&rsquo;s anointed&rdquo; &mdash; 1 Samuel 24:6) now orchestrates the death of a loyal soldier. His response to the news&mdash;&ldquo;The sword devours one as well as another&rdquo;&mdash;is a philosophical dismissal that reduces human life to statistical inevitability. The man after God&rsquo;s own heart has become a politician of death, capable of performing concern while engineering destruction.</p>
+                <p><strong>Joab</strong><br>Joab emerges as a figure of pragmatic violence. His careful management of the messenger reveals sophisticated political calculation. He knows David&rsquo;s public persona, anticipates his performative anger, and provides a narrative &ldquo;release valve&rdquo;&mdash;the news of Uriah&rsquo;s death&mdash;that transforms David from concerned commander to satisfied conspirator. The historical reference to Abimelek (Judges 9) is strategic: it frames Uriah&rsquo;s death within the acceptable risks of siege warfare, obscuring the assassination at its heart.</p>
+                <p><strong>Uriah</strong><br>Uriah is the silent victim whose virtue becomes the instrument of his destruction. His refusal to enjoy comfort while his comrades suffered (2 Samuel 11:11) is the quality David exploits. A lesser soldier might have accepted David&rsquo;s offer of comfort and provided the biological cover David needed. Uriah&rsquo;s integrity condemns him. The narrative presents this with no commentary&mdash;only the devastating juxtaposition of David&rsquo;s manipulation and Uriah&rsquo;s loyalty.</p>
+
+                <h2>4. Theological Interpretation</h2>
+                <h3>4.1 Sin and Its Progression</h3>
+                <p>The narrative presents sin not as a single moment of weakness but as a process of incremental accommodation. David sees, inquires, sends, sleeps with Bathsheba, learns of the pregnancy, attempts cover-up, and finally resorts to murder. Each step is a choice, each choice a deeper entrenchment. The text insists that David chose&mdash;again and again&mdash;knowing exactly what he was doing. This premeditation is theologically significant: it precludes any defense of passion or momentary weakness. David&rsquo;s sin is willful, calculated, and fully owned.</p>
+
+                <h3>4.2 The Silence of God</h3>
+                <p>Strikingly, God does not speak in this passage. The divine silence creates space for the reader to experience the full weight of human moral failure without premature resolution. This silence is itself a theological statement: God permits the consequences of human choice to unfold, and the narrative refuses to mitigate the horror of what David has done. When God finally speaks through Nathan in 2 Samuel 12, the judgment is devastating precisely because it has been withheld, allowing the reader to sit with the unvarnished reality of sin.</p>
+
+                <h3>4.3 Moral Injury and the Unhealed Wound</h3>
+                <p>The concept of moral injury&mdash;the wound inflicted on one&rsquo;s own conscience by transgressing core values&mdash;provides a powerful interpretive framework. David does not merely commit a sin; he is restructured by it. The psalmist who cried out with raw spiritual transparency now speaks in calculated euphemisms. The shepherd who risked his life for a single sheep now sacrifices men to cover a pregnancy. The man after God&rsquo;s own heart learns to perform concern while engineering death. This restructuring is irreversible in the narrative moment: David cannot undo what he has become without dismantling the performance of kingship itself. Nathan&rsquo;s confrontation (&ldquo;You are the man!&rdquo;) opens the wound, but the narrative does not restore what was destroyed. Uriah remains dead. The sword never departs from David&rsquo;s house. The moral injury becomes generational.</p>
+
+                <h2>5. The David-Joab Parallel</h2>
+                <p>A central hermeneutical insight of this analysis is the parallel between David and Joab. David&rsquo;s character undergoes a transition, becoming similar to that of Joab. David instructed Joab on the method of Uriah&rsquo;s execution, but the plan&rsquo;s subtlety was lost on Joab, who chose a simpler approach: an open-field challenge, overwhelming force, retreat to the city gates, pursuit, and death by archers. The loss was great, and Uriah died alongside many others. Joab anticipated David&rsquo;s anger&mdash;the king who cared about his soldiers&mdash;and instructed the messenger to wait for that anger before revealing Uriah&rsquo;s death. Once David received the news, he trivialized the death of his other soldiers, attributing them to the expendable price of war. The student had surpassed the teacher in moral corruption.</p>
+
+                <h2>6. Contemporary Application</h2>
+                <p>The mechanisms of moral erosion depicted in 2 Samuel 11 remain structurally identical in contemporary institutional life. The premeditated destruction of people obtains politically and transforms otherwise good people with moral injury that makes them allies of evil people. It is not transactional; it is existential.</p>
+                <p>The modern participant in systemic destruction does not simply pay a price for benefit received. They become someone who can no longer claim innocence&mdash;not because they were caught, but because they know. The knowledge itself restructures identity. The bureaucrat who designed the policy, the professional who executed the order, the functionary who filed the form&mdash;each performed a small role that collectively destroyed. And the performance of small roles, repeated, becomes habituated complicity.</p>
+                <p>The &ldquo;evil people&rdquo; in this structure are not always monstrous. Often they are competent, organized, persuasive&mdash;they offer frameworks that make participation seem reasonable, even necessary. The alliance forms because the structure requires good people to function. Evil on a systemic scale cannot sustain itself with only the committed wicked. It needs the morally injured&mdash;those who have lost the capacity to refuse.</p>
+
+                <h3>6.1 The Slow Erosion of Boundary</h3>
+                <p>The alliance&mdash;good people drawn into complicity not by conviction but by participation, by the slow erosion of boundary. It is not a single dramatic choice but incremental accommodation. Each small step&mdash;the unchallenged memo, the signed document, the silent meeting, the averted gaze&mdash;wears away the boundary. The person does not decide to become complicit. They decide not to make this the moment of resistance. And then the next moment. And the next. By the time the full picture becomes visible, the person is already inside it. The boundary they might have defended has been eroded to invisibility.</p>
+                <p>The wound persists. The modern equivalent of David&rsquo;s lament is not public confession but private corrosion&mdash;the addiction, the divorce, the depression, the spiritual numbness that afflicts those who cannot integrate what they have done with who they believed themselves to be. The narrative of 2 Samuel offers no resolution because there is no resolution. There is only the long work of bearing what has been done, and the possibility&mdash;never guaranteed&mdash;of becoming someone who can again recognize their own conscience.</p>
+
+                <h2>7. Conclusion</h2>
+                <p>The hermeneutical analysis of 2 Samuel 11:17&ndash;25 reveals a text of extraordinary moral and psychological sophistication. The narrative presents premeditated evil not merely as an act that harms victims but as a force that restructures the perpetrator, making alliances that bind and inflicting wounds that never fully heal. The text refuses resolution, insisting that the reader sit with the unmitigated reality of moral failure. In this refusal, it becomes a mirror for every age&mdash;ancient, modern, and yet to come.</p>
+                <p>The text remains uncomfortably contemporary because human nature under pressure has not changed. The structures of power, the seduction of premeditation, the slow surrender of moral boundary&mdash;these are not ancient artifacts. They are active mechanisms, operating now, restructuring people who will not recognize themselves until the mirror is held up&mdash;and sometimes not even then.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Article lightbox
+        (function() {
+            var lb = document.getElementById('article-lightbox');
+            var closeBtn = document.getElementById('article-lightbox-close');
+            var backBtn = document.getElementById('article-lightbox-back');
+            var readBtn = document.getElementById('btn-read-analysis');
+            var body = lb ? lb.querySelector('.article-lightbox-body') : null;
+            if (!lb) return;
+
+            function openArticle() {
+                lb.classList.add('show');
+                lb.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                if (body) body.scrollTop = 0;
+            }
+            function closeArticle() {
+                lb.classList.remove('show');
+                lb.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+            // Read Analysis button
+            if (readBtn) {
+                readBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openArticle();
+                });
+            }
+            // Card click (anywhere else on the card)
+            var card = document.querySelector('.article-card.theology-card');
+            if (card) {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('a') || e.target.closest('button')) return;
+                    openArticle();
+                });
+            }
+            // Close handlers
+            if (closeBtn) closeBtn.addEventListener('click', closeArticle);
+            if (backBtn) backBtn.addEventListener('click', closeArticle);
+            lb.addEventListener('click', function(e) { if (e.target === lb || e.target === body) closeArticle(); });
+            document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && lb.classList.contains('show')) closeArticle(); });
+        })();
+    </script>
+
+    <!-- Video Lightbox -->
+    <div id="video-lightbox" class="video-lightbox" aria-hidden="true">
+        <div class="video-lightbox-inner">
+            <button class="video-lightbox-close" aria-label="Close video">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <video id="lightbox-video" controls preload="none" playsinline>
+                <source src="GT12X5aL0Sg_enhanced.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="search-modal" class="search-modal" aria-hidden="true">
+        <div class="search-modal-content">
+            <button id="search-close" aria-label="Close search">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <form id="search-form" class="search-form">
+                <input type="text" id="search-input" placeholder="Search teachings, articles, and videos..." aria-label="Search">
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Add prefers-reduced-motion media query -->
+    <style>
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+
+            /* Disable animations that use CSS variables */
+            .fade-in,
+            .fade-in-delay-1,
+            .fade-in-delay-2,
+            .fade-in-delay-3,
+            .fade-in-delay-4 {
+                animation: none !important;
+                opacity: 1 !important;
+            }
+        }
+
+        /* YouTube Facade Styles */
+        .youtube-facade {
+            position: absolute;
+            inset: 0;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .youtube-preview {
+            position: absolute;
+            inset: 0;
+        }
+
+        .youtube-preview img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .youtube-facade:hover .youtube-preview img {
+            transform: scale(1.03);
+        }
+
+        .youtube-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px;
+            height: 64px;
+            background: rgba(30, 64, 175, 0.75);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.35s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .youtube-facade:hover .youtube-play-button {
+            background: rgba(30, 64, 175, 0.9);
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 0 24px rgba(30, 64, 175, 0.3);
+        }
+
+        .youtube-play-button svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        /* Search Modal Styles */
+        .search-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .search-modal.show {
+            display: flex;
+        }
+
+        .search-modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #search-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+        }
+
+        #search-close:hover {
+            background: var(--blue-subtle);
+        }
+
+        .search-form {
+            display: flex;
+            padding: 1.5rem;
+            gap: 0.5rem;
+        }
+
+        #search-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+        }
+
+        #search-input:focus {
+            outline: 2px solid var(--blue);
+            border-color: var(--blue);
+        }
+
+        .search-results {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .search-results p {
+            color: var(--text-tertiary);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .search-results-item {
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 0;
+        }
+
+        .search-results-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-results-item h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-primary);
+        }
+
+        .search-results-item p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .search-results-item .search-result-type {
+            display: inline-block;
+            background: var(--blue-muted);
+            color: var(--blue);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 100px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</body>
+</html>
