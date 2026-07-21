@@ -594,7 +594,7 @@
         // -----------------------------------------------------------------------
         const API_BASE = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
             ? `http://127.0.0.1:8000`
-            : `https://your-deployed-agent-url.onrender.com`; // Update for production
+            : `http://${window.location.hostname}:8000`; // Points to agent on same host (e.g. if self-hosted)
 
         // -----------------------------------------------------------------------
         // DOM References
