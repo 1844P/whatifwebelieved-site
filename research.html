@@ -405,6 +405,10 @@
 
         /* FOOTER */
         footer { padding: 32px 0; border-top: 1px solid var(--border-subtle); margin-top: auto; }
+
+        /* BACKEND BANNER */
+        #backend-banner a { color: #004085; text-decoration: underline; }
+        #backend-banner a:hover { color: #002752; }
         .footer-bottom {
             display: flex; justify-content: space-between; align-items: center;
             flex-wrap: wrap; gap: 12px;
@@ -590,11 +594,56 @@
     <script>
     (function() {
         // -----------------------------------------------------------------------
-        // Configuration
+        // Configuration — detect environment
         // -----------------------------------------------------------------------
-        const API_BASE = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+        const IS_GITHUB_PAGES = window.location.hostname.includes('github.io');
+        const IS_LOCAL = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+        const API_BASE = IS_LOCAL
             ? `http://127.0.0.1:8000`
-            : `http://${window.location.hostname}:8000`; // Points to agent on same host (e.g. if self-hosted)
+            : null; // Backend not deployed to GitHub Pages
+
+        // -----------------------------------------------------------------------
+        // Backend status banner
+        // -----------------------------------------------------------------------
+        function showBackendBanner() {
+            if (IS_GITHUB_PAGES || !IS_LOCAL) {
+                const banner = document.createElement('div');
+                banner.id = 'backend-banner';
+                banner.style.cssText = `
+                    background:#fff3cd; border:1px solid #ffc107; border-radius:10px;
+                    padding:20px 24px; margin-bottom:24px; font-family:var(--font-sans); font-size:0.85rem;
+                    display:flex; align-items:flex-start; gap:14px;
+                `;
+                banner.innerHTML = `
+                    <span style="font-size:1.4rem;flex-shrink:0;">⚡</span>
+                    <div>
+                        <strong style="color:#664d03;">Backend agent not deployed to GitHub Pages</strong>
+                        <p style="color:#856404;margin:4px 0 0;line-height:1.6;">
+                            This research page needs a running AI backend. 
+                            <strong>Option 1:</strong> Visit the site locally at 
+                            <a href="http://127.0.0.1:8080/research.html" style="color:#004085;">http://127.0.0.1:8080/research.html</a> 
+                            with the backend running.<br>
+                            <strong>Option 2:</strong> Deploy the agent backend to Render.com or a VPS.
+                        </p>
+                    </div>
+                `;
+                const card = document.querySelector('.research-input-card');
+                if (card) card.parentNode.insertBefore(banner, card);
+            }
+        }
+
+        // -----------------------------------------------------------------------
+        // Check backend status on load
+        // -----------------------------------------------------------------------
+        async function checkBackend() {
+            if (!API_BASE) return false;
+            try {
+                const resp = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(3000) });
+                return resp.ok;
+            } catch {
+                return false;
+            }
+        }
 
         // -----------------------------------------------------------------------
         // DOM References
@@ -618,28 +667,38 @@
 
         let currentReport = '';
         let currentQuestion = '';
+        let backendOk = false;
 
         // -----------------------------------------------------------------------
-        // Load available models from backend
+        // Check backend on load
         // -----------------------------------------------------------------------
-        async function loadModels() {
-            try {
-                const resp = await fetch(`${API_BASE}/models`);
-                const data = await resp.json();
-                const select = document.getElementById('model-select');
-                if (data.models && data.models.length) {
-                    select.innerHTML = '';
-                    data.models.forEach(m => {
-                        const opt = document.createElement('option');
-                        opt.value = m;
-                        opt.textContent = m;
-                        if (m === 'llama3.2:3b') opt.selected = true;
-                        select.appendChild(opt);
-                    });
-                }
-            } catch(e) { /* keep default */ }
-        }
-        loadModels();
+        showBackendBanner();
+        (async function() {
+            if (!API_BASE) return;
+            backendOk = await checkBackend();
+            if (!backendOk) {
+                // Show a subtle warning in the status area
+                const hint = document.querySelector('.research-actions .hint');
+                if (hint) hint.textContent = '⚠ Backend unreachable — start the agent server first';
+            } else {
+                // Load available models only if backend is reachable
+                try {
+                    const resp = await fetch(`${API_BASE}/models`);
+                    const data = await resp.json();
+                    const select = document.getElementById('model-select');
+                    if (data.models && data.models.length) {
+                        select.innerHTML = '';
+                        data.models.forEach(m => {
+                            const opt = document.createElement('option');
+                            opt.value = m;
+                            opt.textContent = m;
+                            if (m === 'gemma4:latest') opt.selected = true;
+                            select.appendChild(opt);
+                        });
+                    }
+                } catch(e) { /* keep default */ }
+            }
+        })();
 
         // -----------------------------------------------------------------------
         // Configure marked.js
@@ -677,6 +736,20 @@
             if (!question || question.length < 5) {
                 questionInput.focus();
                 return;
+            }
+
+            // Check backend availability
+            if (!API_BASE) {
+                showError('This research page requires a running backend agent.\n\nOn GitHub Pages: Deploy the backend to Render.com or run locally.\nLocally: Start the agent with:\n  cd agent\n  uvicorn app:app --host 0.0.0.0 --port 8000');
+                return;
+            }
+            if (!backendOk) {
+                const stillOk = await checkBackend();
+                if (!stillOk) {
+                    showError('Backend agent is not running.\n\nStart it with:\n  cd agent\n  uvicorn app:app --host 0.0.0.0 --port 8000\n\nMake sure Ollama is also running with gemma4:latest loaded.');
+                    return;
+                }
+                backendOk = true;
             }
 
             currentQuestion = question;
@@ -800,7 +873,7 @@
         function showError(msg) {
             loadingCard.classList.remove('active');
             errorCard.classList.add('active');
-            errorMessage.textContent = msg;
+            errorMessage.innerHTML = msg.replace(/\n/g, '<br>');
             btnResearch.disabled = false;
         }
 
