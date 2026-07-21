@@ -598,6 +598,8 @@
         // -----------------------------------------------------------------------
         const IS_GITHUB_PAGES = window.location.hostname.includes('github.io');
         const IS_LOCAL = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+        const IS_CODESPACE = window.location.hostname.includes('.app.github.dev') ||
+                             window.location.hostname.includes('.githubpreview.dev');
 
         // Allow backend URL override via ?backend= URL parameter (e.g. from Codespaces)
         const urlParams = new URLSearchParams(window.location.search);
@@ -606,6 +608,11 @@
         let API_BASE;
         if (backendOverride) {
             API_BASE = backendOverride;
+        } else if (IS_CODESPACE) {
+            // In Codespaces, backend is on port 8000 — GitHub Codespaces port forwarding
+            // creates URLs like: name-PORT.app.github.dev, so swap the port number
+            const host = window.location.hostname;
+            API_BASE = host.replace(/-\d+(?=\.app\.github\.dev$)/, '-8000');
         } else if (IS_LOCAL) {
             API_BASE = `http://127.0.0.1:8000`;
         } else {
@@ -616,7 +623,28 @@
         // Backend status banner
         // -----------------------------------------------------------------------
         function showBackendBanner() {
-            if (IS_GITHUB_PAGES || !IS_LOCAL) {
+            if (IS_CODESPACE) {
+                // In Codespaces, show a subtle info banner — backend is auto-detected
+                const banner = document.createElement('div');
+                banner.id = 'backend-banner';
+                banner.style.cssText = `
+                    background:#d1ecf1; border:1px solid #bee5eb; border-radius:10px;
+                    padding:16px 20px; margin-bottom:24px; font-family:var(--font-sans); font-size:0.82rem;
+                    display:flex; align-items:flex-start; gap:12px;
+                `;
+                banner.innerHTML = `
+                    <span style="font-size:1.2rem;flex-shrink:0;">&#9889;</span>
+                    <div>
+                        <strong style="color:#0c5460;">Running in GitHub Codespaces</strong>
+                        <p style="color:#0c5460;margin:4px 0 0;line-height:1.5;">
+                            Backend agent auto-detected on port 8000. If connection fails,
+                            add <code>?backend=</code> with your Codespace backend URL.
+                        </p>
+                    </div>
+                `;
+                const card = document.querySelector('.research-input-card');
+                if (card) card.parentNode.insertBefore(banner, card);
+            } else if (IS_GITHUB_PAGES || !IS_LOCAL) {
                 const banner = document.createElement('div');
                 banner.id = 'backend-banner';
                 banner.style.cssText = `
@@ -625,14 +653,13 @@
                     display:flex; align-items:flex-start; gap:14px;
                 `;
                 banner.innerHTML = `
-                    <span style="font-size:1.4rem;flex-shrink:0;">⚡</span>
+                    <span style="font-size:1.4rem;flex-shrink:0;">&#9889;</span>
                     <div>
                         <strong style="color:#664d03;">Backend agent not detected</strong>
                         <p style="color:#856404;margin:4px 0 0;line-height:1.6;">
                             This research page needs a running AI backend. Options:<br>
                             <strong>Local:</strong> Visit <a href="http://127.0.0.1:8080/research.html" style="color:#004085;">http://127.0.0.1:8080/research.html</a><br>
-                            <strong>GitHub Codespaces:</strong> Add <code style="background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:3px;font-size:0.8rem;">?backend=</code> with your Codespace URL, e.g.<br>
-                            <code style="background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:3px;font-size:0.8rem;word-break:break-all;">?backend=https://your-codespace-8000.preview.app.github.dev</code>
+                            <strong>GitHub Codespaces:</strong> The backend URL should be auto-detected. If not, add <code style="background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:3px;font-size:0.8rem;">?backend=</code> with your Codespace URL.
                         </p>
                     </div>
                 `;

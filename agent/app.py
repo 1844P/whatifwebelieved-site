@@ -6,7 +6,8 @@ worldview, using web search for source discovery and a local Ollama LLM for anal
 
 Usage:
     pip install -r requirements.txt
-    Make sure Ollama is running with nemotron pulled:  ollama pull nemotron
+    Start Ollama: ollama serve
+    (default model auto-pulled on first startup)
     uvicorn app:app --host 0.0.0.0 --port 8000
 """
 
@@ -39,7 +40,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
-DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "gemma4:latest")
+DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "qwen3:8b")
 
 app = FastAPI(
     title="Adventist Theological Research Agent",
@@ -54,6 +55,35 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def ensure_default_model():
+    """Auto-pull the default model on startup if not already present."""
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            resp = await client.get(f"{OLLAMA_BASE_URL}/api/tags")
+            if resp.status_code == 200:
+                models = [m["name"] for m in resp.json().get("models", [])]
+                if DEFAULT_MODEL not in models:
+                    logger.info(f"Model '{DEFAULT_MODEL}' not found — pulling now...")
+                    pull_resp = await client.post(
+                        f"{OLLAMA_BASE_URL}/api/pull",
+                        json={"name": DEFAULT_MODEL},
+                        timeout=600.0,
+                    )
+                    if pull_resp.status_code == 200:
+                        logger.info(f"Model '{DEFAULT_MODEL}' pulled successfully.")
+                    else:
+                        logger.warning(f"Failed to pull '{DEFAULT_MODEL}': {pull_resp.status_code}")
+                else:
+                    logger.info(f"Model '{DEFAULT_MODEL}' is available.")
+            else:
+                logger.warning("Ollama is not responding — will retry on first request.")
+    except httpx.ConnectError:
+        logger.warning("Ollama not reachable at startup — will retry on first request.")
+    except Exception as e:
+        logger.warning(f"Startup model check failed: {e}")
 
 # ---------------------------------------------------------------------------
 # Models
@@ -185,7 +215,14 @@ async def _call_ollama_sync(payload: dict, model: str) -> str:
         try:
             resp = await client.post(f"{OLLAMA_BASE_URL}/api/chat", json=payload)
         except httpx.ConnectError:
-            raise HTTPException(status_code=503, detail="Ollama is not running. Start it with: ollama serve")
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    f"Cannot connect to Ollama at {OLLAMA_BASE_URL}. "
+                    "Ensure Ollama is running: `ollama serve` (or start the Ollama desktop app). "
+                    f"Then pull the model: `ollama pull {DEFAULT_MODEL}`"
+                ),
+            )
         if resp.status_code != 200:
             body = resp.text[:500]
             logger.error(f"Ollama error: {resp.status_code} {body}")
@@ -328,7 +365,21 @@ async def stream_research(question: str, model: str | None):
 
 @app.get("/")
 async def root():
-    return {"status": "ok", "service": "Adventist Theological Research Agent", "version": "2.0.0", "backend": "ollama", "default_model": DEFAULT_MODEL}
+    return {
+        "status": "ok",
+        "service": "Adventist Theological Research Agent",
+        "version": "2.0.0",
+        "backend": "ollama",
+        "default_model": DEFAULT_MODEL,
+        "ollama_url": OLLAMA_BASE_URL,
+        "site_url_pattern": "https://whatifwebelieved.github.io/{topic-slug}",
+        "endpoints": {
+            "POST /research": "Submit a theological question (JSON body: {question, model?})",
+            "POST /research/stream": "Same but streamed via Server-Sent Events",
+            "GET /health": "Ollama connectivity & available models",
+            "GET /models": "List pulled Ollama models",
+        },
+    }
 
 @app.get("/health")
 async def health():

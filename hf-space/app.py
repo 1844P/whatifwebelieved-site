@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
-DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "gemma4:latest")
+DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "qwen3:8b")
 
 app = FastAPI(
     title="Adventist Theological Research Agent",

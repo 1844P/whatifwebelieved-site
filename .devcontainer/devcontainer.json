@@ -1,11 +1,23 @@
 {
   "name": "Adventist Theological Research Agent",
   "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
-  "forwardPorts": [8000],
+  "forwardPorts": [8000, 8080, 7860],
   "portsAttributes": {
     "8000": {
       "label": "Research Agent API",
       "onAutoForward": "openBrowserOnce",
+      "visibility": "public",
+      "requireLocalPort": true
+    },
+    "8080": {
+      "label": "Static Site",
+      "onAutoForward": "openBrowserOnce",
+      "visibility": "public",
+      "requireLocalPort": true
+    },
+    "7860": {
+      "label": "HF Spaces Compat",
+      "onAutoForward": "silent",
       "visibility": "public",
       "requireLocalPort": true
     }

@@ -16,12 +16,12 @@ for i in $(seq 1 60); do
 done
 
 # Pull model only if not already present
-if ! ollama list 2>/dev/null | grep -q gemma4; then
-    echo "=== Pulling gemma4:latest (9.6GB - may take several minutes) ==="
-    ollama pull gemma4:latest 2>&1
+if ! ollama list 2>/dev/null | grep -q qwen3; then
+    echo "=== Pulling qwen3:8b (~5GB) ==="
+    ollama pull qwen3:8b 2>&1
     echo "=== Model pulled ==="
 else
-    echo "=== gemma4:latest already cached ==="
+    echo "=== qwen3:8b already cached ==="
 fi
 
 # Start the FastAPI app on port 7860 (HF Space standard)

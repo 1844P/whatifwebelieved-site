@@ -1,17 +1,26 @@
 #!/bin/bash
 # One-time setup when codespace is first created
-set -e
+set -euo pipefail
+
+WORKSPACE="/workspaces/whatifwebelieved-site"
+cd "$WORKSPACE"
 
 echo "=== Installing Ollama ==="
-curl -fsSL https://ollama.com/install.sh | sh
+if command -v ollama &>/dev/null; then
+    echo "Ollama already installed, skipping."
+else
+    curl -fsSL https://ollama.com/install.sh | sh
+    echo "Ollama installed successfully."
+fi
 
-echo "=== Installing Python deps ==="
-cd /workspaces/whatifwebelieved-site
+echo "=== Pulling qwen3:8b model ==="
+ollama serve &>/dev/null &
+sleep 2
+ollama pull qwen3:8b
+echo "Model qwen3:8b ready."
+
+echo "=== Installing Python dependencies ==="
 pip install -q -r agent/requirements.txt
+echo "Python deps installed."
 
-echo "=== Starting Ollama and pulling model in background ==="
-ollama serve 2>&1 &
-sleep 3
-ollama pull qwen3:8b 2>&1 &
-echo "Setup complete — model continues downloading in background."
-echo "Run 'ollama list' to check progress."
+echo "=== Setup complete ==="
