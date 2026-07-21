@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
-DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "nemotron")
+DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "llama3.2:3b")
 
 app = FastAPI(
     title="Adventist Theological Research Agent",
@@ -182,10 +182,16 @@ Remember: Output a well-structured Markdown report following the required format
 async def _call_ollama_sync(payload: dict, model: str) -> str:
     """Non-streaming Ollama call."""
     async with httpx.AsyncClient(timeout=600.0) as client:
-        resp = await client.post(f"{OLLAMA_BASE_URL}/api/chat", json=payload)
+        try:
+            resp = await client.post(f"{OLLAMA_BASE_URL}/api/chat", json=payload)
+        except httpx.ConnectError:
+            raise HTTPException(status_code=503, detail="Ollama is not running. Start it with: ollama serve")
         if resp.status_code != 200:
-            logger.error(f"Ollama error: {resp.status_code} {resp.text[:500]}")
-            raise HTTPException(status_code=502, detail=f"Ollama API error: {resp.status_code}")
+            body = resp.text[:500]
+            logger.error(f"Ollama error: {resp.status_code} {body}")
+            if "allocate" in body or "memory" in body.lower():
+                raise HTTPException(status_code=502, detail=f"Model '{model}' is too large for available RAM. Try a smaller model like gemma3:4b or llama3.2:3b.")
+            raise HTTPException(status_code=502, detail=f"Ollama error ({resp.status_code}): {body}")
         data = resp.json()
         return data["message"]["content"]
 
@@ -328,13 +334,30 @@ async def root():
 async def health():
     """Check health including Ollama connectivity."""
     ollama_ok = False
+    models = []
     try:
         async with httpx.AsyncClient(timeout=5.0) as client:
             resp = await client.get(f"{OLLAMA_BASE_URL}/api/tags")
-            ollama_ok = resp.status_code == 200
+            if resp.status_code == 200:
+                ollama_ok = True
+                data = resp.json()
+                models = [m["name"] for m in data.get("models", [])]
     except Exception:
         pass
-    return {"status": "healthy", "ollama_connected": ollama_ok, "model": DEFAULT_MODEL}
+    return {"status": "healthy", "ollama_connected": ollama_ok, "model": DEFAULT_MODEL, "available_models": models}
+
+@app.get("/models")
+async def list_models():
+    """List available Ollama models."""
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            resp = await client.get(f"{OLLAMA_BASE_URL}/api/tags")
+            if resp.status_code == 200:
+                data = resp.json()
+                return {"models": [m["name"] for m in data.get("models", [])]}
+    except Exception:
+        pass
+    return {"models": [], "error": "Ollama not reachable"}
 
 @app.post("/research", response_model=ResearchResponse)
 async def research(req: ResearchRequest):

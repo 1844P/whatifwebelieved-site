@@ -1655,10 +1655,9 @@
 
                 // Add keyboard accessibility
                 card.setAttribute('tabindex', '0');
-                card.setAttribute('tabindex', '0');
                 card.setAttribute('role', 'button');
                 const titleEl = card.querySelector('.video-info h3');
-                const title = titleEl ? titleEl.textContent.trim() : 'video';;
+                const title = titleEl ? titleEl.textContent.trim() : 'video';
                 card.setAttribute('aria-label', 'Play video: ' + title);
                 card.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
