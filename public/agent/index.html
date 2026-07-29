@@ -1439,6 +1439,7 @@ Reasoning rules:
         }
 
         function clearChat() {
+            resetMessageState();
             chat = null;
             conversationHistory = [];
             lastSermonContent = null;
@@ -1456,11 +1457,20 @@ Reasoning rules:
         window.sendMessage = sendMessage;
         window.clearChat = clearChat;
         window.checkOllama = checkOllama;
+        // Defensive reset for loading/spinner state — prevents stuck "sending" state when switching modes
+        function resetMessageState() {
+            isLoading = false;
+            if (sendBtn) sendBtn.disabled = false;
+            if (loading) loading.classList.remove('active');
+            document.getElementById('loadingText').textContent = 'Thinking...';
+        }
+
         window.toggleEssayMode = toggleEssayMode;
         window.toggleSermonMode = toggleSermonMode;
         window.toggleBibleStudyMode = toggleBibleStudyMode;
 
         function toggleEssayMode() {
+            resetMessageState();
             essayMode = !essayMode;
             if (essayMode) sermonMode = false;
             const btn = document.getElementById('essayToggle');
@@ -1492,6 +1502,7 @@ Reasoning rules:
         }
 
         function toggleSermonMode() {
+            resetMessageState();
             sermonMode = !sermonMode;
             if (sermonMode) essayMode = false;
             if (sermonMode) bibleStudyMode = false;
@@ -1529,6 +1540,7 @@ Reasoning rules:
         }
 
         function toggleBibleStudyMode() {
+            resetMessageState();
             bibleStudyMode = !bibleStudyMode;
             if (bibleStudyMode) {
                 essayMode = false;
