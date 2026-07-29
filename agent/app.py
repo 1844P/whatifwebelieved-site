@@ -31,7 +31,7 @@ _agent_dir = os.path.dirname(os.path.abspath(__file__))
 if _agent_dir not in sys.path:
     sys.path.insert(0, _agent_dir)
 
-from config import ADVENTIST_SYSTEM_PROMPT
+from config import ADVENTIST_SYSTEM_PROMPT, ESSAY_SYSTEM_PROMPT, SERMON_SYSTEM_PROMPT, BIBLE_STUDY_SYSTEM_PROMPT
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -364,24 +364,6 @@ async def stream_research(question: str, model: str | None):
 # Routes
 # ---------------------------------------------------------------------------
 
-@app.get("/")
-async def root():
-    return {
-        "status": "ok",
-        "service": "Adventist Theological Research Agent",
-        "version": "2.0.0",
-        "backend": "ollama",
-        "default_model": DEFAULT_MODEL,
-        "ollama_url": OLLAMA_BASE_URL,
-        "site_url_pattern": "https://whatifwebelieved.github.io/{topic-slug}",
-        "endpoints": {
-            "POST /research": "Submit a theological question (JSON body: {question, model?})",
-            "POST /research/stream": "Same but streamed via Server-Sent Events",
-            "GET /health": "Ollama connectivity & available models",
-            "GET /models": "List pulled Ollama models",
-        },
-    }
-
 @app.get("/health")
 async def health():
     """Check health including Ollama connectivity."""
@@ -420,6 +402,253 @@ async def research(req: ResearchRequest):
 async def research_stream(req: ResearchRequest):
     """Submit a theological question with streaming progress updates (SSE)."""
     return await stream_research(req.question, req.model)
+
+# ---------------------------------------------------------------------------
+# Essay Generation
+# ---------------------------------------------------------------------------
+
+async def stream_essay(topic: str, model: str | None):
+    """Stream essay generation with SSE."""
+    async def event_stream():
+        yield f"data: {json.dumps({'type': 'status', 'message': 'Starting essay generation...'})}\n\n"
+        yield f"data: {json.dumps({'type': 'status', 'message': 'Researching topic...'})}\n\n"
+        
+        model_name = model or DEFAULT_MODEL
+        yield f"data: {json.dumps({'type': 'status', 'message': f'Writing essay with {model_name}...'})}\n\n"
+        
+        user_message = f"""Write a well-structured academic essay on the following topic. Follow the essay format specified in your instructions.
+
+TOPIC: {topic}
+
+Remember: Include a clear thesis, well-developed body sections with Scripture support, and a strong conclusion."""
+        
+        payload = {
+            "model": model_name,
+            "messages": [
+                {"role": "system", "content": ESSAY_SYSTEM_PROMPT},
+                {"role": "user", "content": user_message},
+            ],
+            "stream": True,
+            "options": {"num_predict": 8192, "temperature": 0.4},
+        }
+        
+        try:
+            full_report = ""
+            async with httpx.AsyncClient(timeout=600.0) as client:
+                async with client.stream("POST", f"{OLLAMA_BASE_URL}/api/chat", json=payload) as resp:
+                    if resp.status_code != 200:
+                        body = await resp.aread()
+                        yield f"data: {json.dumps({'type': 'error', 'message': f'Ollama error: {resp.status_code}'})}\n\n"
+                        return
+                    async for line in resp.aiter_lines():
+                        if not line.strip():
+                            continue
+                        try:
+                            chunk = json.loads(line)
+                            if chunk.get("done"):
+                                break
+                            token = chunk.get("message", {}).get("content", "")
+                            if token:
+                                full_report += token
+                                yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
+                        except json.JSONDecodeError:
+                            continue
+            
+            result = ResearchResponse(
+                report=full_report,
+                question=topic,
+                model_used=model_name,
+                generated_at=datetime.utcnow().isoformat() + "Z",
+                search_results_count=0,
+            )
+            yield f"data: {json.dumps({'type': 'complete', 'data': result.model_dump()})}\n\n"
+        except Exception as e:
+            logger.error(f"Essay stream error: {e}")
+            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+    
+    return StreamingResponse(event_stream(), media_type="text/event-stream")
+
+
+@app.post("/essay/stream")
+async def essay_stream(req: ResearchRequest):
+    """Generate an academic essay with streaming (SSE)."""
+    return await stream_essay(req.question, req.model)
+
+
+# ---------------------------------------------------------------------------
+# Sermon Generation
+# ---------------------------------------------------------------------------
+
+async def stream_sermon(topic: str, model: str | None):
+    """Stream sermon generation with SSE."""
+    async def event_stream():
+        yield f"data: {json.dumps({'type': 'status', 'message': 'Starting sermon generation...'})}\n\n"
+        yield f"data: {json.dumps({'type': 'status', 'message': 'Praying over the message...'})}\n\n"
+        
+        model_name = model or DEFAULT_MODEL
+        yield f"data: {json.dumps({'type': 'status', 'message': f'Writing sermon with {model_name}...'})}\n\n"
+        
+        user_message = f"""Write a complete sermon on the following topic using the Monroe Motivated Sequence. Follow the sermon format specified in your instructions.
+
+SERMON TOPIC / SCRIPTURE: {topic}
+
+Remember: Structure with Attention, Need, Satisfaction, Visualization, and Action sections. Include Scripture references, illustrations, and a closing prayer."""
+        
+        payload = {
+            "model": model_name,
+            "messages": [
+                {"role": "system", "content": SERMON_SYSTEM_PROMPT},
+                {"role": "user", "content": user_message},
+            ],
+            "stream": True,
+            "options": {"num_predict": 8192, "temperature": 0.4},
+        }
+        
+        try:
+            full_report = ""
+            async with httpx.AsyncClient(timeout=600.0) as client:
+                async with client.stream("POST", f"{OLLAMA_BASE_URL}/api/chat", json=payload) as resp:
+                    if resp.status_code != 200:
+                        body = await resp.aread()
+                        yield f"data: {json.dumps({'type': 'error', 'message': f'Ollama error: {resp.status_code}'})}\n\n"
+                        return
+                    async for line in resp.aiter_lines():
+                        if not line.strip():
+                            continue
+                        try:
+                            chunk = json.loads(line)
+                            if chunk.get("done"):
+                                break
+                            token = chunk.get("message", {}).get("content", "")
+                            if token:
+                                full_report += token
+                                yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
+                        except json.JSONDecodeError:
+                            continue
+            
+            result = ResearchResponse(
+                report=full_report,
+                question=topic,
+                model_used=model_name,
+                generated_at=datetime.utcnow().isoformat() + "Z",
+                search_results_count=0,
+            )
+            yield f"data: {json.dumps({'type': 'complete', 'data': result.model_dump()})}\n\n"
+        except Exception as e:
+            logger.error(f"Sermon stream error: {e}")
+            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+    
+    return StreamingResponse(event_stream(), media_type="text/event-stream")
+
+
+@app.post("/sermon/stream")
+async def sermon_stream(req: ResearchRequest):
+    """Generate a sermon with streaming (SSE)."""
+    return await stream_sermon(req.question, req.model)
+
+
+# ---------------------------------------------------------------------------
+# Bible Study Generation
+# ---------------------------------------------------------------------------
+
+async def stream_bible_study(topic: str, model: str | None):
+    """Stream Bible study generation with SSE."""
+    async def event_stream():
+        yield f"data: {json.dumps({'type': 'status', 'message': 'Starting Bible study preparation...'})}\n\n"
+        yield f"data: {json.dumps({'type': 'status', 'message': 'Inviting the Holy Spirit to guide our study...'})}\n\n"
+        
+        model_name = model or DEFAULT_MODEL
+        yield f"data: {json.dumps({'type': 'status', 'message': f'Preparing study with {model_name}...'})}\n\n"
+        
+        user_message = f"""Create a comprehensive Bible study guide on the following topic, following the WiwB Bible study methodology.
+
+BIBLE STUDY TOPIC / SCRIPTURE PASSAGE: {topic}
+
+Remember: Structure with these steps:
+1. Opening Prayer
+2. Establish Context (author, audience, genre, historical setting, place in biblical story)
+3. Read & Observe (present the passage, ask "What stands out?")
+4. Interpret (original meaning, timeless principle, Scripture interpreting Scripture)
+5. Apply (promise to claim, command to obey, warning to heed, truth about God to embrace)
+6. Close with Prayer & Reflection (summarize key insight, pray, suggest next reading)
+
+Use the progressive revelation approach: start with Jesus, then salvation, then distinct doctrines. Ground everything in Scripture with verse citations. Use warm, accessible language. Match the seeker's level of biblical knowledge."""
+        
+        payload = {
+            "model": model_name,
+            "messages": [
+                {"role": "system", "content": BIBLE_STUDY_SYSTEM_PROMPT},
+                {"role": "user", "content": user_message},
+            ],
+            "stream": True,
+            "options": {"num_predict": 8192, "temperature": 0.4},
+        }
+        
+        try:
+            full_report = ""
+            async with httpx.AsyncClient(timeout=600.0) as client:
+                async with client.stream("POST", f"{OLLAMA_BASE_URL}/api/chat", json=payload) as resp:
+                    if resp.status_code != 200:
+                        body = await resp.aread()
+                        yield f"data: {json.dumps({'type': 'error', 'message': f'Ollama error: {resp.status_code}'})}\n\n"
+                        return
+                    async for line in resp.aiter_lines():
+                        if not line.strip():
+                            continue
+                        try:
+                            chunk = json.loads(line)
+                            if chunk.get("done"):
+                                break
+                            token = chunk.get("message", {}).get("content", "")
+                            if token:
+                                full_report += token
+                                yield f"data: {json.dumps({'type': 'token', 'content': token})}\n\n"
+                        except json.JSONDecodeError:
+                            continue
+            
+            result = ResearchResponse(
+                report=full_report,
+                question=topic,
+                model_used=model_name,
+                generated_at=datetime.utcnow().isoformat() + "Z",
+                search_results_count=0,
+            )
+            yield f"data: {json.dumps({'type': 'complete', 'data': result.model_dump()})}\n\n"
+        except Exception as e:
+            logger.error(f"Bible study stream error: {e}")
+            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+    
+    return StreamingResponse(event_stream(), media_type="text/event-stream")
+
+
+@app.post("/bible-study/stream")
+async def bible_study_stream(req: ResearchRequest):
+    """Generate a Bible study guide with streaming (SSE)."""
+    return await stream_bible_study(req.question, req.model)
+
+
+# Update root endpoint to show new routes
+@app.get("/")
+async def root():
+    return {
+        "status": "ok",
+        "service": "Adventist Theological Research Agent",
+        "version": "2.2.0",
+        "backend": "ollama",
+        "default_model": DEFAULT_MODEL,
+        "ollama_url": OLLAMA_BASE_URL,
+        "site_url_pattern": "https://whatifwebelieved.github.io/{topic-slug}",
+        "endpoints": {
+            "POST /research": "Submit a theological question (JSON body: {question, model?})",
+            "POST /research/stream": "Same but streamed via Server-Sent Events",
+            "POST /essay/stream": "Generate an academic essay (streaming)",
+            "POST /sermon/stream": "Generate a sermon (streaming)",
+            "POST /bible-study/stream": "Generate a Bible study guide (streaming)",
+            "GET /health": "Ollama connectivity & available models",
+            "GET /models": "List pulled Ollama models",
+        },
+    }
+
 
 if __name__ == "__main__":
     import uvicorn

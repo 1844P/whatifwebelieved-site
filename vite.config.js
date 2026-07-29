@@ -7,7 +7,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
-      input: 'index.html'
+      input: ['index.html', 'research.html']
     }
   },
   server: {

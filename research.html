@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theological Research — WhatIfWeBelieved</title>
-    <meta name="description" content="Ask theological questions and receive research grounded in the Seventh-day Adventist worldview, with Scripture and Spirit of Prophecy citations.">
+    <title>AI Writing Studio — WhatIfWeBelieved</title>
+    <meta name="description" content="Generate theological research, academic essays, and sermons with AI. One creative space for study, writing, and preaching preparation.">
     <meta name="theme-color" content="#8b6914">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -417,6 +417,59 @@
         .footer-bottom a { color: var(--text-tertiary); text-decoration: none; transition: color 0.2s; }
         .footer-bottom a:hover { color: var(--blue); }
 
+        /* --- TABS --- */
+        .mode-tabs {
+            display: flex; gap: 4px; margin-bottom: 24px;
+            background: var(--bg-primary); border-radius: var(--radius-md);
+            padding: 4px; border: 1px solid var(--border-subtle);
+        }
+        .mode-tab {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            gap: 8px; padding: 12px 20px; border: none; border-radius: var(--radius-sm);
+            background: transparent; cursor: pointer; font-family: var(--font-sans);
+            font-size: 0.82rem; font-weight: 500; color: var(--text-tertiary);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1); letter-spacing: 0.2px;
+            position: relative; white-space: nowrap;
+        }
+        .mode-tab:hover { color: var(--text-secondary); background: var(--blue-subtle); }
+        .mode-tab.active {
+            background: var(--bg-surface); color: var(--blue);
+            box-shadow: 0 2px 8px rgba(139,105,20,0.12);
+            border: 1px solid var(--border-default);
+        }
+        .mode-tab .tab-icon { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.7; }
+        .mode-tab.active .tab-icon { opacity: 1; }
+        .mode-tab .tab-badge {
+            position: absolute; top: -4px; right: -4px;
+            background: var(--blue); color: var(--text-inverse);
+            font-size: 0.55rem; font-weight: 600; padding: 1px 6px;
+            border-radius: 20px; letter-spacing: 0.5px;
+        }
+
+        /* Tab panels */
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: tabFadeIn 0.35s ease; }
+        @keyframes tabFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Tab-specific hints */
+        .tab-hint { display: none; }
+        .tab-hint.active { display: block; }
+
+        /* --- DYNAMIC DOWNLOAD BUTTON --- */
+        .btn-download-doc {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 18px; border-radius: var(--radius-sm);
+            font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s; text-decoration: none;
+            border: 1px solid var(--border-default); background: var(--bg-surface);
+            color: var(--text-secondary);
+        }
+        .btn-download-doc:hover { background: var(--blue-subtle); color: var(--blue); border-color: var(--blue); }
+        .btn-download-doc svg { width: 14px; height: 14px; }
+
+        /* Top-level result-actions layout */
+        .result-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             nav { padding: 0 16px; }
@@ -452,7 +505,7 @@
             <div class="nav-links">
                 <a href="index.html#articles">Articles</a>
                 <a href="index.html#videos">Videos</a>
-                <a href="research.html" style="color:var(--blue);font-weight:500;">Research</a>
+                <a href="research.html" style="color:var(--blue);font-weight:500;">AI Writing Studio</a>
                 <a href="https://www.youtube.com/@paulos1844?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                     Subscribe
@@ -466,30 +519,99 @@
                 <div class="breadcrumb">
                     <a href="index.html">Home</a>
                     <span class="sep">/</span>
-                    <span>Theological Research</span>
+                    <span>AI Writing Studio</span>
                 </div>
-                <h1>Theological <em>Research</em></h1>
-                <p class="subtitle">Ask a question grounded in Scripture. Receive a research report from the Seventh-day Adventist worldview, with citations from the Bible and the Spirit of Prophecy.</p>
+                <h1>AI <em>Writing Studio</em></h1>
+                <p class="subtitle">One creative space for theological research, academic essays, and sermon preparation. Choose your mode below — all generated with biblical depth and Adventist grounding.</p>
             </header>
 
             <section class="research-section">
                 <!-- INPUT CARD -->
                 <div class="research-input-card">
-                    <div class="card-eyebrow">AI Research Agent</div>
-                    <h2>What would you like to study?</h2>
-                    <p class="card-desc">Submit your theological question below. The research agent will search for Adventist and Biblical sources, then produce a structured report with full citations.</p>
+                    <div class="card-eyebrow">AI Writing Studio</div>
+                    <h2>What would you like to create?</h2>
+                    <p class="card-desc">Choose a mode, enter your topic or question, and let the AI generate a full document — research, essay, or sermon.</p>
 
-                    <textarea
-                        id="question-input"
-                        class="question-textarea"
-                        placeholder="e.g., What does the Bible teach about the state of the dead? How does the Adventist doctrine of soul sleep compare with the mainstream Christian view of the immortal soul?"
-                        maxlength="2000"
-                        aria-label="Your theological question"
-                    ></textarea>
+                    <!-- MODE TABS -->
+                    <div class="mode-tabs" role="tablist">
+                        <button class="mode-tab active" data-mode="research" role="tab" aria-selected="true" aria-controls="panel-research">
+                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            Research
+                        </button>
+                        <button class="mode-tab" data-mode="essay" role="tab" aria-selected="false" aria-controls="panel-essay">
+                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            Essay
+                        </button>
+                        <button class="mode-tab" data-mode="sermon" role="tab" aria-selected="false" aria-controls="panel-sermon">
+                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                            Sermon
+                            <span class="tab-badge">New</span>
+                        </button>
+                    </div>
 
-                    <div class="research-actions">
+                    <!-- RESEARCH PANEL -->
+                    <div class="tab-panel active" id="panel-research" role="tabpanel">
+                        <textarea
+                            id="question-input"
+                            class="question-textarea"
+                            placeholder="e.g., What does the Bible teach about the state of the dead? How does the Adventist doctrine of soul sleep compare with the mainstream Christian view of the immortal soul?"
+                            maxlength="2000"
+                            aria-label="Your theological question"
+                        ></textarea>
+                        <div class="example-questions">
+                            <div class="label">Try a question</div>
+                            <div class="example-chips">
+                                <button class="example-chip" data-q="What does the Bible teach about the state of the dead?">State of the Dead</button>
+                                <button class="example-chip" data-q="Explain the Seventh-day Adventist doctrine of the Investigative Judgment from Daniel 8:14 and Hebrews.">Investigative Judgment</button>
+                                <button class="example-chip" data-q="What is the biblical basis for the seventh-day Sabbath, and why do Adventists worship on Saturday?">Sabbath Doctrine</button>
+                                <button class="example-chip" data-q="How does the Great Controversy theme shape Adventist theology and understanding of history?">Great Controversy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ESSAY PANEL -->
+                    <div class="tab-panel" id="panel-essay" role="tabpanel">
+                        <textarea
+                            id="essay-input"
+                            class="question-textarea"
+                            placeholder="e.g., Write an essay on the doctrine of the sanctuary and its relevance for modern faith. Include biblical foundations and theological analysis."
+                            maxlength="2000"
+                            aria-label="Your essay topic"
+                        ></textarea>
+                        <div class="example-questions">
+                            <div class="label">Try an essay topic</div>
+                            <div class="example-chips">
+                                <button class="example-chip" data-q="Write an essay on the theology of the Sabbath as a sign of creation and redemption, exploring its meaning for contemporary Christian life.">Theology of the Sabbath</button>
+                                <button class="example-chip" data-q="Write an essay examining the Great Controversy theme as the interpretive key to understanding suffering, evil, and God's character.">Great Controversy Essay</button>
+                                <button class="example-chip" data-q="Write an essay on the Adventist understanding of the state of the dead, contrasting it with the doctrine of the immortal soul.">State of the Dead Essay</button>
+                                <button class="example-chip" data-q="Write an essay exploring the biblical concept of the remnant and its role in salvation history from Genesis to Revelation.">The Remnant in Scripture</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SERMON PANEL -->
+                    <div class="tab-panel" id="panel-sermon" role="tabpanel">
+                        <textarea
+                            id="sermon-input"
+                            class="question-textarea"
+                            placeholder="e.g., Write a sermon on Philippians 4:4-7 about the peace of God that guards our hearts and minds in Christ Jesus."
+                            maxlength="2000"
+                            aria-label="Your sermon topic or passage"
+                        ></textarea>
+                        <div class="example-questions">
+                            <div class="label">Try a sermon topic</div>
+                            <div class="example-chips">
+                                <button class="example-chip" data-q="Write a sermon on Matthew 11:28-30 about finding rest in Christ, using the Monroe Motivated Sequence.">Rest in Christ</button>
+                                <button class="example-chip" data-q="Write a sermon on Revelation 14:6-12 about the three angels' messages and their relevance for today.">Three Angels' Messages</button>
+                                <button class="example-chip" data-q="Write a sermon on the parable of the prodigal son (Luke 15:11-32) about grace and restoration.">The Prodigal Son</button>
+                                <button class="example-chip" data-q="Write a sermon on 1 Corinthians 13 about the supremacy of love in the Christian life.">The Way of Love</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="research-actions" style="margin-top: 20px;">
                         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                            <span class="hint">Research typically takes 1–3 minutes</span>
+                            <span class="hint" id="mode-hint">Research typically takes 1–3 minutes</span>
                             <div style="display:flex;align-items:center;gap:6px;">
                                 <label for="model-select" style="font-size:0.72rem;color:var(--text-tertiary);font-family:var(--font-sans);">Model:</label>
                                 <select id="model-select" style="font-family:var(--font-sans);font-size:0.78rem;padding:4px 8px;border:1px solid var(--border-default);border-radius:var(--radius-sm);background:var(--bg-surface);color:var(--text-secondary);cursor:pointer;">
@@ -497,40 +619,30 @@
                                 </select>
                             </div>
                         </div>
-                        <button id="btn-research" class="btn-research" type="button">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            Research
+                        <button id="btn-generate" class="btn-research" type="button">
+                            <svg id="btn-generate-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <span id="btn-generate-text">Research</span>
                         </button>
-                    </div>
-
-                    <div class="example-questions">
-                        <div class="label">Try a question</div>
-                        <div class="example-chips">
-                            <button class="example-chip" data-q="What does the Bible teach about the state of the dead?">State of the Dead</button>
-                            <button class="example-chip" data-q="Explain the Seventh-day Adventist doctrine of the Investigative Judgment from Daniel 8:14 and Hebrews.">Investigative Judgment</button>
-                            <button class="example-chip" data-q="What is the biblical basis for the seventh-day Sabbath, and why do Adventists worship on Saturday?">Sabbath Doctrine</button>
-                            <button class="example-chip" data-q="How does the Great Controversy theme shape Adventist theology and understanding of history?">Great Controversy</button>
-                        </div>
                     </div>
                 </div>
 
                 <!-- LOADING STATE -->
                 <div id="loading-card" class="loading-card">
                     <div class="loading-spinner"></div>
-                    <h3>Researching your question...</h3>
-                    <p class="loading-status" id="loading-status">Initializing research pipeline</p>
+                    <h3 id="loading-title">Generating your document...</h3>
+                    <p class="loading-status" id="loading-status">Initializing</p>
                     <div class="loading-steps">
                         <div class="loading-step active" id="step-search">
                             <div class="step-icon"></div>
-                            <span>Searching Adventist &amp; Biblical sources</span>
+                            <span id="step-search-text">Researching sources</span>
                         </div>
                         <div class="loading-step" id="step-analyze">
                             <div class="step-icon"></div>
-                            <span>Analyzing with theological framework</span>
+                            <span id="step-analyze-text">Analyzing with theological framework</span>
                         </div>
                         <div class="loading-step" id="step-report">
                             <div class="step-icon"></div>
-                            <span>Generating structured report</span>
+                            <span id="step-report-text">Generating final output</span>
                         </div>
                     </div>
                 </div>
@@ -546,10 +658,10 @@
                 <div id="result-card" class="result-card">
                     <div class="result-header">
                         <div class="result-meta">
-                            <span class="result-label">Research Report</span>
+                            <span class="result-label" id="result-label">Research Report</span>
                             <span class="result-question" id="result-question"></span>
                         </div>
-                        <div class="result-actions">
+                        <div class="result-actions" id="result-actions">
                             <button class="btn-new" id="btn-new-research" type="button">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                                 New
@@ -560,13 +672,17 @@
                             </button>
                             <button class="btn-download-md" id="btn-download-md" type="button">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                Download .md
+                                <span id="btn-download-text">Download .md</span>
+                            </button>
+                            <button class="btn-download-doc" id="btn-download-doc" type="button" style="display:none;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                <span id="btn-download-doc-text">Download</span>
                             </button>
                         </div>
                     </div>
                     <div class="report-body" id="report-body"></div>
                     <div class="report-footer">
-                        <div class="disclaimer">This report is generated by an AI research agent grounded in the Seventh-day Adventist worldview. Always verify with Scripture and your local church pastor.</div>
+                        <div class="disclaimer">This content is generated by an AI agent grounded in the Seventh-day Adventist worldview. Always verify with Scripture and your local church pastor.</div>
                         <div id="report-meta"></div>
                     </div>
                 </div>
@@ -601,7 +717,6 @@
         const IS_CODESPACE = window.location.hostname.includes('.app.github.dev') ||
                              window.location.hostname.includes('.githubpreview.dev');
 
-        // Allow backend URL override via ?backend= URL parameter (e.g. from Codespaces)
         const urlParams = new URLSearchParams(window.location.search);
         const backendOverride = urlParams.get('backend');
 
@@ -609,83 +724,40 @@
         if (backendOverride) {
             API_BASE = backendOverride;
         } else if (IS_CODESPACE) {
-            // In Codespaces, backend is on port 8000 — GitHub Codespaces port forwarding
-            // creates URLs like: name-PORT.app.github.dev, so swap the port number
             const host = window.location.hostname;
             API_BASE = host.replace(/-\d+(?=\.app\.github\.dev$)/, '-8000');
         } else if (IS_LOCAL) {
-            API_BASE = `http://127.0.0.1:8000`;
+            API_BASE = 'http://127.0.0.1:8000';
         } else {
-            API_BASE = null; // No backend configured
+            API_BASE = null;
         }
 
         // -----------------------------------------------------------------------
-        // Backend status banner
+        // State
         // -----------------------------------------------------------------------
-        function showBackendBanner() {
-            if (IS_CODESPACE) {
-                // In Codespaces, show a subtle info banner — backend is auto-detected
-                const banner = document.createElement('div');
-                banner.id = 'backend-banner';
-                banner.style.cssText = `
-                    background:#d1ecf1; border:1px solid #bee5eb; border-radius:10px;
-                    padding:16px 20px; margin-bottom:24px; font-family:var(--font-sans); font-size:0.82rem;
-                    display:flex; align-items:flex-start; gap:12px;
-                `;
-                banner.innerHTML = `
-                    <span style="font-size:1.2rem;flex-shrink:0;">&#9889;</span>
-                    <div>
-                        <strong style="color:#0c5460;">Running in GitHub Codespaces</strong>
-                        <p style="color:#0c5460;margin:4px 0 0;line-height:1.5;">
-                            Backend agent auto-detected on port 8000. If connection fails,
-                            add <code>?backend=</code> with your Codespace backend URL.
-                        </p>
-                    </div>
-                `;
-                const card = document.querySelector('.research-input-card');
-                if (card) card.parentNode.insertBefore(banner, card);
-            } else if (IS_GITHUB_PAGES || !IS_LOCAL) {
-                const banner = document.createElement('div');
-                banner.id = 'backend-banner';
-                banner.style.cssText = `
-                    background:#fff3cd; border:1px solid #ffc107; border-radius:10px;
-                    padding:20px 24px; margin-bottom:24px; font-family:var(--font-sans); font-size:0.85rem;
-                    display:flex; align-items:flex-start; gap:14px;
-                `;
-                banner.innerHTML = `
-                    <span style="font-size:1.4rem;flex-shrink:0;">&#9889;</span>
-                    <div>
-                        <strong style="color:#664d03;">Backend agent not detected</strong>
-                        <p style="color:#856404;margin:4px 0 0;line-height:1.6;">
-                            This research page needs a running AI backend. Options:<br>
-                            <strong>Local:</strong> Visit <a href="http://127.0.0.1:8080/research.html" style="color:#004085;">http://127.0.0.1:8080/research.html</a><br>
-                            <strong>GitHub Codespaces:</strong> The backend URL should be auto-detected. If not, add <code style="background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:3px;font-size:0.8rem;">?backend=</code> with your Codespace URL.
-                        </p>
-                    </div>
-                `;
-                const card = document.querySelector('.research-input-card');
-                if (card) card.parentNode.insertBefore(banner, card);
-            }
-        }
-
-        // -----------------------------------------------------------------------
-        // Check backend status on load
-        // -----------------------------------------------------------------------
-        async function checkBackend() {
-            if (!API_BASE) return false;
-            try {
-                const resp = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(3000) });
-                return resp.ok;
-            } catch {
-                return false;
-            }
-        }
+        let currentMode = 'research';   // 'research' | 'essay' | 'sermon'
+        let currentReport = '';
+        let currentQuestion = '';
+        let backendOk = false;
 
         // -----------------------------------------------------------------------
         // DOM References
         // -----------------------------------------------------------------------
-        const questionInput = document.getElementById('question-input');
-        const btnResearch = document.getElementById('btn-research');
+        const tabs = document.querySelectorAll('.mode-tab');
+        const panels = {
+            research: document.getElementById('panel-research'),
+            essay: document.getElementById('panel-essay'),
+            sermon: document.getElementById('panel-sermon'),
+        };
+        const inputs = {
+            research: document.getElementById('question-input'),
+            essay: document.getElementById('essay-input'),
+            sermon: document.getElementById('sermon-input'),
+        };
+        const btnGenerate = document.getElementById('btn-generate');
+        const btnGenerateIcon = document.getElementById('btn-generate-icon');
+        const btnGenerateText = document.getElementById('btn-generate-text');
+        const modeHint = document.getElementById('mode-hint');
         const loadingCard = document.getElementById('loading-card');
         const loadingStatus = document.getElementById('loading-status');
         const stepSearch = document.getElementById('step-search');
@@ -694,95 +766,151 @@
         const errorCard = document.getElementById('error-card');
         const errorMessage = document.getElementById('error-message');
         const resultCard = document.getElementById('result-card');
+        const resultLabel = document.getElementById('result-label');
         const resultQuestion = document.getElementById('result-question');
         const reportBody = document.getElementById('report-body');
         const reportMeta = document.getElementById('report-meta');
         const btnDownloadMd = document.getElementById('btn-download-md');
+        const btnDownloadDoc = document.getElementById('btn-download-doc');
+        const btnDownloadDocText = document.getElementById('btn-download-doc-text');
+        const btnDownloadText = document.getElementById('btn-download-text');
         const btnCopy = document.getElementById('btn-copy');
-        const btnNewResearch = document.getElementById('btn-new-research');
-
-        let currentReport = '';
-        let currentQuestion = '';
-        let backendOk = false;
+        const btnNew = document.getElementById('btn-new-research');
 
         // -----------------------------------------------------------------------
-        // Check backend on load
+        // Backend status banner
         // -----------------------------------------------------------------------
-        showBackendBanner();
-        (async function() {
-            if (!API_BASE) return;
-            backendOk = await checkBackend();
-            if (!backendOk) {
-                // Show a subtle warning in the status area
-                const hint = document.querySelector('.research-actions .hint');
-                if (hint) hint.textContent = '⚠ Backend unreachable — start the agent server first';
-            } else {
-                // Load available models only if backend is reachable
-                try {
-                    const resp = await fetch(`${API_BASE}/models`);
-                    const data = await resp.json();
-                    const select = document.getElementById('model-select');
-                    if (data.models && data.models.length) {
-                        select.innerHTML = '';
-                        data.models.forEach(m => {
-                            const opt = document.createElement('option');
-                            opt.value = m;
-                            opt.textContent = m;
-                            if (m === 'gemma4:latest') opt.selected = true;
-                            select.appendChild(opt);
-                        });
-                    }
-                } catch(e) { /* keep default */ }
+        function showBackendBanner() {
+            if (IS_CODESPACE) {
+                const banner = document.createElement('div');
+                banner.id = 'backend-banner';
+                banner.style.cssText = 'background:#d1ecf1;border:1px solid #bee5eb;border-radius:10px;padding:16px 20px;margin-bottom:24px;font-family:var(--font-sans);font-size:0.82rem;display:flex;align-items:flex-start;gap:12px;';
+                banner.innerHTML = '<span style="font-size:1.2rem;flex-shrink:0;">&#9889;</span><div><strong style="color:#0c5460;">Running in GitHub Codespaces</strong><p style="color:#0c5460;margin:4px 0 0;line-height:1.5;">Backend agent auto-detected on port 8000. If connection fails, add <code>?backend=</code> with your Codespace backend URL.</p></div>';
+                const card = document.querySelector('.research-input-card');
+                if (card) card.parentNode.insertBefore(banner, card);
+            } else if (IS_GITHUB_PAGES || !IS_LOCAL) {
+                const banner = document.createElement('div');
+                banner.id = 'backend-banner';
+                banner.style.cssText = 'background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:20px 24px;margin-bottom:24px;font-family:var(--font-sans);font-size:0.85rem;display:flex;align-items:flex-start;gap:14px;';
+                banner.innerHTML = '<span style="font-size:1.4rem;flex-shrink:0;">&#9889;</span><div><strong style="color:#664d03;">Backend agent not detected</strong><p style="color:#856404;margin:4px 0 0;line-height:1.6;">This page needs a running AI backend.<br><strong>Local:</strong> Visit <a href="http://127.0.0.1:8080/research.html" style="color:#004085;">http://127.0.0.1:8080/research.html</a><br><strong>GitHub Codespaces:</strong> The backend URL is auto-detected.</p></div>';
+                const card = document.querySelector('.research-input-card');
+                if (card) card.parentNode.insertBefore(banner, card);
             }
-        })();
-
-        // -----------------------------------------------------------------------
-        // Configure marked.js
-        // -----------------------------------------------------------------------
-        if (typeof marked !== 'undefined') {
-            marked.setOptions({
-                breaks: true,
-                gfm: true,
-            });
         }
 
         // -----------------------------------------------------------------------
-        // Example question chips
+        // Check backend
         // -----------------------------------------------------------------------
-        document.querySelectorAll('.example-chip').forEach(chip => {
-            chip.addEventListener('click', function() {
-                questionInput.value = this.getAttribute('data-q');
-                questionInput.focus();
+        async function checkBackend() {
+            if (!API_BASE) return false;
+            try {
+                const resp = await fetch(API_BASE + '/health', { signal: AbortSignal.timeout(3000) });
+                return resp.ok;
+            } catch { return false; }
+        }
+
+        // -----------------------------------------------------------------------
+        // Tab switching
+        // -----------------------------------------------------------------------
+        function switchMode(mode) {
+            currentMode = mode;
+
+            // Update tab buttons
+            tabs.forEach(function(tab) {
+                var isActive = tab.getAttribute('data-mode') === mode;
+                tab.classList.toggle('active', isActive);
+                tab.setAttribute('aria-selected', isActive);
+            });
+
+            // Update panels
+            Object.keys(panels).forEach(function(key) {
+                panels[key].classList.toggle('active', key === mode);
+            });
+
+            // Update button text & icon
+            var labelData = {
+                research: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+                essay: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+                sermon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+            };
+            var texts = { research: 'Research', essay: 'Write Essay', sermon: 'Write Sermon' };
+            btnGenerateIcon.setAttribute('viewBox', '0 0 24 24');
+            btnGenerateIcon.innerHTML = labelData[mode] || labelData.research;
+            btnGenerateText.textContent = texts[mode] || 'Generate';
+
+            // Update hint
+            var hints = {
+                research: 'Research typically takes 1–3 minutes',
+                essay: 'Essay generation takes 1–2 minutes',
+                sermon: 'Sermon generation takes 1–2 minutes',
+            };
+            modeHint.textContent = hints[mode];
+        }
+
+        // -----------------------------------------------------------------------
+        // Tab click handlers
+        // -----------------------------------------------------------------------
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                var mode = this.getAttribute('data-mode');
+                // If there's a result showing, hide it on tab switch
+                resultCard.classList.remove('active');
+                errorCard.classList.remove('active');
+                switchMode(mode);
+                // Focus the appropriate input
+                var input = inputs[mode];
+                if (input) input.focus();
             });
         });
 
         // -----------------------------------------------------------------------
-        // Research submission
+        // Example chips work per active panel
         // -----------------------------------------------------------------------
-        btnResearch.addEventListener('click', startResearch);
-        questionInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-                e.preventDefault();
-                startResearch();
-            }
+        document.querySelectorAll('.example-chip').forEach(function(chip) {
+            chip.addEventListener('click', function() {
+                // Find which panel this chip is inside
+                var panel = this.closest('.tab-panel');
+                if (!panel) return;
+                var textarea = panel.querySelector('.question-textarea');
+                if (textarea) {
+                    textarea.value = this.getAttribute('data-q');
+                    textarea.focus();
+                }
+            });
         });
 
-        async function startResearch() {
-            const question = questionInput.value.trim();
-            if (!question || question.length < 5) {
-                questionInput.focus();
-                return;
-            }
+        // -----------------------------------------------------------------------
+        // Ctrl+Enter to submit from any textarea
+        // -----------------------------------------------------------------------
+        document.querySelectorAll('.question-textarea').forEach(function(ta) {
+            ta.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    startGeneration();
+                }
+            });
+        });
 
-            // Check backend availability
+        // -----------------------------------------------------------------------
+        // Generation
+        // -----------------------------------------------------------------------
+        btnGenerate.addEventListener('click', startGeneration);
+
+        async function startGeneration() {
+            var input = inputs[currentMode];
+            if (!input) return;
+            var question = input.value.trim();
+            if (!question || question.length < 5) { input.focus(); return; }
+
+            // Check backend
             if (!API_BASE) {
-                showError('This research page requires a running backend agent.\n\nOn GitHub Pages: Deploy the backend to Render.com or run locally.\nLocally: Start the agent with:\n  cd agent\n  uvicorn app:app --host 0.0.0.0 --port 8000');
+                showError('This page requires a running AI backend.\n\nLocally: cd agent && uvicorn app:app --host 0.0.0.0 --port 8000');
                 return;
             }
             if (!backendOk) {
-                const stillOk = await checkBackend();
+                var stillOk = await checkBackend();
                 if (!stillOk) {
-                    showError('Backend agent is not running.\n\nStart it with:\n  cd agent\n  uvicorn app:app --host 0.0.0.0 --port 8000\n\nMake sure Ollama is also running with gemma4:latest loaded.');
+                    showError('Backend agent is not running.\n\nStart with: cd agent && uvicorn app:app --host 0.0.0.0 --port 8000');
                     return;
                 }
                 backendOk = true;
@@ -792,66 +920,93 @@
             currentReport = '';
             window._liveReport = null;
 
-            // UI: show loading, hide others
-            btnResearch.disabled = true;
+            // UI: loading
+            btnGenerate.disabled = true;
             loadingCard.classList.add('active');
             errorCard.classList.remove('active');
             resultCard.classList.remove('active');
             stepSearch.className = 'loading-step active';
             stepAnalyze.className = 'loading-step';
             stepReport.className = 'loading-step';
-            loadingStatus.textContent = 'Connecting to research agent...';
+
+            // Update step labels based on mode
+            var loadingTitle = document.getElementById('loading-title');
+            var stepSearchText = document.getElementById('step-search-text');
+            var stepAnalyzeText = document.getElementById('step-analyze-text');
+            var stepReportText = document.getElementById('step-report-text');
+            if (currentMode === 'research') {
+                loadingTitle.textContent = 'Researching your question...';
+                stepSearchText.textContent = 'Searching Adventist & Biblical sources';
+                stepAnalyzeText.textContent = 'Analyzing with theological framework';
+                stepReportText.textContent = 'Generating structured report';
+            } else if (currentMode === 'essay') {
+                loadingTitle.textContent = 'Writing your essay...';
+                stepSearchText.textContent = 'Researching essay topic';
+                stepAnalyzeText.textContent = 'Developing thesis and arguments';
+                stepReportText.textContent = 'Composing final essay';
+            } else {
+                loadingTitle.textContent = 'Preparing your sermon...';
+                stepSearchText.textContent = 'Praying over the message';
+                stepAnalyzeText.textContent = 'Building sermon structure';
+                stepReportText.textContent = 'Writing with pastoral warmth';
+            }
+            loadingStatus.textContent = 'Connecting...';
+
+            // Build endpoint
+            var endpointMap = {
+                research: '/research/stream',
+                essay: '/essay/stream',
+                sermon: '/sermon/stream',
+            };
+            var endpoint = API_BASE + endpointMap[currentMode];
+            var selectedModel = document.getElementById('model-select').value;
 
             try {
-                // Use streaming endpoint for progress updates
-                const selectedModel = document.getElementById('model-select').value;
-                const response = await fetch(`${API_BASE}/research/stream`, {
+                var response = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ question: question, model: selectedModel }),
                 });
 
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.status}`);
-                }
+                if (!response.ok) throw new Error('Server error: ' + response.status);
 
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                let buffer = '';
+                var reader = response.body.getReader();
+                var decoder = new TextDecoder();
+                var buffer = '';
 
                 while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
+                    var result = await reader.read();
+                    if (result.done) break;
 
-                    buffer += decoder.decode(value, { stream: true });
-                    const lines = buffer.split('\n');
+                    buffer += decoder.decode(result.value, { stream: true });
+                    var lines = buffer.split('\n');
                     buffer = lines.pop();
 
-                    for (const line of lines) {
+                    for (var li = 0; li < lines.length; li++) {
+                        var line = lines[li];
                         if (!line.startsWith('data: ')) continue;
                         try {
-                            const event = JSON.parse(line.slice(6));
+                            var event = JSON.parse(line.slice(6));
 
                             if (event.type === 'status') {
                                 loadingStatus.textContent = event.message;
-                                const msg = event.message.toLowerCase();
-                                if (msg.includes('searching')) {
+                                var msg = event.message.toLowerCase();
+                                if (msg.includes('searching') || msg.indexOf('starting') >= 0 || msg.indexOf('praying') >= 0) {
                                     stepSearch.className = 'loading-step active';
-                                } else if (msg.includes('found') || msg.includes('source')) {
+                                } else if (msg.indexOf('source') >= 0 || msg.indexOf('research') >= 0) {
                                     stepSearch.className = 'loading-step done';
                                     stepAnalyze.className = 'loading-step active';
-                                } else if (msg.includes('calling') || msg.includes('generating') || msg.includes('streaming')) {
+                                } else if (msg.indexOf('call') >= 0 || msg.indexOf('generating') >= 0 || msg.indexOf('streaming') >= 0 || msg.indexOf('writing') >= 0) {
                                     stepSearch.className = 'loading-step done';
                                     stepAnalyze.className = 'loading-step done';
                                     stepReport.className = 'loading-step active';
                                 }
                             } else if (event.type === 'token') {
-                                // Live streaming: append tokens as they arrive
                                 if (!window._liveReport) {
                                     window._liveReport = '';
-                                    // Switch from loading to result view for live display
                                     loadingCard.classList.remove('active');
                                     resultCard.classList.add('active');
+                                    updateResultLabel();
                                     resultQuestion.textContent = currentQuestion;
                                     reportBody.innerHTML = '';
                                 }
@@ -861,7 +1016,6 @@
                                 } else {
                                     reportBody.textContent = window._liveReport;
                                 }
-                                reportBody.scrollIntoView({ behavior: 'smooth', block: 'end' });
                             } else if (event.type === 'complete') {
                                 stepSearch.className = 'loading-step done';
                                 stepAnalyze.className = 'loading-step done';
@@ -872,37 +1026,50 @@
                                 window._liveReport = null;
                                 showError(event.message);
                             }
-                        } catch (e) {
-                            // skip malformed lines
-                        }
+                        } catch(e) {}
                     }
                 }
             } catch (err) {
-                showError(err.message || 'Failed to connect to the research agent.');
+                showError(err.message || 'Failed to connect.');
             }
         }
 
         // -----------------------------------------------------------------------
         // Display results
         // -----------------------------------------------------------------------
+        function updateResultLabel() {
+            var labels = { research: 'Research Report', essay: 'Essay', sermon: 'Sermon' };
+            resultLabel.textContent = labels[currentMode] || 'Document';
+        }
+
         function showResult(data) {
             currentReport = data.report;
             resultQuestion.textContent = data.question;
+            updateResultLabel();
 
-            // Render Markdown as HTML
             if (typeof marked !== 'undefined') {
                 reportBody.innerHTML = marked.parse(data.report);
             } else {
                 reportBody.innerHTML = '<p>' + data.report.replace(/\n/g, '</p><p>') + '</p>';
             }
 
-            reportMeta.innerHTML = `Model: ${data.model_used} &middot; Sources: ${data.search_results_count} &middot; ${new Date(data.generated_at).toLocaleDateString()}`;
+            reportMeta.innerHTML = 'Model: ' + data.model_used + ' &middot; ' + new Date(data.generated_at).toLocaleDateString();
 
             loadingCard.classList.remove('active');
             resultCard.classList.add('active');
-            btnResearch.disabled = false;
+            btnGenerate.disabled = false;
 
-            // Scroll to result
+            // Show/hide download buttons based on mode
+            if (currentMode === 'research') {
+                btnDownloadText.textContent = 'Download .md';
+                btnDownloadMd.style.display = '';
+                btnDownloadDoc.style.display = 'none';
+            } else {
+                btnDownloadDocText.textContent = currentMode === 'essay' ? 'Download Essay (.doc)' : 'Download Sermon (.doc)';
+                btnDownloadMd.style.display = 'none';
+                btnDownloadDoc.style.display = '';
+            }
+
             resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
@@ -910,24 +1077,96 @@
             loadingCard.classList.remove('active');
             errorCard.classList.add('active');
             errorMessage.innerHTML = msg.replace(/\n/g, '<br>');
-            btnResearch.disabled = false;
+            btnGenerate.disabled = false;
         }
 
         // -----------------------------------------------------------------------
-        // Download as Markdown
+        // Download as Markdown (Research mode only)
         // -----------------------------------------------------------------------
         btnDownloadMd.addEventListener('click', function() {
             if (!currentReport) return;
-            const blob = new Blob([currentReport], { type: 'text/markdown;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            const safeFilename = currentQuestion
-                .replace(/[^a-zA-Z0-9\s]/g, '')
-                .trim()
-                .substring(0, 60)
-                .replace(/\s+/g, '_');
+            var blob = new Blob([currentReport], { type: 'text/markdown;charset=utf-8' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            var safe = currentQuestion.replace(/[^a-zA-Z0-9\s]/g, '').trim().substring(0, 60).replace(/\s+/g, '_');
             a.href = url;
-            a.download = `WhatIfWeBelieved_Research_${safeFilename}.md`;
+            a.download = 'WhatIfWeBelieved_Research_' + safe + '.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // -----------------------------------------------------------------------
+        // THE CREATIVE DOWNLOAD: One .doc button for Essay + Sermon
+        // Generates a Word-compatible HTML document using mso namespace,
+        // saved as .doc — works in Word, LibreOffice, and most document viewers.
+        // -----------------------------------------------------------------------
+        function generateWordHTML(content, title, docType) {
+            var safeTitle = (title || 'Document').replace(/[<>]/g, '');
+            var dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            var headerColor = docType === 'sermon' ? '#003366' : '#8b6914';
+            var docTypeLabel = docType === 'sermon' ? 'Sermon' : 'Academic Essay';
+
+            // Convert markdown content to basic HTML for Word
+            var htmlContent = content
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+                .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+                .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                .replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>')
+                .replace(/^- (.+)$/gm, '<li>$1</li>')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>');
+
+            // Wrap list items
+            htmlContent = htmlContent.replace(/(<li>.*?<\/li>)+/g, function(match) {
+                return '<ul>' + match + '</ul>';
+            });
+
+            return '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">' +
+                '<head><meta charset="UTF-8">' +
+                '<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]-->' +
+                '<style>' +
+                'body{font-family:Georgia,"Times New Roman",serif;font-size:12pt;line-height:1.6;color:#1a1a1a;margin:1in 1.25in;}' +
+                'h1{font-size:22pt;color:' + headerColor + ';margin-bottom:4pt;}' +
+                'h2{font-size:16pt;color:' + headerColor + ';margin-top:24pt;margin-bottom:8pt;border-bottom:1px solid #ccc;padding-bottom:4pt;}' +
+                'h3{font-size:13pt;color:' + headerColor + ';margin-top:18pt;margin-bottom:6pt;}' +
+                'p{margin-bottom:10pt;text-align:justify;}' +
+                'strong{color:#1a1a1a;}' +
+                'em{color:#444;}' +
+                'blockquote{margin:12pt 0 12pt 20pt;padding:8pt 16pt;border-left:3px solid ' + headerColor + ';background:#f8f6f2;}' +
+                'ul{margin:8pt 0 12pt 24pt;}' +
+                'li{margin-bottom:4pt;}' +
+                '.doc-header{text-align:center;margin-bottom:24pt;padding-bottom:16pt;border-bottom:2px solid ' + headerColor + ';}' +
+                '.doc-header h1{font-size:26pt;margin-bottom:4pt;}' +
+                '.doc-header .doc-meta{font-size:10pt;color:#666;}' +
+                '.doc-footer{text-align:center;margin-top:36pt;padding-top:12pt;border-top:1px solid #ccc;font-size:9pt;color:#999;}' +
+                '</style></head><body>' +
+                '<div class="doc-header">' +
+                '<h1>' + safeTitle + '</h1>' +
+                '<div class="doc-meta">' + docTypeLabel + ' &middot; WhatIfWeBelieved &middot; ' + dateStr + '</div>' +
+                '</div>' +
+                '<div>' + htmlContent + '</div>' +
+                '<div class="doc-footer">Generated by WhatIfWeBelieved AI Writing Studio &mdash; Grounded in Scripture, rooted in faith.</div>' +
+                '</body></html>';
+        }
+
+        btnDownloadDoc.addEventListener('click', function() {
+            if (!currentReport) return;
+            var docType = currentMode;
+            var safeTitle = currentQuestion.replace(/[^a-zA-Z0-9\s]/g, '').trim().substring(0, 80);
+            var wordHtml = generateWordHTML(currentReport, safeTitle, docType);
+            var blob = new Blob([wordHtml], { type: 'application/msword;charset=utf-8' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            var safe = safeTitle.replace(/\s+/g, '_');
+            a.href = url;
+            a.download = 'WhatIfWeBelieved_' + (docType === 'essay' ? 'Essay' : 'Sermon') + '_' + safe + '.doc';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -942,12 +1181,11 @@
             try {
                 await navigator.clipboard.writeText(currentReport);
                 btnCopy.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
-                setTimeout(() => {
+                setTimeout(function() {
                     btnCopy.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
                 }, 2000);
-            } catch (e) {
-                // Fallback for older browsers
-                const ta = document.createElement('textarea');
+            } catch(e) {
+                var ta = document.createElement('textarea');
                 ta.value = currentReport;
                 document.body.appendChild(ta);
                 ta.select();
@@ -957,15 +1195,53 @@
         });
 
         // -----------------------------------------------------------------------
-        // New research
+        // New / Reset
         // -----------------------------------------------------------------------
-        btnNewResearch.addEventListener('click', function() {
+        btnNew.addEventListener('click', function() {
             resultCard.classList.remove('active');
             errorCard.classList.remove('active');
-            questionInput.value = '';
-            questionInput.focus();
+            var input = inputs[currentMode];
+            if (input) input.value = '';
+            if (input) input.focus();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // -----------------------------------------------------------------------
+        // Init
+        // -----------------------------------------------------------------------
+        showBackendBanner();
+        (async function() {
+            if (!API_BASE) return;
+            backendOk = await checkBackend();
+            if (!backendOk) {
+                var hint = document.querySelector('.research-actions .hint');
+                if (hint) hint.textContent = '\u26A0 Backend unreachable \u2014 start the agent server first';
+            } else {
+                try {
+                    var resp = await fetch(API_BASE + '/models');
+                    var data = await resp.json();
+                    var select = document.getElementById('model-select');
+                    if (data.models && data.models.length) {
+                        select.innerHTML = '';
+                        data.models.forEach(function(m) {
+                            var opt = document.createElement('option');
+                            opt.value = m;
+                            opt.textContent = m;
+                            if (m.indexOf('gemma') >= 0 || m.indexOf('llama3') >= 0 || m.indexOf('qwen') >= 0) opt.selected = true;
+                            select.appendChild(opt);
+                        });
+                    }
+                } catch(e) {}
+            }
+        })();
+
+        // Configure marked.js
+        if (typeof marked !== 'undefined') {
+            marked.setOptions({ breaks: true, gfm: true });
+        }
+
+        // Initialize first tab
+        switchMode('research');
     })();
     </script>
 </body>
