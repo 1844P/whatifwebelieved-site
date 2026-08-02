@@ -161,6 +161,125 @@
             transform: translateY(-2px);
         }
 
+        /* Navigation Dropdowns */
+        .nav-links {
+            position: relative;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: var(--ink-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s, transform 0.3s;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-dropdown-toggle:hover {
+            color: var(--crimson);
+            transform: translateY(-1px);
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .nav-dropdown.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 240px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 8px;
+            margin-top: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(200,162,78,0.1);
+        }
+
+        .nav-dropdown.open .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(154,117,32,0.15);
+            color: var(--crimson);
+            padding-left: 20px;
+        }
+
+        .dropdown-divider {
+            display: block;
+            height: 1px;
+            background: var(--glass-border);
+            margin: 8px 0;
+        }
+
+        .dropdown-desc {
+            padding: 8px 16px;
+            font-size: 0.75rem;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        @media (max-width: 768px) {
+            .nav-dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                background: transparent;
+                padding: 0;
+                margin: 0;
+                border-top: 1px solid var(--glass-border);
+                border-radius: 0;
+            }
+            .nav-dropdown.open .nav-dropdown-menu {
+                display: block;
+            }
+            .nav-dropdown-menu {
+                display: none;
+            }
+            .dropdown-item:hover {
+                padding-left: 16px;
+            }
+        }
+
         /* --- HERO --- */
         .hero {
             position: relative;
@@ -1782,9 +1901,72 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#articles">Articles</a></li>
                 <li><a href="#book">Book</a></li>
-                <li><a href="#ai-agent-showcase">AI Agent</a></li>
-                <li><a href="bible-game/index.html" style="color:var(--crimson);font-weight:600;">Kids' Game</a></li>
-                <li><a href="radio/index.html" style="color:var(--crimson);font-weight:600;">📻 Radio</a></li>
+                
+                <!-- AI Agent Dropdown -->
+                <li class="nav-dropdown">
+                    <a href="#ai-agent-showcase" class="nav-dropdown-toggle">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L12 22"/><path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93"/><circle cx="12" cy="6" r="1" fill="currentColor" stroke="none"/><path d="M4.93 10.93a4 4 0 0 0 3.53 5.64"/><path d="M19.07 10.93a4 4 0 0 1-3.53 5.64"/></svg>
+                        AI Agent
+                        <svg class="dropdown-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="#ai-agent-showcase" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            <span>Open Agent</span>
+                        </a>
+                        <a href="https://aistudio.google.com/apikey" target="_blank" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            <span>Get API Key</span>
+                        </a>
+                        <a href="agent/index.html?q=What+is+the+investigative+judgment%3F" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                            <span>Try: Investigative Judgment</span>
+                        </a>
+                        <a href="agent/index.html?q=How+does+Ellen+White%27s+prophetic+ministry+compare+to+other+prophets%3F" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                            <span>Try: Ellen White Comparison</span>
+                        </a>
+                    </div>
+                </li>
+                
+                <!-- Kids' Game Dropdown -->
+                <li class="nav-dropdown">
+                    <a href="bible-game/index.html" class="nav-dropdown-toggle" style="color:var(--crimson);font-weight:600;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        Kids' Game
+                        <svg class="dropdown-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="bible-game/index.html" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 3 19 12 5 21 5 3"/></svg>
+                            <span>Play Bible Game</span>
+                        </a>
+                        <span class="dropdown-divider"></span>
+                        <div class="dropdown-desc">600 questions across the whole Bible</div>
+                        <div class="dropdown-desc">Stars, streaks & 19 collectible badges</div>
+                        <div class="dropdown-desc">Music, confetti & kid-safe design</div>
+                    </div>
+                </li>
+                
+                <!-- Radio Dropdown -->
+                <li class="nav-dropdown">
+                    <a href="radio/index.html" class="nav-dropdown-toggle" style="color:var(--crimson);font-weight:600;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        Radio
+                        <svg class="dropdown-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="radio/index.html" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            <span>Open Radio</span>
+                        </a>
+                        <span class="dropdown-divider"></span>
+                        <div class="dropdown-desc">5 stations: Worship, Stories, Prayer, Hymns, Kids</div>
+                        <div class="dropdown-desc">Live synthesized audio • No streaming</div>
+                        <div class="dropdown-desc">Tuning knob • Volume • Announcer</div>
+                    </div>
+                </li>
+                
                 <li><a href="https://www.youtube.com/@paulos1844?sub_confirmation=1" target="_blank" class="nav-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                     Subscribe
@@ -2496,6 +2678,33 @@
                 }
             });
         }
+
+        // --- Navigation Dropdowns ---
+        document.querySelectorAll('.nav-dropdown-toggle').forEach(function(toggle) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                var dropdown = this.closest('.nav-dropdown');
+                var isOpen = dropdown.classList.contains('open');
+                
+                // Close all other dropdowns
+                document.querySelectorAll('.nav-dropdown').forEach(function(d) {
+                    d.classList.remove('open');
+                });
+                
+                if (!isOpen) {
+                    dropdown.classList.add('open');
+                }
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-dropdown')) {
+                document.querySelectorAll('.nav-dropdown').forEach(function(d) {
+                    d.classList.remove('open');
+                });
+            }
+        });
 
         // Fallback: try to play iframe video on user interaction
         document.addEventListener('click', function() {
