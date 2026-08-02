@@ -10,6 +10,25 @@
     <title>Adventist Theology & Christian Philosophy Agent</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Vercel Web Analytics -->
+    <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Google Analytics - Replace G-9ZM6VF3FZY with your actual GA4 measurement ID -->
+    <script>
+        (function() {
+            var id = 'G-9ZM6VF3FZY'; // <-- SET YOUR GA4 MEASUREMENT ID HERE
+            if (id && id !== 'G-9ZM6VF3FZY' && id.startsWith('G-')) {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', id);
+                var s = document.createElement('script');
+                s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+                s.async = true;
+                document.head.appendChild(s);
+            }
+        })();
+    </script>
     <style>
         :root {
             --cream: #faf8f4;
@@ -1380,12 +1399,12 @@
         <div class="api-inner">
             <label for="modelProvider" style="font-size:0.85rem;font-weight:600;color:var(--text-secondary);white-space:nowrap;">Select Model:</label>
             <select id="modelProvider" onchange="handleModelChange(this.value)">
-                <option value="gemini-direct" selected>Gemini (Your Key) — Primary</option>
-                <option value="gemini">Gemini (Cloud Worker) — Fallback</option>
+                <option value="gemini" selected>Gemini (Cloud Worker) — Primary</option>
+                <option value="gemini-direct">Gemini (Your Key) — Fallback</option>
                 <option value="ollama">Ollama (Local)</option>
             </select>
             <span id="geminiStatus">Ready</span>
-            <small id="apiHint" style="font-size:0.78rem;color:var(--text-muted);margin-left:4px;flex:1;">Primary API — Uses your own Gemini API key directly from the browser. Get a free key below.</small>
+            <small id="apiHint" style="font-size:0.78rem;color:var(--text-muted);margin-left:4px;flex:1;">Primary API — Uses shared Cloudflare Worker with Gemini, Groq & OpenRouter fallbacks.</small>
         </div>
         <div id="ollamaControls" style="display:none;max-width:900px;margin:6px auto 0;padding:0 32px 4px;">
             <span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
@@ -1404,16 +1423,67 @@
         <div style="max-width:900px;margin:0 auto;">
             <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--text-muted)" stroke-width="2" style="flex-shrink:0;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                <span id="personalKeyLabel" style="font-size:0.82rem;color:var(--text-muted);font-weight:500;">Primary API Key (Gemini)</span>
+                <span id="personalKeyLabel" style="font-size:0.82rem;color:var(--text-muted);font-weight:500;">Your Gemini API Key</span>
                 <span id="personalKeyBadge" style="display:none;font-size:0.7rem;padding:2px 8px;border-radius:8px;font-weight:600;background:#d1fae5;color:#065f46;">Active</span>
-                <div style="flex:1;min-width:200px;display:flex;gap:6px;">
-                    <input type="password" id="personalApiKey" placeholder="AIzaSy... or AQ..." style="flex:1;padding:7px 10px;border:1px solid var(--border);border-radius:6px;background:var(--cream);color:var(--text);font-size:0.82rem;font-family:monospace;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--gold)';this.style.boxShadow='0 0 0 3px rgba(200,162,78,0.15)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
-                    <button onclick="savePersonalKey()" style="padding:7px 14px;background:linear-gradient(135deg,var(--gold) 0%,#7a5c10 100%);color:white;border:none;border-radius:6px;font-size:0.82rem;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 2px 6px rgba(154,117,32,0.3);transition:all 0.2s;">Save</button>
-                    <button onclick="clearPersonalKey()" style="padding:7px 10px;background:white;border:1px solid var(--border);border-radius:6px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;transition:all 0.2s;">Clear</button>
-                </div>
-                <a href="https://aistudio.google.com/apikey" target="_blank" style="font-size:0.78rem;color:var(--gold);font-weight:600;text-decoration:none;white-space:nowrap;">Get free key &rarr;</a>
             </div>
-            <p id="personalKeyMsg" style="font-size:0.75rem;margin:6px 0 0 22px;display:none;"></p>
+            
+            <!-- Key acquisition flow -->
+            <div id="keyFlow" style="margin-top:12px;padding:16px;background:linear-gradient(135deg,var(--gold-bg) 0%,#fffcf0 100%);border:1px solid var(--gold-light);border-radius:12px;display:none;">
+                <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+                    <div style="flex:1;min-width:200px;">
+                        <h5 style="font-size:0.85rem;font-weight:700;color:var(--gold);margin:0 0 6px;display:flex;align-items:center;gap:6px;">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            Get your free Gemini API key in 30 seconds
+                        </h5>
+                        <p style="font-size:0.8rem;color:var(--text-secondary);margin:0 0 10px;line-height:1.5;">No credit card • 15 req/min • 1M tokens/day • Free forever</p>
+                        <button id="getKeyBtn" class="btn-gemini" style="padding:10px 18px;font-size:0.85rem;" onclick="openKeyPopup()">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            Get Free API Key →
+                        </button>
+                    </div>
+                    <div style="flex:1;min-width:220px;display:flex;gap:16px;flex-wrap:wrap;justify-content:flex-end;">
+                        <div style="text-align:center;padding:8px;">
+                            <div style="width:36px;height:36px;border-radius:50%;background:rgba(154,117,32,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg></div>
+                            <div style="font-size:0.7rem;font-weight:700;color:var(--gold);">1. Click</div>
+                            <div style="font-size:0.65rem;color:var(--text-muted);">Get Key button</div>
+                        </div>
+                        <div style="width:24px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);">→</div>
+                        <div style="text-align:center;padding:8px;">
+                            <div style="width:36px;height:36px;border-radius:50%;background:rgba(154,117,32,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+                            <div style="font-size:0.7rem;font-weight:700;color:var(--gold);">2. Sign in</div>
+                            <div style="font-size:0.65rem;color:var(--text-muted);">With Google</div>
+                        </div>
+                        <div style="width:24px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);">→</div>
+                        <div style="text-align:center;padding:8px;">
+                            <div style="width:36px;height:36px;border-radius:50%;background:rgba(154,117,32,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></div>
+                            <div style="font-size:0.7rem;font-weight:700;color:var(--gold);">3. Paste</div>
+                            <div style="font-size:0.65rem;color:var(--text-muted);">Auto-fills here</div>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-size:0.7rem;color:var(--text-muted);margin:0;text-align:center;">
+                    Opens in a popup — you won't lose this page. Key saves automatically when you return.
+                </p>
+            </div>
+
+            <!-- Key input section -->
+            <div id="keyInputSection" style="margin-top:12px;display:none;">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                    <label for="personalApiKey" style="font-size:0.75rem;font-weight:600;color:var(--text-secondary);white-space:nowrap;">Paste your key:</label>
+                    <input type="password" id="personalApiKey" placeholder="AIzaSy... or AQ..." style="flex:1;min-width:200px;padding:8px 12px;border:1.5px solid var(--border);border-radius:10px;background:white;color:var(--text);font-size:0.85rem;font-family:monospace;transition:border-color 0.25s ease, box-shadow 0.25s ease;" onfocus="this.style.borderColor='var(--gold)';this.style.boxShadow='0 0 0 3px rgba(200,162,78,0.12)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+                    <button onclick="savePersonalKey()" style="padding:8px 16px;background:linear-gradient(135deg,var(--gold) 0%,#7a5c10 100%);color:white;border:none;border-radius:10px;font-size:0.82rem;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 2px 8px rgba(154,117,32,0.25);transition:all 0.25s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 16px rgba(154,117,32,0.35)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 8px rgba(154,117,32,0.25)'">Save Key</button>
+                    <button onclick="clearPersonalKey()" style="padding:8px 14px;background:white;border:1.5px solid var(--border);border-radius:10px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;transition:all 0.25s;" onmouseover="this.style.borderColor='#b91c1c';this.style.color='#b91c1c';this.style.background='#fff5f5'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)';this.style.background='white'">Clear</button>
+                </div>
+                <p id="personalKeyMsg" style="font-size:0.75rem;margin:6px 0 0 0;display:none;"></p>
+            </div>
+
+            <!-- Free tier badge -->
+            <div style="margin-top:10px;padding:8px 12px;background:rgba(154,117,32,0.08);border:1px solid rgba(154,117,32,0.15);border-radius:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.72rem;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--gold)" stroke-width="2" style="flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                <span style="color:var(--gold);font-weight:600;">Free Tier:</span>
+                <span style="color:var(--text-secondary);">15 requests/min • 1M tokens/day • No credit card</span>
+                <a href="https://ai.google.dev/gemini-api/docs/rate-limits" target="_blank" style="color:var(--gold);font-weight:500;text-decoration:none;">Learn more →</a>
+            </div>
         </div>
     </div>
 
@@ -1585,6 +1655,8 @@ Reasoning rules:
         let lastSermonContent = null;
         let lastEssayContent = null;
         let lastBibleStudyContent = null;
+        let keyPopup = null;
+        let keyPollInterval = null;
 
         const messagesDiv = document.getElementById('messages');
         const scrollBottomBtn = document.getElementById('scrollBottomBtn');
@@ -1598,6 +1670,127 @@ Reasoning rules:
         const ollamaControls = document.getElementById('ollamaControls');
         const ollamaStatus = document.getElementById('ollamaStatus');
         const apiHint = document.getElementById('apiHint');
+
+        // Initialize key flow UI on load
+        function initKeyFlow() {
+            const keyFlow = document.getElementById('keyFlow');
+            const keyInputSection = document.getElementById('keyInputSection');
+            const personalApiKey = document.getElementById('personalApiKey');
+            
+            if (personalKey) {
+                // Key exists - show input section with key pre-filled
+                keyFlow.style.display = 'none';
+                keyInputSection.style.display = 'block';
+                personalApiKey.value = personalKey;
+            } else if (currentProvider === 'gemini-direct') {
+                // No key, using direct mode - show acquisition flow
+                keyFlow.style.display = 'block';
+                keyInputSection.style.display = 'none';
+            } else {
+                // Default - show acquisition flow
+                keyFlow.style.display = 'block';
+                keyInputSection.style.display = 'none';
+            }
+        }
+
+        // Open Google AI Studio in popup and poll for key
+        window.openKeyPopup = function() {
+            const keyFlow = document.getElementById('keyFlow');
+            const keyInputSection = document.getElementById('keyInputSection');
+            const personalApiKey = document.getElementById('personalApiKey');
+            
+            // Open AI Studio in a centered popup
+            const width = 600;
+            const height = 700;
+            const left = (screen.width - width) / 2;
+            const top = (screen.height - height) / 2;
+            
+            keyPopup = window.open(
+                'https://aistudio.google.com/apikey?create=true',
+                'gemini-key',
+                `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
+            );
+            
+            // Poll for key in localStorage (set by success page or user pasting)
+            if (keyPollInterval) clearInterval(keyPollInterval);
+            keyPollInterval = setInterval(() => {
+                const savedKey = localStorage.getItem('wwb_personal_gemini_key');
+                if (savedKey && savedKey !== personalKey) {
+                    personalKey = savedKey;
+                    clearInterval(keyPollInterval);
+                    keyPollInterval = null;
+                    
+                    // Update UI
+                    keyFlow.style.display = 'none';
+                    keyInputSection.style.display = 'block';
+                    personalApiKey.value = personalKey;
+                    
+                    // Show success message
+                    const msg = document.getElementById('personalKeyMsg');
+                    msg.textContent = 'Key detected and saved! Switch to "Gemini (Your Key)" in the model dropdown to use it.';
+                    msg.style.color = '#065f46';
+                    msg.style.display = 'block';
+                    
+                    updatePersonalKeyBadge();
+                    
+                    // If on direct mode, update status
+                    if (currentProvider === 'gemini-direct') {
+                        const status = document.getElementById('geminiStatus');
+                        status.textContent = 'Direct (your key)';
+                        status.style.background = '#d1fae5';
+                        status.style.color = '#065f46';
+                    }
+                }
+                
+                // Also check if popup was closed without key
+                if (keyPopup && keyPopup.closed) {
+                    clearInterval(keyPollInterval);
+                    keyPollInterval = null;
+                }
+            }, 500);
+        };
+
+        // Handle key save from input
+        function savePersonalKey() {
+            const input = document.getElementById('personalApiKey');
+            const msg = document.getElementById('personalKeyMsg');
+            const val = input.value.trim();
+            if (!val) {
+                msg.textContent = 'Please paste a valid API key.';
+                msg.style.color = '#b91c1c';
+                msg.style.display = 'block';
+                return;
+            }
+            if (!val.startsWith('AIzaSy') && !val.startsWith('AQ.')) {
+                msg.textContent = 'Key should start with AIzaSy or AQ. Please check you copied the full key.';
+                msg.style.color = '#b91c1c';
+                msg.style.display = 'block';
+                return;
+            }
+            personalKey = val;
+            localStorage.setItem('wwb_personal_gemini_key', val);
+            msg.textContent = 'Key saved! Switch to "Gemini (Your Key)" in the model dropdown to use it directly.';
+            msg.style.color = '#065f46';
+            msg.style.display = 'block';
+            updatePersonalKeyBadge();
+        }
+        window.savePersonalKey = savePersonalKey;
+
+        function clearPersonalKey() {
+            personalKey = '';
+            localStorage.removeItem('wwb_personal_gemini_key');
+            document.getElementById('personalApiKey').value = '';
+            const msg = document.getElementById('personalKeyMsg');
+            msg.textContent = 'Key removed.';
+            msg.style.color = 'var(--text-muted)';
+            msg.style.display = 'block';
+            updatePersonalKeyBadge();
+            
+            // Show key flow again
+            document.getElementById('keyFlow').style.display = 'block';
+            document.getElementById('keyInputSection').style.display = 'none';
+        }
+        window.clearPersonalKey = clearPersonalKey;
 
         // Scroll-to-bottom logic
         function scrollToBottom() {
@@ -1643,32 +1836,46 @@ Reasoning rules:
             chat = null;
             conversationHistory = [];
             const status = document.getElementById('geminiStatus');
+            const keyFlow = document.getElementById('keyFlow');
+            const keyInputSection = document.getElementById('keyInputSection');
 
-
-            if (provider === 'gemini-direct') {
+            if (provider === 'gemini') {
+                ollamaControls.style.display = 'none';
+                status.style.display = '';
+                status.textContent = 'Worker';
+                status.style.background = '#dbeafe';
+                status.style.color = '#1e40af';
+                apiHint.textContent = 'Primary API — Uses shared Cloudflare Worker with Gemini, Groq & OpenRouter fallbacks.';
+                // Hide key sections for worker mode
+                keyFlow.style.display = 'none';
+                keyInputSection.style.display = 'none';
+            } else if (provider === 'gemini-direct') {
                 ollamaControls.style.display = 'none';
                 status.style.display = '';
                 if (personalKey) {
                     status.textContent = 'Direct (your key)';
                     status.style.background = '#d1fae5';
                     status.style.color = '#065f46';
+                    // Key exists - show input section
+                    keyFlow.style.display = 'none';
+                    keyInputSection.style.display = 'block';
+                    document.getElementById('personalApiKey').value = personalKey;
                 } else {
                     status.textContent = 'Key required';
                     status.style.background = '#fef3c7';
                     status.style.color = '#92400e';
+                    // No key - show acquisition flow
+                    keyFlow.style.display = 'block';
+                    keyInputSection.style.display = 'none';
                 }
-                apiHint.textContent = 'Primary API — Uses your own Gemini API key directly from the browser. No backend needed. Get a free key below.';
-            } else if (provider === 'gemini') {
-                ollamaControls.style.display = 'none';
-                status.style.display = '';
-                status.textContent = 'Worker';
-                status.style.background = '#dbeafe';
-                status.style.color = '#1e40af';
-                apiHint.textContent = 'Fallback API — Uses shared Cloudflare Worker with Gemini, Groq & OpenRouter fallbacks.';
+                apiHint.textContent = 'Fallback API — Uses your own Gemini API key directly from the browser. No backend needed. Get a free key below.';
             } else if (provider === 'ollama') {
                 ollamaControls.style.display = '';
                 status.style.display = 'none';
                 apiHint.textContent = 'Connects via CORS proxy (start-proxy.bat). For remote access, use a Cloudflare tunnel URL.';
+                // Hide key sections for ollama
+                keyFlow.style.display = 'none';
+                keyInputSection.style.display = 'none';
                 checkOllama();
             }
         };
@@ -2355,15 +2562,19 @@ Reasoning rules:
             const status = document.getElementById('geminiStatus');
             if (personalKey) {
                 badge.style.display = 'inline';
-                label.textContent = 'Primary API Key (Gemini) — Active';
+                label.textContent = 'Secondary API Key (Gemini) — Active';
                 if (currentProvider === 'gemini-direct') {
                     status.textContent = 'Direct (your key)';
                     status.style.background = '#d1fae5';
                     status.style.color = '#065f46';
+                } else {
+                    status.textContent = 'Worker';
+                    status.style.background = '#dbeafe';
+                    status.style.color = '#1e40af';
                 }
             } else {
                 badge.style.display = 'none';
-                label.textContent = 'Primary API Key (Gemini)';
+                label.textContent = 'Secondary API Key (Gemini)';
                 if (currentProvider === 'gemini-direct') {
                     status.textContent = 'Key required';
                     status.style.background = '#fef3c7';
@@ -2375,10 +2586,13 @@ Reasoning rules:
                 }
             }
         }
-        // Set initial state for Gemini Direct (Primary API)
-        currentProvider = 'gemini-direct';
-        window.handleModelChange('gemini-direct');
-        document.getElementById('modelProvider').value = 'gemini-direct';
+        // Set initial state for Gemini Cloud Worker (Primary API)
+        currentProvider = 'gemini';
+        window.handleModelChange('gemini');
+        document.getElementById('modelProvider').value = 'gemini';
+        
+        // Initialize key flow UI
+        initKeyFlow();
 
         // ============================================================
         // PARTICLE SYSTEM — "Truth Sparks" floating golden background
