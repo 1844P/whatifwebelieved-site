@@ -84,9 +84,72 @@ const RadioAudio = (function () {
 
     /* ---------- public API ---------- */
 
+    function ensure() {
+        if (ctx) return;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        ctx = new AC();
+
+        master = ctx.createGain();
+        master.gain.value = 0.9;
+        master.connect(ctx.destination);
+
+        volGain = ctx.createGain();
+        volGain.gain.value = 0.8;
+        volGain.connect(master);
+
+        // Welcome audio gain (for welcome.mp3)
+        welcomeGain = ctx.createGain();
+        welcomeGain.gain.value = 0;
+        welcomeGain.connect(volGain);
+
+        // File audio gain (for MP3 playback)
+        fileGain = ctx.createGain();
+        fileGain.gain.value = 0;
+        fileGain.connect(volGain);
+
+        // White-noise buffer (2 s) for static & clicks.
+        noiseBuffer = buildNoise(2);
+        staticSrc = ctx.createBufferSource();
+        staticSrc.buffer = noiseBuffer;
+        staticSrc.loop = true;
+        staticGain = ctx.createGain();
+        staticGain.gain.value = 0;
+        staticSrc.connect(staticGain);
+        staticGain.connect(volGain);
+        staticSrc.start();
+
+        // Mains hum.
+        humOsc = ctx.createOscillator();
+        humOsc.type = 'sine';
+        humOsc.frequency.value = 60;
+        humGain = ctx.createGain();
+        humGain.gain.value = 0;
+        humOsc.connect(humGain);
+        humGain.connect(volGain);
+        humOsc.start();
+
+        // Station broadcast bus.
+        stationGain = ctx.createGain();
+        stationGain.gain.value = 0;
+        stationGain.connect(volGain);
+    }
+
+    function buildNoise(seconds) {
+        const buffer = ctx.createBuffer(1, ctx.sampleRate * seconds, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        return buffer;
+    }
+
+    /* ---------- public API ---------- */
+
     function resume() {
         ensure();
-        if (ctx && ctx.state === 'suspended') ctx.resume();
+        if (ctx && ctx.state === 'suspended') {
+            return ctx.resume();
+        }
+        return Promise.resolve();
     }
 
     function setVolume(v) {
@@ -109,7 +172,8 @@ const RadioAudio = (function () {
         src.start(t); src.stop(t + 0.06);
     }
 
-    function playWelcome() {
+    async function playWelcome() {
+        await resume();
         ensure();
         if (!ctx) return;
         
@@ -129,7 +193,12 @@ const RadioAudio = (function () {
         // Fade out static
         setStatic(0);
         
-        welcomeAudio.play().catch(e => console.warn('Welcome audio play failed:', e));
+        try {
+            await welcomeAudio.play();
+        } catch (e) {
+            console.warn('Welcome audio play failed:', e);
+            throw e;
+        }
         
         // Return promise that resolves when welcome ends
         return new Promise(resolve => {
