@@ -471,6 +471,110 @@
             50% { opacity: 0.5; transform: translateY(-50%) scale(1.5); }
         }
 
+        /* Hero Feature Bar */
+        .hero-feature-bar {
+            display: flex;
+            gap: 16px;
+            margin: 32px 0 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .feature-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 28px;
+            min-width: 180px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%);
+            border: 1px solid rgba(200,162,78,0.3);
+            border-radius: 16px;
+            text-decoration: none;
+            color: #fff;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(154,117,32,0.1) 0%, transparent 50%, rgba(122,26,46,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            background: linear-gradient(135deg, rgba(154,117,32,0.25) 0%, rgba(122,26,46,0.15) 100%);
+            border-color: rgba(200,162,78,0.6);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.15), 0 0 30px rgba(200,162,78,0.2);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            border-radius: 12px;
+            color: #1a0f18;
+            box-shadow: 0 4px 16px rgba(154,117,32,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            box-shadow: 0 6px 24px rgba(154,117,32,0.5);
+        }
+
+        .feature-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.2px;
+        }
+
+        .feature-desc {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-feature-bar {
+                gap: 12px;
+                margin: 24px 0 16px;
+            }
+            .feature-card {
+                min-width: 140px;
+                padding: 16px 20px;
+            }
+            .feature-icon {
+                width: 40px;
+                height: 40px;
+            }
+            .feature-label {
+                font-size: 1rem;
+            }
+            .feature-desc {
+                font-size: 0.7rem;
+            }
+        }
+
         .btn-primary {
             background: linear-gradient(135deg, var(--crimson) 0%, #9a2a3e 100%);
             color: #fff;
@@ -1722,6 +1826,32 @@
                 </div>
             </div>
             <p class="hero-subtitle">A channel devoted to the exploration of faith, theology, and the transformative power of belief. Join us as we wrestle with life's biggest questions and discover truth together.</p>
+            
+            <!-- Hero Feature Bar -->
+            <div class="hero-feature-bar">
+                <a href="#ai-agent-showcase" class="feature-card" data-feature="ai-agent">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L12 22"/><path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93"/><circle cx="12" cy="6" r="1" fill="currentColor" stroke="none"/><path d="M4.93 10.93a4 4 0 0 0 3.53 5.64"/><path d="M19.07 10.93a4 4 0 0 1-3.53 5.64"/></svg>
+                    </div>
+                    <div class="feature-label">AI Agent</div>
+                    <div class="feature-desc">Adventist Theology Assistant</div>
+                </a>
+                <a href="bible-game/index.html" class="feature-card" data-feature="kids-game">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <div class="feature-label">Kids' Game</div>
+                    <div class="feature-desc">600 Bible Questions</div>
+                </a>
+                <a href="radio/index.html" class="feature-card" data-feature="radio">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <div class="feature-label">Radio</div>
+                    <div class="feature-desc">Live Hymns & Devotion</div>
+                </a>
+            </div>
+            
             <div class="hero-actions">
                 <a href="https://www.youtube.com/@paulos1844?sub_confirmation=1" target="_blank" class="btn-primary">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
