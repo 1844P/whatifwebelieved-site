@@ -19,10 +19,6 @@ const RadioAudio = (function () {
     let timers = [];
     let droneOsc = null;
     let droneGain = null;
-    let fileAudio = null;
-    let fileGain = null;
-    let welcomeGain = null;
-    let welcomeAudio = null;
 
     function ensure() {
         if (ctx) return;
@@ -37,76 +33,6 @@ const RadioAudio = (function () {
         volGain = ctx.createGain();
         volGain.gain.value = 0.8;
         volGain.connect(master);
-
-        // Welcome audio gain (for welcome.mp3)
-        welcomeGain = ctx.createGain();
-        welcomeGain.gain.value = 0;
-        welcomeGain.connect(volGain);
-
-        // File audio gain (for MP3 playback)
-        fileGain = ctx.createGain();
-        fileGain.gain.value = 0;
-        fileGain.connect(volGain);
-
-        // White-noise buffer (2 s) for static & clicks.
-        noiseBuffer = buildNoise(2);
-        staticSrc = ctx.createBufferSource();
-        staticSrc.buffer = noiseBuffer;
-        staticSrc.loop = true;
-        staticGain = ctx.createGain();
-        staticGain.gain.value = 0;
-        staticSrc.connect(staticGain);
-        staticGain.connect(volGain);
-        staticSrc.start();
-
-        // Mains hum.
-        humOsc = ctx.createOscillator();
-        humOsc.type = 'sine';
-        humOsc.frequency.value = 60;
-        humGain = ctx.createGain();
-        humGain.gain.value = 0;
-        humOsc.connect(humGain);
-        humGain.connect(volGain);
-        humOsc.start();
-
-        // Station broadcast bus.
-        stationGain = ctx.createGain();
-        stationGain.gain.value = 0;
-        stationGain.connect(volGain);
-    }
-
-    function buildNoise(seconds) {
-        const buffer = ctx.createBuffer(1, ctx.sampleRate * seconds, ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-        return buffer;
-    }
-
-    /* ---------- public API ---------- */
-
-    function ensure() {
-        if (ctx) return;
-        const AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return;
-        ctx = new AC();
-
-        master = ctx.createGain();
-        master.gain.value = 0.9;
-        master.connect(ctx.destination);
-
-        volGain = ctx.createGain();
-        volGain.gain.value = 0.8;
-        volGain.connect(master);
-
-        // Welcome audio gain (for welcome.mp3)
-        welcomeGain = ctx.createGain();
-        welcomeGain.gain.value = 0;
-        welcomeGain.connect(volGain);
-
-        // File audio gain (for MP3 playback)
-        fileGain = ctx.createGain();
-        fileGain.gain.value = 0;
-        fileGain.connect(volGain);
 
         // White-noise buffer (2 s) for static & clicks.
         noiseBuffer = buildNoise(2);
@@ -146,10 +72,7 @@ const RadioAudio = (function () {
 
     function resume() {
         ensure();
-        if (ctx && ctx.state === 'suspended') {
-            return ctx.resume();
-        }
-        return Promise.resolve();
+        if (ctx && ctx.state === 'suspended') ctx.resume();
     }
 
     function setVolume(v) {
@@ -170,74 +93,6 @@ const RadioAudio = (function () {
         g.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
         src.connect(f); f.connect(g); g.connect(volGain);
         src.start(t); src.stop(t + 0.06);
-    }
-
-    async function playWelcome() {
-        await resume();
-        ensure();
-        if (!ctx) return;
-        
-        // Create Audio element for welcome.mp3
-        welcomeAudio = new Audio('welcome.mp3');
-        welcomeAudio.crossOrigin = 'anonymous';
-        welcomeAudio.loop = false;
-        
-        // Connect to Web Audio
-        const source = ctx.createMediaElementSource(welcomeAudio);
-        source.connect(welcomeGain);
-        
-        // Fade in welcome gain
-        welcomeGain.gain.cancelScheduledValues(ctx.currentTime);
-        welcomeGain.gain.setTargetAtTime(0.5, ctx.currentTime, 0.1);
-        
-        // Fade out static
-        setStatic(0);
-        
-        try {
-            await welcomeAudio.play();
-        } catch (e) {
-            console.warn('Welcome audio play failed:', e);
-            throw e;
-        }
-        
-        // Return promise that resolves when welcome ends
-        return new Promise(resolve => {
-            welcomeAudio.addEventListener('ended', () => {
-                welcomeGain.gain.cancelScheduledValues(ctx.currentTime);
-                welcomeGain.gain.setTargetAtTime(0, ctx.currentTime, 0.15);
-                resolve();
-            }, { once: true });
-        });
-    }
-
-    function crossfadeToFile(fileUrl, onComplete) {
-        ensure();
-        if (!ctx) return;
-        
-        // Create Audio element for the file
-        fileAudio = new Audio(fileUrl);
-        fileAudio.crossOrigin = 'anonymous';
-        fileAudio.loop = false;
-        
-        // Connect to Web Audio
-        const source = ctx.createMediaElementSource(fileAudio);
-        source.connect(fileGain);
-        
-        // Crossfade: fade out welcome, fade in file
-        const t = ctx.currentTime;
-        welcomeGain.gain.cancelScheduledValues(t);
-        welcomeGain.gain.setTargetAtTime(0, t, 0.15);
-        fileGain.gain.cancelScheduledValues(t);
-        fileGain.gain.setTargetAtTime(0.5, t + 0.15, 0.15);
-        
-        fileAudio.play().catch(e => console.warn('File audio play failed:', e));
-        
-        // When file ends, fade out
-        fileAudio.addEventListener('ended', () => {
-            fileGain.gain.cancelScheduledValues(ctx.currentTime);
-            fileGain.gain.setTargetAtTime(0, ctx.currentTime, 0.3);
-            if (onComplete) onComplete();
-        }, { once: true });
     }
 
     function power(on) {
@@ -290,11 +145,6 @@ const RadioAudio = (function () {
         stationGain.gain.setTargetAtTime(0.32, ctx.currentTime, 0.4);
 
         switch (pattern.type) {
-            case 'file': {
-                // Play audio file
-                playFile(pattern.file);
-                break;
-            }
             case 'pad': {
                 // Warm sustained chord, re-struck slowly.
                 const every = pattern.every || 1.6;
@@ -353,11 +203,6 @@ const RadioAudio = (function () {
     function stopStation() {
         timers.forEach(clearInterval);
         timers = [];
-        // Stop file audio
-        if (fileAudio) {
-            try { fileAudio.pause(); fileAudio.src = ''; } catch (e) {}
-            fileAudio = null;
-        }
         if (stationGain && ctx) {
             stationGain.gain.setTargetAtTime(0, ctx.currentTime, 0.15);
         }
@@ -370,36 +215,6 @@ const RadioAudio = (function () {
         droneGain = null;
     }
 
-    function playFile(fileUrl) {
-        if (!ctx) return;
-        stopStation();
-        
-        // Create Audio element
-        fileAudio = new Audio();
-        fileAudio.src = fileUrl;
-        fileAudio.crossOrigin = 'anonymous';
-        fileAudio.loop = false;
-        
-        // Connect to Web Audio
-        const source = ctx.createMediaElementSource(fileAudio);
-        source.connect(fileGain);
-        
-        // Fade in file gain
-        fileGain.gain.cancelScheduledValues(ctx.currentTime);
-        fileGain.gain.setTargetAtTime(0.5, ctx.currentTime, 0.2);
-        
-        // Fade out static
-        setStatic(0);
-        
-        fileAudio.play().catch(e => console.warn('Audio play failed:', e));
-        
-        // Fade out when ended
-        fileAudio.addEventListener('ended', () => {
-            fileGain.gain.cancelScheduledValues(ctx.currentTime);
-            fileGain.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
-        });
-    }
-
     return {
         resume: resume,
         setVolume: setVolume,
@@ -408,7 +223,6 @@ const RadioAudio = (function () {
         setStatic: setStatic,
         chime: chime,
         startStation: startStation,
-        stopStation: stopStation,
-        playFile: playFile
+        stopStation: stopStation
     };
 })();

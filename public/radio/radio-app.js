@@ -14,7 +14,6 @@
 
     const STATIONS = [
         { freq: 88.5,  emoji: '\u{1F64F}', name: 'Morning Worship',   show: 'Songs & praise to start your day',   pattern: { type: 'pad',    chord: [261.63, 329.63, 392.0, 523.25], every: 1.6 } },
-        { freq: 90.3,  emoji: '\u{1F54B}', name: 'Morning Devotion',  show: 'Pastor Paul\'s devotion from 7aDZiNtrBL0', pattern: { type: 'file',   file: 'morning_devotion_trimmed.mp3', loop: false } },
         { freq: 92.1,  emoji: '\u{1F4D6}', name: 'Bible Stories',     show: 'Stories of faith, told aloud',        pattern: { type: 'arp',    notes: [392, 440, 523.25, 587.33, 659.25], step: 0.26 } },
         { freq: 96.7,  emoji: '\u{1F56F}', name: 'Prayer Hour',       show: 'Quiet time & prayer',                 pattern: { type: 'prayer', drone: 130.81, bellEvery: 4 } },
         { freq: 100.3, emoji: '\u{1F3B5}', name: 'Hymns & Praise',    show: 'Timeless hymns, gently played',       pattern: { type: 'arp',    notes: [523.25, 659.25, 783.99, 1046.5], step: 0.3 } },
@@ -133,11 +132,7 @@
             if (state.locked !== station) {
                 state.locked = station;
                 RadioAudio.chime();
-                if (station.pattern && station.pattern.type === 'file') {
-                    RadioAudio.playFile(station.pattern.file);
-                } else {
-                    RadioAudio.startStation(station.pattern);
-                }
+                RadioAudio.startStation(station.pattern);
                 if (opts.announce !== false) {
                     announce("You're listening to " + station.name + ". " + station.show);
                 }
@@ -149,13 +144,21 @@
             }
             RadioAudio.setStatic(signalLevel(state.freq) < 1 ? 1 : 0);
         }
-        if (state.locked && state.locked.pattern && state.locked.pattern.type !== 'file') RadioAudio.setStatic(0);
+        if (state.locked) RadioAudio.setStatic(0);
         renderScreen();
         renderDial();
         void wasLocked;
     }
 
     /* ---------- power ---------- */
+    const welcomeAudio = new Audio('welcome.mp3');
+
+    function playWelcome() {
+        try {
+            welcomeAudio.currentTime = 0;
+            welcomeAudio.play();
+        } catch (e) { /* autoplay blocked — user clicked, so rare */ }
+    }
 
     function setPower(on) {
         state.power = on;
@@ -164,25 +167,10 @@
         powerBtn.classList.toggle('on', on);
         if (on) {
             RadioAudio.setVolume(state.volume);
-            // Play welcome via Web Audio, then transition to Morning Devotion
-            RadioAudio.playWelcome()
-                .then(() => {
-                    // Seamless crossfade to Morning Devotion
-                    RadioAudio.crossfadeToFile('morning_devotion_trimmed.mp3', () => {
-                        // Lock to Morning Devotion station after crossfade
-                        const devotionStation = STATIONS.find(s => s.freq === 90.3);
-                        if (devotionStation) {
-                            state.locked = devotionStation;
-                            state.freq = 90.3;
-                            renderScreen();
-                            renderDial();
-                            announce("You're listening to Morning Devotion. " + devotionStation.show);
-                        }
-                    });
-                })
-                .catch(e => console.warn('Welcome playback failed:', e));
-            // Don't tune yet - wait for welcome to end
+            playWelcome();
+            tuneTo(state.freq, { announce: false });
         } else {
+            welcomeAudio.pause();
             screenStatic.style.opacity = '0';
             state.locked = null;
             renderScreen();
