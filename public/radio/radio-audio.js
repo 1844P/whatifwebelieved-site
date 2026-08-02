@@ -19,6 +19,8 @@ const RadioAudio = (function () {
     let timers = [];
     let droneOsc = null;
     let droneGain = null;
+    let fileAudio = null;
+    let fileGain = null;
 
     function ensure() {
         if (ctx) return;
@@ -33,6 +35,11 @@ const RadioAudio = (function () {
         volGain = ctx.createGain();
         volGain.gain.value = 0.8;
         volGain.connect(master);
+
+        // File audio gain (for MP3 playback)
+        fileGain = ctx.createGain();
+        fileGain.gain.value = 0;
+        fileGain.connect(volGain);
 
         // White-noise buffer (2 s) for static & clicks.
         noiseBuffer = buildNoise(2);
@@ -145,6 +152,11 @@ const RadioAudio = (function () {
         stationGain.gain.setTargetAtTime(0.32, ctx.currentTime, 0.4);
 
         switch (pattern.type) {
+            case 'file': {
+                // Play audio file
+                playFile(pattern.file);
+                break;
+            }
             case 'pad': {
                 // Warm sustained chord, re-struck slowly.
                 const every = pattern.every || 1.6;
@@ -203,6 +215,11 @@ const RadioAudio = (function () {
     function stopStation() {
         timers.forEach(clearInterval);
         timers = [];
+        // Stop file audio
+        if (fileAudio) {
+            try { fileAudio.pause(); fileAudio.src = ''; } catch (e) {}
+            fileAudio = null;
+        }
         if (stationGain && ctx) {
             stationGain.gain.setTargetAtTime(0, ctx.currentTime, 0.15);
         }
@@ -215,6 +232,36 @@ const RadioAudio = (function () {
         droneGain = null;
     }
 
+    function playFile(fileUrl) {
+        if (!ctx) return;
+        stopStation();
+        
+        // Create Audio element
+        fileAudio = new Audio();
+        fileAudio.src = fileUrl;
+        fileAudio.crossOrigin = 'anonymous';
+        fileAudio.loop = false;
+        
+        // Connect to Web Audio
+        const source = ctx.createMediaElementSource(fileAudio);
+        source.connect(fileGain);
+        
+        // Fade in file gain
+        fileGain.gain.cancelScheduledValues(ctx.currentTime);
+        fileGain.gain.setTargetAtTime(0.5, ctx.currentTime, 0.2);
+        
+        // Fade out static
+        setStatic(0);
+        
+        fileAudio.play().catch(e => console.warn('Audio play failed:', e));
+        
+        // Fade out when ended
+        fileAudio.addEventListener('ended', () => {
+            fileGain.gain.cancelScheduledValues(ctx.currentTime);
+            fileGain.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
+        });
+    }
+
     return {
         resume: resume,
         setVolume: setVolume,
@@ -223,6 +270,7 @@ const RadioAudio = (function () {
         setStatic: setStatic,
         chime: chime,
         startStation: startStation,
-        stopStation: stopStation
+        stopStation: stopStation,
+        playFile: playFile
     };
 })();
