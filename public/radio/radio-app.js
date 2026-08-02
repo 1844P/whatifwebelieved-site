@@ -156,14 +156,6 @@
     }
 
     /* ---------- power ---------- */
-    const welcomeAudio = new Audio('welcome.mp3');
-
-    function playWelcome() {
-        try {
-            welcomeAudio.currentTime = 0;
-            welcomeAudio.play();
-        } catch (e) { /* autoplay blocked — user clicked, so rare */ }
-    }
 
     function setPower(on) {
         state.power = on;
@@ -172,10 +164,23 @@
         powerBtn.classList.toggle('on', on);
         if (on) {
             RadioAudio.setVolume(state.volume);
-            playWelcome();
-            tuneTo(state.freq, { announce: false });
+            // Play welcome via Web Audio, then transition to Morning Devotion
+            RadioAudio.playWelcome().then(() => {
+                // Seamless crossfade to Morning Devotion
+                RadioAudio.crossfadeToFile('morning_devotion_trimmed.mp3', () => {
+                    // Lock to Morning Devotion station after crossfade
+                    const devotionStation = STATIONS.find(s => s.freq === 90.3);
+                    if (devotionStation) {
+                        state.locked = devotionStation;
+                        state.freq = 90.3;
+                        renderScreen();
+                        renderDial();
+                        announce("You're listening to Morning Devotion. " + devotionStation.show);
+                    }
+                });
+            });
+            // Don't tune yet - wait for welcome to end
         } else {
-            welcomeAudio.pause();
             screenStatic.style.opacity = '0';
             state.locked = null;
             renderScreen();

@@ -21,6 +21,8 @@ const RadioAudio = (function () {
     let droneGain = null;
     let fileAudio = null;
     let fileGain = null;
+    let welcomeGain = null;
+    let welcomeAudio = null;
 
     function ensure() {
         if (ctx) return;
@@ -35,6 +37,11 @@ const RadioAudio = (function () {
         volGain = ctx.createGain();
         volGain.gain.value = 0.8;
         volGain.connect(master);
+
+        // Welcome audio gain (for welcome.mp3)
+        welcomeGain = ctx.createGain();
+        welcomeGain.gain.value = 0;
+        welcomeGain.connect(volGain);
 
         // File audio gain (for MP3 playback)
         fileGain = ctx.createGain();
@@ -100,6 +107,68 @@ const RadioAudio = (function () {
         g.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
         src.connect(f); f.connect(g); g.connect(volGain);
         src.start(t); src.stop(t + 0.06);
+    }
+
+    function playWelcome() {
+        ensure();
+        if (!ctx) return;
+        
+        // Create Audio element for welcome.mp3
+        welcomeAudio = new Audio('welcome.mp3');
+        welcomeAudio.crossOrigin = 'anonymous';
+        welcomeAudio.loop = false;
+        
+        // Connect to Web Audio
+        const source = ctx.createMediaElementSource(welcomeAudio);
+        source.connect(welcomeGain);
+        
+        // Fade in welcome gain
+        welcomeGain.gain.cancelScheduledValues(ctx.currentTime);
+        welcomeGain.gain.setTargetAtTime(0.5, ctx.currentTime, 0.1);
+        
+        // Fade out static
+        setStatic(0);
+        
+        welcomeAudio.play().catch(e => console.warn('Welcome audio play failed:', e));
+        
+        // Return promise that resolves when welcome ends
+        return new Promise(resolve => {
+            welcomeAudio.addEventListener('ended', () => {
+                welcomeGain.gain.cancelScheduledValues(ctx.currentTime);
+                welcomeGain.gain.setTargetAtTime(0, ctx.currentTime, 0.15);
+                resolve();
+            }, { once: true });
+        });
+    }
+
+    function crossfadeToFile(fileUrl, onComplete) {
+        ensure();
+        if (!ctx) return;
+        
+        // Create Audio element for the file
+        fileAudio = new Audio(fileUrl);
+        fileAudio.crossOrigin = 'anonymous';
+        fileAudio.loop = false;
+        
+        // Connect to Web Audio
+        const source = ctx.createMediaElementSource(fileAudio);
+        source.connect(fileGain);
+        
+        // Crossfade: fade out welcome, fade in file
+        const t = ctx.currentTime;
+        welcomeGain.gain.cancelScheduledValues(t);
+        welcomeGain.gain.setTargetAtTime(0, t, 0.15);
+        fileGain.gain.cancelScheduledValues(t);
+        fileGain.gain.setTargetAtTime(0.5, t + 0.15, 0.15);
+        
+        fileAudio.play().catch(e => console.warn('File audio play failed:', e));
+        
+        // When file ends, fade out
+        fileAudio.addEventListener('ended', () => {
+            fileGain.gain.cancelScheduledValues(ctx.currentTime);
+            fileGain.gain.setTargetAtTime(0, ctx.currentTime, 0.3);
+            if (onComplete) onComplete();
+        }, { once: true });
     }
 
     function power(on) {
