@@ -7,12 +7,12 @@
 :root {
     --brass: #c9a24b;
     --brass-dark: #8a6d2f;
-    --wood-1: #7c4a23;
-    --wood-2: #4e2c12;
-    --ink: #1d1207;
+    --wood-1: #8a5a2e;
+    --wood-2: #5f3c1f;
+    --ink: #241505;
     --cream: #f7efdc;
     --lcd: #aef7c4;
-    --lcd-dim: #3f8f5e;
+    --lcd-dim: #4f9f6e;
     --red: #ff5252;
 }
 
@@ -20,7 +20,9 @@ body {
     margin: 0;
     font-family: Georgia, 'Times New Roman', serif;
     color: var(--cream);
-    background: radial-gradient(1200px 700px at 50% -10%, #2b2f6e 0%, #1a1d45 45%, #0d0e24 100%);
+    background:
+        radial-gradient(900px 420px at 50% -8%, rgba(240, 197, 110, 0.22), transparent 65%),
+        radial-gradient(1200px 700px at 50% -10%, #a96f3d 0%, #7d4e29 45%, #4f351e 100%);
     min-height: 100vh;
     background-attachment: fixed;
 }
@@ -48,7 +50,7 @@ body {
 }
 .page-tagline {
     font-size: 1.05rem;
-    color: rgba(247, 239, 220, 0.75);
+    color: rgba(247, 239, 220, 0.92);
     margin: 0 0 18px;
     line-height: 1.5;
 }
@@ -82,7 +84,7 @@ body {
     width: 42px;
     height: 22px;
     border-radius: 11px;
-    background: #3a2f22;
+    background: #4a3a26;
     border: 1px solid var(--brass-dark);
     position: relative;
     transition: background 0.25s;
@@ -107,9 +109,9 @@ body {
     padding: 18px 18px 22px;
     box-shadow:
         inset 0 2px 0 rgba(255, 255, 255, 0.12),
-        0 18px 50px rgba(0, 0, 0, 0.55),
-        0 0 0 6px #33200f,
-        0 0 0 9px #6b4423;
+        0 18px 50px rgba(0, 0, 0, 0.45),
+        0 0 0 6px #432a13,
+        0 0 0 9px #7a5128;
     position: relative;
 }
 .radio::before {
@@ -383,10 +385,10 @@ body {
     padding: 12px 10px;
     border-radius: 16px;
     border: 2px solid var(--brass-dark);
-    background: linear-gradient(170deg, #3d2b16, #241607);
+    background: linear-gradient(170deg, #4f3a24, #33210f);
     color: var(--cream);
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
 }
 .station-chip:hover {
@@ -408,7 +410,7 @@ body {
 .schedule {
     margin: 30px auto 0;
     max-width: 380px;
-    background: linear-gradient(170deg, rgba(61, 43, 22, 0.55), rgba(36, 22, 7, 0.55));
+    background: linear-gradient(170deg, rgba(79, 58, 36, 0.6), rgba(51, 33, 15, 0.6));
     border: 1px solid var(--brass-dark);
     border-radius: 16px;
     padding: 20px 26px;
@@ -442,15 +444,25 @@ body {
     text-align: center;
     margin-top: 44px;
     font-size: 0.95rem;
-    color: rgba(247, 239, 220, 0.6);
+    color: rgba(247, 239, 220, 0.8);
 }
 .page-footer a {
-    color: var(--brass);
+    color: #2a1606;
     text-decoration: none;
     display: inline-block;
     margin-bottom: 10px;
+    padding: 10px 22px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #f0c56e 0%, #b8872f 100%);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 16px rgba(240, 197, 110, 0.35);
+    transition: all 0.3s;
 }
-.page-footer a:hover { text-decoration: underline; }
+.page-footer a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(240, 197, 110, 0.5);
+}
 
 /* ---------- responsive ---------- */
 @media (max-width: 520px) {

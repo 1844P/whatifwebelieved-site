@@ -17,14 +17,22 @@
         { freq: 92.1,  emoji: '\u{1F4D6}', name: 'Bible Stories',     show: 'Stories of faith, told aloud',        pattern: { type: 'arp',    notes: [392, 440, 523.25, 587.33, 659.25], step: 0.26 } },
         { freq: 96.7,  emoji: '\u{1F56F}', name: 'Prayer Hour',       show: 'Quiet time & prayer',                 pattern: { type: 'prayer', drone: 130.81, bellEvery: 4 } },
         { freq: 100.3, emoji: '\u{1F3B5}', name: 'Hymns & Praise',    show: 'Timeless hymns, gently played',       pattern: { type: 'arp',    notes: [523.25, 659.25, 783.99, 1046.5], step: 0.3 } },
-        { freq: 104.9, emoji: '\u{1F9D2}', name: "Kids' Bible Hour",  show: 'Bible adventures for little ears',    pattern: { type: 'kids',   notes: [523.25, 659.25, 783.99, 659.25, 880], step: 0.18 } }
+        { freq: 104.9, emoji: '\u{1F9D2}', name: "Kids' Bible Hour",  show: 'Bible adventures for little ears',    pattern: { type: 'kids',   notes: [523.25, 659.25, 783.99, 659.25, 880], step: 0.18 } },
+
+        // YouTube Audio Stations
+        { freq: 89.3,  emoji: '\u{1F4FA}', name: 'YouTube: Worship',  show: 'Live worship from YouTube',           pattern: { type: 'youtube', videoId: 'D2FfteQ7sXI', title: 'Worship Mix' } },
+        { freq: 93.7,  emoji: '\u{1F4FA}', name: 'YouTube: Sermons',  show: 'Biblical teaching from YouTube',      pattern: { type: 'youtube', videoId: 'jNQXAC9IVRw', title: 'Sermon Archive' } },
+        { freq: 98.1,  emoji: '\u{1F4FA}', name: 'YouTube: Hymns',    show: 'Classic hymns from YouTube',          pattern: { type: 'youtube', videoId: 'l9V_MDWfUkg', title: 'Hymn Collection' } },
+        { freq: 102.5, emoji: '\u{1F4FA}', name: 'YouTube: Prayer',   show: 'Guided prayer from YouTube',          pattern: { type: 'youtube', videoId: '881ddNnGCfs', title: 'Prayer Sessions' } },
+        { freq: 107.3, emoji: '\u{1F4FA}', name: 'YouTube: Kids',     show: 'Children\'s Bible content from YouTube', pattern: { type: 'youtube', videoId: 'dQw4w9WgXcQ', title: 'Kids Bible Songs' } }
     ];
 
     const state = {
         power: false,
         volume: 0.8,
         freq: 92.1,
-        locked: null
+        locked: null,
+        isYouTube: false
     };
 
     /* ---------- elements ---------- */
@@ -66,16 +74,145 @@
         return KNOB_START + ((freq - MIN_FREQ) / (MAX_FREQ - MIN_FREQ)) * KNOB_SWEEP;
     }
 
-    function announce(text) {
-        if (!announcerToggle.checked) return;
+    /* ---------- natural announcer voice ---------- */
+    let utteranceSeq = 0;
+    let hymnTriggerTimer = null;
+    let hymnPlayedForSeq = 0;
+    let hymnRestoreTimer = null;
+    let welcomeEndTimer = null;
+
+    function pickVoice() {
+        if (!('speechSynthesis' in window)) return null;
+        const voices = window.speechSynthesis.getVoices();
+        if (!voices || !voices.length) return null;
+        const prefs = ['google us english', 'microsoft aria', 'microsoft jenny', 'microsoft guy', 'samantha', 'karen', 'daniel', 'google uk english female', 'natural'];
+        for (const p of prefs) {
+            const v = voices.find((x) => x && x.name && x.name.toLowerCase().includes(p));
+            if (v) return v;
+        }
+        return voices.find((v) => v && v.lang && v.lang.toLowerCase().startsWith('en')) || null;
+    }
+
+    // Natural, unhurried on-air greeting for a station.
+    function stationLine(station) {
+        let greet = 'Welcome';
+        // Morning Worship station always gets "Good morning" regardless of actual time
+        if (station.name === 'Morning Worship') {
+            greet = 'Good morning';
+        } else {
+            const h = new Date().getHours();
+            if (h < 5) greet = 'Greetings in the quiet hours';
+            else if (h < 12) greet = 'Good morning';
+            else if (h < 18) greet = 'Good afternoon';
+            else greet = 'Good evening';
+        }
+        return greet + ' to ' + station.name + '. ' + station.show + '. ' +
+            'Sit back, take a breath, and enjoy the hour with us.';
+    }
+
+    // Rough spoken duration (ms) at rate 0.9 — used as a safety net for the track.
+    function estimateSpeechMs(text) {
+        const words = (text.trim().match(/\S+/g) || []).length;
+        // ~2.2 words per second at a calm pace, plus a short lead-in.
+        return Math.min(30000, Math.max(3000, (words / 2.2) * 1000 + 900));
+    }
+
+    // At the end of the announcement, broadcast the music track:
+    // "Spirit Lead Me Where My Trust Is Without Borders" (Life Illustrated).
+    function startHymnIfStillCurrent(seq) {
+        if (seq !== utteranceSeq) return; // a newer announcement replaced this one
+        if (!(state.power && state.locked)) return;
+        if (hymnPlayedForSeq === seq) return; // already started
+        hymnPlayedForSeq = seq;
+        if (hymnTriggerTimer) { clearTimeout(hymnTriggerTimer); hymnTriggerTimer = null; }
+        playSpiritTrack();
+        // Visual confirmation on the radio screen so the broadcast is obvious.
+        const prevShow = state.locked ? state.locked.show : '';
+        screenShow.textContent = 'Now playing: Spirit Lead Me';
+        // Restore the station line when the track finishes (or on error),
+        // with a safety net for browsers that never fire 'ended'.
+        if (hymnRestoreTimer) { clearTimeout(hymnRestoreTimer); hymnRestoreTimer = null; }
+        const restore = function () {
+            hymnRestoreTimer = null;
+            if (state.locked) screenShow.textContent = prevShow;
+        };
+        spiritAudio.onended = restore;
+        spiritAudio.onerror = restore;
+        hymnRestoreTimer = setTimeout(restore, 100000); // ~92s track + margin
+    }
+
+    // Play the broadcast track from the top at the current volume.
+    function playSpiritTrack() {
         try {
-            if (!('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
-            const u = new SpeechSynthesisUtterance(text);
-            u.rate = 0.95;
-            u.pitch = 1.05;
-            u.volume = 0.75;
-            window.speechSynthesis.speak(u);
+            spiritAudio.pause();
+            spiritAudio.currentTime = 0;
+            spiritAudio.volume = Math.max(0.05, state.volume * 0.9);
+            const p = spiritAudio.play();
+            if (p && typeof p.catch === 'function') p.catch(function () { /* noop */ });
+        } catch (e) { /* ignore */ }
+    }
+
+    // Cut the broadcast track (new announcement, tuning away, power off).
+    function stopSpiritTrack() {
+        try {
+            spiritAudio.pause();
+            spiritAudio.onended = null;
+            spiritAudio.onerror = null;
+        } catch (e) { /* ignore */ }
+    }
+
+    function announce(text) {
+        try {
+            RadioAudio.stopHymn(); // never overlap an ongoing hymn
+            stopSpiritTrack(); // cut any broadcast track still playing
+            if (hymnTriggerTimer) { clearTimeout(hymnTriggerTimer); hymnTriggerTimer = null; }
+            // One voice on air: cut any welcome jingle still playing or pending.
+            if (welcomeEndTimer) { clearTimeout(welcomeEndTimer); welcomeEndTimer = null; }
+            welcomeAudio.onended = null;
+            welcomeAudio.onerror = null;
+            try { welcomeAudio.pause(); } catch (e) { /* noop */ }
+
+            const seq = ++utteranceSeq;
+
+            // When the announcer is enabled AND speech synthesis is available,
+            // speak first, then start the music track when speech finishes.
+            // Skip music track for YouTube stations (they have their own audio)
+            const isYouTubeStation = state.locked && state.locked.pattern && state.locked.pattern.type === 'youtube';
+            
+            if (announcerToggle.checked && 'speechSynthesis' in window) {
+                // Cancel the previous announcement, then speak a tick later so
+                // Chrome has actually stopped the old voice before the new one
+                // starts (prevents two stations talking over each other).
+                window.speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(text);
+                const v = pickVoice();
+                if (v) u.voice = v;
+                u.rate = 0.9;
+                u.pitch = 1.0;
+                u.volume = 0.85;
+                // Primary trigger: when the announcer finishes, broadcast the music track.
+                u.onend = function () { 
+                    if (!isYouTubeStation) startHymnIfStillCurrent(seq); 
+                };
+                setTimeout(function () {
+                    if (seq === utteranceSeq) window.speechSynthesis.speak(u);
+                }, 50);
+                // Safety net: if onend never fires (known Chrome issue), the track still plays on schedule.
+                hymnTriggerTimer = setTimeout(function () {
+                    hymnTriggerTimer = null;
+                    if (!isYouTubeStation) startHymnIfStillCurrent(seq);
+                }, estimateSpeechMs(text) + 100);
+                return;
+            }
+
+            // Announcer off (or unsupported): still feature the broadcast —
+            // the music track begins after a short pause, no voice required.
+            if (!isYouTubeStation) {
+                hymnTriggerTimer = setTimeout(function () {
+                    hymnTriggerTimer = null;
+                    startHymnIfStillCurrent(seq);
+                }, 3500);
+            }
         } catch (e) { /* ignore */ }
     }
 
@@ -131,16 +268,42 @@
         if (distance < lockThreshold()) {
             if (state.locked !== station) {
                 state.locked = station;
+                state.isYouTube = station.pattern && station.pattern.type === 'youtube';
+                
+                // Stop any existing audio
+                RadioAudio.stopStation();
+                RadioAudio.stopHymn();
+                RadioAudio.stopYouTube();
+                
                 RadioAudio.chime();
-                RadioAudio.startStation(station.pattern);
-                if (opts.announce !== false) {
-                    announce("You're listening to " + station.name + ". " + station.show);
+                
+                if (state.isYouTube) {
+                    // Load and play YouTube video
+                    const videoId = station.pattern.videoId;
+                    screenShow.textContent = 'Loading: ' + station.pattern.title + '...';
+                    RadioAudio.loadYouTubeVideo(videoId).then(function() {
+                        if (state.power && state.locked === station) {
+                            RadioAudio.playYouTube();
+                            screenShow.textContent = 'Now playing: ' + station.pattern.title;
+                        }
+                    }).catch(function(err) {
+                        console.warn('YouTube load failed:', err);
+                        screenShow.textContent = 'YouTube unavailable - try another station';
+                    });
+                } else {
+                    RadioAudio.startStation(station.pattern);
                 }
+            }
+            if (opts.announce !== false) {
+                announce(stationLine(station));
             }
         } else {
             if (state.locked) {
                 state.locked = null;
+                state.isYouTube = false;
                 RadioAudio.stopStation();
+                RadioAudio.stopHymn();
+                RadioAudio.stopYouTube();
             }
             RadioAudio.setStatic(signalLevel(state.freq) < 1 ? 1 : 0);
         }
@@ -151,13 +314,30 @@
     }
 
     /* ---------- power ---------- */
-    const welcomeAudio = new Audio('welcome.mp3');
+    const welcomeAudio = new Audio('welcome.mp3?v=20260802e');
+    const spiritAudio = new Audio('spirit-lead-me.mp3?v=20260802f');
 
-    function playWelcome() {
+    // Play the pre-recorded welcome jingle, then run onEnded when it finishes.
+    // A safety timer covers browsers where the jingle never fires 'ended'.
+    function playWelcome(onEnded) {
+        const done = function () {
+            if (welcomeEndTimer) { clearTimeout(welcomeEndTimer); welcomeEndTimer = null; }
+            welcomeAudio.onended = null;
+            welcomeAudio.onerror = null;
+            if (onEnded) onEnded();
+        };
         try {
+            welcomeAudio.onended = done;
+            welcomeAudio.onerror = done;
             welcomeAudio.currentTime = 0;
             welcomeAudio.play();
-        } catch (e) { /* autoplay blocked — user clicked, so rare */ }
+            if (onEnded) {
+                if (welcomeEndTimer) clearTimeout(welcomeEndTimer);
+                welcomeEndTimer = setTimeout(done, 17000);
+            }
+        } catch (e) {
+            done();
+        }
     }
 
     function setPower(on) {
@@ -167,12 +347,31 @@
         powerBtn.classList.toggle('on', on);
         if (on) {
             RadioAudio.setVolume(state.volume);
-            playWelcome();
             tuneTo(state.freq, { announce: false });
+            // Sequence voices: welcome jingle first, then the announcer greets,
+            // then the hymn follows. Only one voice is ever on air at a time.
+            if (state.locked) {
+                const welcomeStation = state.locked;
+                playWelcome(function () {
+                    if (state.power && state.locked === welcomeStation) {
+                        announce(stationLine(welcomeStation));
+                    }
+                });
+            } else {
+                playWelcome(null);
+            }
         } else {
             welcomeAudio.pause();
+            if (welcomeEndTimer) { clearTimeout(welcomeEndTimer); welcomeEndTimer = null; }
+            window.speechSynthesis.cancel();
+            if (hymnTriggerTimer) { clearTimeout(hymnTriggerTimer); hymnTriggerTimer = null; }
+            if (hymnRestoreTimer) { clearTimeout(hymnRestoreTimer); hymnRestoreTimer = null; }
+            RadioAudio.stopHymn();
+            RadioAudio.stopYouTube();
+            stopSpiritTrack();
             screenStatic.style.opacity = '0';
             state.locked = null;
+            state.isYouTube = false;
             renderScreen();
             renderDial();
         }
@@ -213,6 +412,7 @@
     attachKnob(volumeKnob, (dy) => {
         state.volume = Math.min(1, Math.max(0, state.volume + dy * 0.02));
         RadioAudio.setVolume(state.volume);
+        RadioAudio.setYouTubeVolume(state.volume);
         renderDial();
     });
 
@@ -238,6 +438,9 @@
     });
 
     /* ---------- init ---------- */
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = function () { /* warm voice cache */ };
+    }
     setPower(false);
     renderDial();
 })();
