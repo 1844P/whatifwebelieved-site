@@ -10,6 +10,10 @@
     <title>Adventist Theology & Christian Philosophy Agent</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- DOCX Generation Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
     <style>
         :root {
             --cream: #faf8f4;
@@ -1570,8 +1574,53 @@ Reasoning rules:
 - Clearly distinguish inference from established fact. Use plain signaling like "Ellen White argues X" or "Augustine writes Y" (textual claim) versus "it follows from this that Z" or "one could infer" or "my read is" (your inference).
 - Represent live scholarly and doctrinal disagreements fairly within Adventism and Christian philosophy.
 - Cite thinkers, texts, and traditions by name where relevant.
-- When discussing Adventist theology, engage with official Seventh-day Adventist doctrines (e.g. 28 Fundamental Beliefs) as well as historical and contemporary Adventist scholarship.`;
+- When discussing Adventist theology, engage with official Seventh-day Adventist doctrines (e.g. 28 Fundamental Beliefs) as well as historical and contemporary Adventist scholarship.
 
+=== HALLUCINATION MITIGATION PROTOCOL ===
+
+Grounding & Faithfulness:
+- Every factual claim about Adventist doctrine, Ellen White's writings, or Christian philosophers MUST be traceable to source texts, official statements, or recognized scholarship.
+- If you cannot cite a specific source (book, chapter, paragraph, Fundamental Belief number, philosopher's work), do not state the claim as fact. Instead say: "I don't have a specific citation for this" or "This is my inference based on..."
+- When discussing Ellen White: distinguish between direct quotations (cite book/page), paraphrased concepts (cite book/chapter), and your synthesis.
+- When discussing philosophers: cite specific works (e.g., "Aquinas, Summa Theologica I-II, Q.94, Art.2") not just names.
+
+Claim Decomposition & Verification:
+- Before asserting any doctrinal or historical claim, mentally decompose it into atomic verifiable claims.
+- For each atomic claim, ask: "What is my evidence? Can I cite a source?"
+- If evidence is missing or uncertain, express uncertainty explicitly: "The sources I'm aware of suggest X, but I cannot confirm Y."
+
+Uncertainty Calibration:
+- Do not express high confidence in claims where scholarly disagreement exists (e.g., nature of investigative judgment, interpretation of Ellen White's authority, Aquinas's proofs).
+- Use calibrated language: "The weight of evidence suggests..." / "Most scholars hold..." / "A minority view argues..." / "This is debated..."
+- Never present contested interpretations as settled doctrine.
+
+Self-Consistency Check:
+- Ensure your response does not contradict itself across paragraphs.
+- Ensure your claims about a thinker/doctrine are consistent with their established corpus.
+- If you notice a potential contradiction in your own reasoning, flag it: "Note: This appears to tension with [X]..."
+
+Sycophancy Resistance:
+- Do not flatter the user or validate incorrect premises. If a user's question contains a factual error, correct it gently but firmly.
+- Avoid phrases like "Great question!" "Excellent point!" "You're absolutely right!" unless genuinely warranted by insight.
+- Prioritize evidence over agreement.
+
+Refusal When Uncertain:
+- If the context/query is insufficient to give a grounded answer, refuse rather than hallucinate.
+- Use explicit refusal language: "I don't have sufficient evidence to answer this confidently" / "The sources don't address this specific question" / "This falls outside my verified knowledge base."
+- Offer to help with a related, answerable question instead.
+
+Citation Standards:
+- Adventist doctrine: Cite Fundamental Belief number + official statement source.
+- Ellen White: Cite book title + chapter/page (e.g., "Great Controversy, ch. 23" or "Testimonies, vol. 5, p. 123").
+- Philosophers: Cite work + section (e.g., "Augustine, City of God, Book XI.6" or "Plantinga, Warranted Christian Belief, Ch. 6").
+- Scripture: Cite book/chapter/verse.
+- Contemporary scholars: Cite name + work/year.
+
+Process Transparency:
+- When making an inference, signal it: "Inference:", "Synthesis:", "My read:", "It follows that..."
+- When reporting consensus, signal it: "Consensus view:", "Majority position:", "Standard interpretation:"
+- When noting disagreement, signal it: "Disputed:", "Contested:", "Alternative view:"
+`;
         let chat = null;
         let conversationHistory = [];
         let isLoading = false;
@@ -2025,7 +2074,7 @@ Reasoning rules:
             bar.style.display = 'flex';
         }
 
-        function downloadAsDoc() {
+async function downloadAsDoc() {
             let content = null;
             let defaultTitle = 'Document';
             if (sermonMode && lastSermonContent) {
@@ -2047,50 +2096,130 @@ Reasoning rules:
                 content = lastBibleStudyContent;
                 defaultTitle = 'Bible Study';
             }
+            if (!content) return alert('No content to download');
+            
             const titleMatch = content.match(/^#\s+(.+)/m);
             const docTitle = titleMatch ? titleMatch[1] : defaultTitle;
-            const filename = titleMatch ? titleMatch[1].replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, '-').toLowerCase() : (sermonMode ? 'sermon' : 'essay');
-
-            const bodyHtml = content
-                .replace(/^### (.+)$/gm, '<h3 style="font-family:Georgia,serif;color:#333;font-size:12pt;margin-top:16px;">$1</h3>')
-                .replace(/^## (.+)$/gm, '<h2 style="font-family:Georgia,serif;color:#7a1a2e;font-size:14pt;margin-top:20px;border-bottom:1px solid #ddd;padding-bottom:4px;">$1</h2>')
-                .replace(/^# (.+)$/gm, '<h1 style="font-family:Georgia,serif;color:#7a1a2e;font-size:20pt;margin-bottom:8px;">$1</h1>')
-                .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#7a1a2e;">$1</strong>')
-                .replace(/\*(.+?)\*/g, '<em style="color:#5a4038;">$1</em>')
-                .replace(/^---$/gm, '<hr style="border:none;border-top:1px solid #ddd;margin:20px 0;">')
-                .replace(/^> (.+)$/gm, '<blockquote style="border-left:3px solid #9a7520;padding-left:16px;margin:12px 0;color:#555;font-style:italic;">$1</blockquote>')
-                .replace(/`([^`]+)`/g, '<code style="background:#f5f0eb;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;font-size:10pt;">$1</code>')
-                .replace(/\n\n/g, '</p><p style="margin:8px 0;">')
-                .replace(/^/, '<p style="margin:8px 0;">')
-                .replace(/$/, '</p>');
-
-            const htmlPart = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">' +
-                '<head><meta charset="utf-8"><meta name="ProgId" content="Word.Document"><meta name="Generator" content="Microsoft Word 11"><title>' + docTitle + '</title>' +
-                '<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom><w:DoNotOptimizeForBrowser/></w:WordDocument></xml><![endif]-->' +
-                '<style>' +
-                'body{font-family:Calibri,sans-serif;font-size:11pt;line-height:1.6;color:#1a0f18;margin:40px;}' +
-                'p{margin:8px 0;}' +
-                '</style></head><body>' + bodyHtml + '</body></html>';
-
-            const mhtml = 'MIME-Version: 1.0\r\n' +
-                'Content-Location: file:///' + filename + '.doc\r\n' +
-                'Content-Transfer-Encoding: quoted-printable\r\n\r\n' +
-                '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\r\n' +
-                htmlPart;
-
-            const blob = new Blob([mhtml], { type: 'application/msword' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename + '-' + new Date().toISOString().slice(0,10) + '.doc';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            const filename = titleMatch 
+                ? titleMatch[1].replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, '-').toLowerCase() 
+                : (sermonMode ? 'sermon' : 'essay') + '-' + new Date().toISOString().slice(0,10) + '.docx';
+            
+            // Parse markdown using markdown-it
+            const md = window.markdownit({ html: true, breaks: true, linkify: true });
+            const tokens = md.parse(content, {});
+            
+            // Build DOCX using docx.js
+            const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, BorderStyle } = window.docx;
+            
+            const children = [];
+            let i = 0;
+            while (i < tokens.length) {
+                const token = tokens[i];
+                
+                if (token.type === 'heading_open') {
+                    const level = parseInt(token.tag.slice(1));
+                    const contentToken = tokens[i + 1];
+                    const text = contentToken ? contentToken.content : '';
+                    children.push(new Paragraph({
+                        text: text,
+                        heading: HeadingLevel[`HEADING_${level}`] || HeadingLevel.HEADING_1,
+                        alignment: AlignmentType.LEFT,
+                        spacing: { before: level === 1 ? 240 : 120, after: 60 }
+                    }));
+                    i += 3;
+                    continue;
+                }
+                
+                if (token.type === 'paragraph_open') {
+                    const contentToken = tokens[i + 1];
+                    if (contentToken && contentToken.type === 'inline') {
+                        const runs = [];
+                        for (let j = 0; j < contentToken.children.length; j++) {
+                            const child = contentToken.children[j];
+                            if (child.type === 'text') {
+                                const prev = contentToken.children[j - 1];
+                                let bold = false, italic = false, code = false;
+                                let color = '1A0F18';
+                                if (prev && prev.type === 'strong_open') { bold = true; color = '7A1A2E'; }
+                                if (prev && prev.type === 'em_open') { italic = true; color = '5A4038'; }
+                                if (child.type === 'code_inline') { code = true; color = 'C41A16'; }
+                                runs.push(new TextRun({ text: child.content, bold, italics: italic, font: code ? 'Consolas' : 'Calibri', size: code ? 20 : 22, color: code ? 'C41A16' : color }));
+                            }
+                        }
+                        children.push(new Paragraph({
+                            children: runs.length ? runs : [new TextRun({ text: '', size: 22 })],
+                            spacing: { before: 60, after: 60 }
+                        }));
+                    }
+                    i += 3;
+                    continue;
+                }
+                
+                if (token.type === 'hr') {
+                    children.push(new Paragraph({
+                        border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: 'DDDDDD' } },
+                        spacing: { before: 240, after: 240 }
+                    }));
+                    i++;
+                    continue;
+                }
+                
+                if (token.type === 'blockquote_open') {
+                    let bqText = '';
+                    i++;
+                    while (i < tokens.length && tokens[i].type !== 'blockquote_close') {
+                        if (tokens[i].type === 'inline') {
+                            bqText += tokens[i].content + ' ';
+                        }
+                        i++;
+                    }
+                    children.push(new Paragraph({
+                        text: bqText.trim(),
+                        indent: { left: 720 },
+                        spacing: { before: 120, after: 120 }
+                    }));
+                    i++;
+                    continue;
+                }
+                
+                if (token.type === 'bullet_list_open' || token.type === 'ordered_list_open') {
+                    const isOrdered = token.type === 'ordered_list_open';
+                    let listIndex = 1;
+                    i++;
+                    while (i < tokens.length && tokens[i].type !== 'bullet_list_close' && tokens[i].type !== 'ordered_list_close') {
+                        if (tokens[i].type === 'list_item_open') {
+                            i++;
+                            let itemText = '';
+                            while (i < tokens.length && tokens[i].type !== 'list_item_close') {
+                                if (tokens[i].type === 'inline') {
+                                    itemText += tokens[i].content + ' ';
+                                }
+                                i++;
+                            }
+                            children.push(new Paragraph({
+                                text: `${isOrdered ? listIndex + '.' : '\u2022'} ${itemText.trim()}`,
+                                indent: { left: 720, hanging: 360 },
+                                spacing: { before: 40, after: 40 }
+                            }));
+                            listIndex++;
+                        }
+                        i++;
+                    }
+                    continue;
+                }
+                i++;
+            }
+            
+            const doc = new Document({
+                sections: [{ properties: {}, children: children }]
+            });
+            const blob = await Packer.toBlob(doc);
+            saveAs(blob, filename);
+            
             const btn = document.getElementById('downloadBtn');
             const origHtml = btn.innerHTML;
             btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
-            setTimeout(function() { btn.innerHTML = origHtml; }, 2000);
+            setTimeout(() => { btn.innerHTML = origHtml; }, 2000);
         }
         window.downloadAsDoc = downloadAsDoc;
 
