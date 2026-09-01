@@ -224,6 +224,32 @@
             height: 15px;
             color: white;
         }
+        .download-bar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .download-bar-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            width: auto;
+            padding: 0 8px;
+        }
+        .download-bar-btn-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+        .download-bar-btn-md {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+        }
+        .download-bar.crimson .download-bar-btn-md {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+        }
 
         /* API SELECTOR */
         .api-section {
@@ -1355,7 +1381,7 @@
             .message { max-width: 92%; padding: 14px 16px; }
             .welcome h2 { font-size: 1.3rem; }
             .download-bar { padding: 6px 12px; }
-            .download-bar-btn { width: 26px; height: 26px; }
+            .download-bar-btn { height: 26px; padding: 0 6px; }
         }
     </style>
 </head>
@@ -1484,9 +1510,16 @@
         <div id="downloadBar" class="download-bar" style="display:none;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             <span id="downloadBarLabel" class="download-bar-label">Sermon ready</span>
-            <button id="downloadBtn" class="download-bar-btn" onclick="downloadAsDoc()" title="Download as .doc">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </button>
+            <span class="download-bar-actions">
+                <button id="downloadMdBtn" class="download-bar-btn download-bar-btn-md" onclick="downloadAsMarkdown()" title="Download as Markdown (.md)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span class="download-bar-btn-label">.md</span>
+                </button>
+                <button id="downloadBtn" class="download-bar-btn" onclick="downloadAsDoc()" title="Download as Word (.docx)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span class="download-bar-btn-label">Word</span>
+                </button>
+            </span>
         </div>
 
         <div class="input-section">
@@ -2074,7 +2107,7 @@ Process Transparency:
             bar.style.display = 'flex';
         }
 
-async function downloadAsDoc() {
+        function resolveDownloadContent() {
             let content = null;
             let defaultTitle = 'Document';
             if (sermonMode && lastSermonContent) {
@@ -2096,152 +2129,180 @@ async function downloadAsDoc() {
                 content = lastBibleStudyContent;
                 defaultTitle = 'Bible Study';
             }
-            if (!content) return alert('No content to download');
-            
-            const titleMatch = content.match(/^#\s+(.+)/m);
-            const docTitle = titleMatch ? titleMatch[1] : defaultTitle;
-            const filename = titleMatch 
-                ? titleMatch[1].replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, '-').toLowerCase() 
-                : (sermonMode ? 'sermon' : 'essay') + '-' + new Date().toISOString().slice(0,10) + '.docx';
-            
-            // Parse markdown using markdown-it
-            const md = window.markdownit({ html: true, breaks: true, linkify: true });
-            const tokens = md.parse(content, {});
-            
-            // Build DOCX using docx.js
-            const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, BorderStyle } = window.docx;
-            
-            // Check if content has markdown structure (headings, lists, etc.)
-            // If not, treat as plain text paragraph
-            const hasMarkdownStructure = tokens.some(t => 
-                t.type === 'heading_open' || 
-                t.type === 'paragraph_open' || 
-                t.type === 'bullet_list_open' ||
-                t.type === 'ordered_list_open' ||
-                t.type === 'blockquote_open' ||
-                t.type === 'hr'
-            );
-            
-            let children = [];
-            
-            if (hasMarkdownStructure) {
-                children = [];
-                let i = 0;
-                while (i < tokens.length) {
-                    const token = tokens[i];
-                    
-                    if (token.type === 'heading_open') {
-                        const level = parseInt(token.tag.slice(1));
-                        const contentToken = tokens[i + 1];
-                        const text = contentToken ? contentToken.content : '';
-                        children.push(new Paragraph({
-                            text: text,
-                            heading: HeadingLevel[`HEADING_${level}`] || HeadingLevel.HEADING_1,
-                            alignment: AlignmentType.LEFT,
-                            spacing: { before: level === 1 ? 240 : 120, after: 60 }
-                        }));
-                        i += 3;
-                        continue;
-                    }
-                    
-                    if (token.type === 'paragraph_open') {
-                        const contentToken = tokens[i + 1];
-                        if (contentToken && contentToken.type === 'inline') {
-                            const runs = [];
-                            for (let j = 0; j < contentToken.children.length; j++) {
-                                const child = contentToken.children[j];
-                                if (child.type === 'text') {
-                                    const prev = contentToken.children[j - 1];
-                                    let bold = false, italic = false, code = false;
-                                    let color = '1A0F18';
-                                    if (prev && prev.type === 'strong_open') { bold = true; color = '7A1A2E'; }
-                                    if (prev && prev.type === 'em_open') { italic = true; color = '5A4038'; }
-                                    if (child.type === 'code_inline') { code = true; color = 'C41A16'; }
-                                    runs.push(new TextRun({ text: child.content, bold, italics: italic, font: code ? 'Consolas' : 'Calibri', size: code ? 20 : 22, color: code ? 'C41A16' : color }));
-                                }
-                            }
-                            children.push(new Paragraph({
-                                children: runs.length ? runs : [new TextRun({ text: '', size: 22 })],
-                                spacing: { before: 60, after: 60 }
-                            }));
-                        }
-                        i += 3;
-                        continue;
-                    }
-                    
-                    if (token.type === 'hr') {
-                        children.push(new Paragraph({
-                            border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: 'DDDDDD' } },
-                            spacing: { before: 240, after: 240 }
-                        }));
-                        i++;
-                        continue;
-                    }
-                    
-                    if (token.type === 'blockquote_open') {
-                        let bqText = '';
-                        i++;
-                        while (i < tokens.length && tokens[i].type !== 'blockquote_close') {
-                            if (tokens[i].type === 'inline') {
-                                bqText += tokens[i].content + ' ';
-                            }
-                            i++;
-                        }
-                        children.push(new Paragraph({
-                            text: bqText.trim(),
-                            indent: { left: 720 },
-                            spacing: { before: 120, after: 120 }
-                        }));
-                        i++;
-                        continue;
-                    }
-                    
-                    if (token.type === 'bullet_list_open' || token.type === 'ordered_list_open') {
-                        const isOrdered = token.type === 'ordered_list_open';
-                        let listIndex = 1;
-                        i++;
-                        while (i < tokens.length && tokens[i].type !== 'bullet_list_close' && tokens[i].type !== 'ordered_list_close') {
-                            if (tokens[i].type === 'list_item_open') {
-                                i++;
-                                let itemText = '';
-                                while (i < tokens.length && tokens[i].type !== 'list_item_close') {
-                                    if (tokens[i].type === 'inline') {
-                                        itemText += tokens[i].content + ' ';
-                                    }
-                                    i++;
-                                }
-                                children.push(new Paragraph({
-                                    text: `${isOrdered ? listIndex + '.' : '\u2022'} ${itemText.trim()}`,
-                                    indent: { left: 720, hanging: 360 },
-                                    spacing: { before: 40, after: 40 }
-                                }));
-                                listIndex++;
-                            }
-                            i++;
-                        }
-                        continue;
-                    }
-                    i++;
-                }
-            } else {
-                // Plain text fallback: create a single paragraph with the content
-                children.push(new Paragraph({
-                    text: content || '',
-                    spacing: { before: 60, after: 60 }
-                }));
-            }
-            const doc = new Document({
-                sections: [{ properties: {}, children: children }]
-            });
-            const blob = await Packer.toBlob(doc);
-            saveAs(blob, filename);
-            
-            const btn = document.getElementById('downloadBtn');
+            const titleMatch = content ? content.match(/^#\s+(.+)/m) : null;
+            const slug = titleMatch
+                ? titleMatch[1].replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, '-').toLowerCase()
+                : (sermonMode ? 'sermon' : essayMode ? 'essay' : bibleStudyMode ? 'bible-study' : 'document') + '-' + new Date().toISOString().slice(0, 10);
+            return { content, defaultTitle, slug };
+        }
+
+        // Flash the clicked download button with a checkmark for visual feedback
+        function flashDownloadBtn(btnId) {
+            const btn = document.getElementById(btnId);
+            if (!btn) return;
             const origHtml = btn.innerHTML;
             btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
             setTimeout(() => { btn.innerHTML = origHtml; }, 2000);
         }
+
+        // Download the raw text as a Markdown (.md) file.
+        // Always works since it is a simple text file with UTF-8 BOM for Word compatibility.
+        function downloadAsMarkdown() {
+            const { content } = resolveDownloadContent();
+            if (!content) return alert('No content to download');
+            const blob = new Blob(['\uFEFF' + content], { type: 'text/markdown;charset=utf-8' });
+            saveAs(blob, resolveDownloadContent().slug + '.md');
+            flashDownloadBtn('downloadMdBtn');
+        }
+
+        // Download as a Word (.docx) file using docx.js.
+        // We build the document with our own line-based parser so the output is never empty,
+        // even for plain-text content without markdown formatting.
+        async function downloadAsDoc() {
+            const { content, defaultTitle } = resolveDownloadContent();
+            if (!content) return alert('No content to download');
+
+            try {
+                if (!window.docx || !window.docx.Document) {
+                    // docx.js library not available (e.g. CDN blocked) -> fall back to HTML .doc
+                    const blob = new Blob(['\uFEFF<html><body><pre>' + content.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</pre></body></html>'], { type: 'application/msword' });
+                    saveAs(blob, resolveDownloadContent().slug + '.doc');
+                    flashDownloadBtn('downloadBtn');
+                    return;
+                }
+
+                const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, BorderStyle } = window.docx;
+
+                // Strip markdown heading markers for the title, keep the rest as body
+                const lines = content.split(/\r?\n/);
+                const paragraphChildren = [];
+                let listIndex = 0;         // running ordered-list counter
+                let inList = false;
+
+                // Inline formatting: parse **bold**, *italic*, and `code`
+                function addInlineRuns(text) {
+                    if (!text) return [];
+                    const runs = [];
+                    // tokenize regex for __bold__, **bold**, *italic* (not **), and `code`
+                    const re = /(\*\*[^*]+\*\*|__[^_]+__|\*[^*\n]+\*|_[^_\n]+_|`[^`]+`)/g;
+                    let lastIndex = 0;
+                    let m;
+                    while ((m = re.exec(text)) !== null) {
+                        if (m.index > lastIndex) {
+                            runs.push(new TextRun({ text: text.slice(lastIndex, m.index), size: 22, font: 'Calibri', color: '1A0F18' }));
+                        }
+                        const token = m[0];
+                        const body = token.slice(2, -2);
+                        if (token.charAt(0) === '*' && token.charAt(1) === '*') {
+                            runs.push(new TextRun({ text: body, bold: true, size: 22, font: 'Calibri', color: '7A1A2E' }));
+                        } else if (token.charAt(0) === '_' && token.charAt(1) === '_') {
+                            runs.push(new TextRun({ text: body, bold: true, size: 22, font: 'Calibri', color: '7A1A2E' }));
+                        } else if (token.charAt(0) === '*') {
+                            runs.push(new TextRun({ text: body, italics: true, size: 22, font: 'Calibri', color: '5A4038' }));
+                        } else if (token.charAt(0) === '_') {
+                            runs.push(new TextRun({ text: body, italics: true, size: 22, font: 'Calibri', color: '5A4038' }));
+                        } else if (token.charAt(0) === '`') {
+                            runs.push(new TextRun({ text: body, font: 'Consolas', size: 20, color: 'C41A16' }));
+                        }
+                        lastIndex = m.index + token.length;
+                    }
+                    if (lastIndex < text.length) {
+                        runs.push(new TextRun({ text: text.slice(lastIndex), size: 22, font: 'Calibri', color: '1A0F18' }));
+                    }
+                    return runs.length ? runs : [new TextRun({ text: '', size: 22 })];
+                }
+
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    const trimmed = line.trim();
+
+                    // Horizontal rule
+                    if (/^(-{3,}|\*{3,}|_{3,})$/.test(trimmed)) {
+                        paragraphChildren.push(new Paragraph({
+                            border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: 'DDDDDD' } },
+                            spacing: { before: 240, after: 240 }
+                        }));
+                        inList = false; listIndex = 0;
+                        continue;
+                    }
+
+                    // Headings 1-6
+                    const headingMatch = trimmed.match(/^(#{1,6})\s+(.*)$/);
+                    if (headingMatch) {
+                        const level = headingMatch[1].length;
+                        paragraphChildren.push(new Paragraph({
+                            children: [new TextRun({ text: headingMatch[2], size: 36 - level * 2, bold: true, font: 'Calibri', color: '1A0F18' })],
+                            heading: HeadingLevel[`HEADING_${level}`] || HeadingLevel.HEADING_1,
+                            spacing: { before: level === 1 ? 240 : 120, after: 60 }
+                        }));
+                        inList = false; listIndex = 0;
+                        continue;
+                    }
+
+                    // Blockquote
+                    const bqMatch = trimmed.match(/^>\s?(.*)$/);
+                    if (bqMatch) {
+                        paragraphChildren.push(new Paragraph({
+                            children: addInlineRuns(bqMatch[1]),
+                            indent: { left: 720 },
+                            spacing: { before: 120, after: 120 }
+                        }));
+                        inList = false; listIndex = 0;
+                        continue;
+                    }
+
+                    // Unordered list item
+                    const ulMatch = trimmed.match(/^[-*+]\s+(.*)$/);
+                    if (ulMatch) {
+                        paragraphChildren.push(new Paragraph({
+                            children: [new TextRun({ text: '\u2022  ', size: 22, font: 'Calibri' })].concat(addInlineRuns(ulMatch[1])),
+                            indent: { left: 720, hanging: 360 },
+                            spacing: { before: 40, after: 40 }
+                        }));
+                        inList = true;
+                        continue;
+                    }
+
+                    // Ordered list item
+                    const olMatch = trimmed.match(/^\d+[.)]\s+(.*)$/);
+                    if (olMatch) {
+                        listIndex = inList ? listIndex + 1 : 1;
+                        paragraphChildren.push(new Paragraph({
+                            children: [new TextRun({ text: listIndex + '.  ', size: 22, font: 'Calibri' })].concat(addInlineRuns(olMatch[1])),
+                            indent: { left: 720, hanging: 360 },
+                            spacing: { before: 40, after: 40 }
+                        }));
+                        inList = true;
+                        continue;
+                    }
+
+                    // Blank line -> small spacer between paragraphs
+                    if (trimmed === '') {
+                        inList = false; listIndex = 0;
+                        continue;
+                    }
+
+                    // Regular paragraph
+                    paragraphChildren.push(new Paragraph({
+                        children: addInlineRuns(trimmed),
+                        spacing: { before: 60, after: 60 }
+                    }));
+                    inList = false; listIndex = 0;
+                }
+
+                const doc = new Document({
+                    sections: [{ properties: {}, children: paragraphChildren }]
+                });
+                const blob = await Packer.toBlob(doc);
+                saveAs(blob, resolveDownloadContent().slug + '.docx');
+                flashDownloadBtn('downloadBtn');
+            } catch (e) {
+                console.error('DOCX generation failed, falling back to text markdown:', e);
+                downloadAsMarkdown();
+            }
+        }
         window.downloadAsDoc = downloadAsDoc;
+        window.downloadAsMarkdown = downloadAsMarkdown;
 
         function addMessage(content, type, essayMarkdown) {
             // Delegate to enhanced version with typewriter effect if available
