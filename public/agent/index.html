@@ -2111,105 +2111,125 @@ async function downloadAsDoc() {
             // Build DOCX using docx.js
             const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, BorderStyle } = window.docx;
             
-            const children = [];
-            let i = 0;
-            while (i < tokens.length) {
-                const token = tokens[i];
-                
-                if (token.type === 'heading_open') {
-                    const level = parseInt(token.tag.slice(1));
-                    const contentToken = tokens[i + 1];
-                    const text = contentToken ? contentToken.content : '';
-                    children.push(new Paragraph({
-                        text: text,
-                        heading: HeadingLevel[`HEADING_${level}`] || HeadingLevel.HEADING_1,
-                        alignment: AlignmentType.LEFT,
-                        spacing: { before: level === 1 ? 240 : 120, after: 60 }
-                    }));
-                    i += 3;
-                    continue;
-                }
-                
-                if (token.type === 'paragraph_open') {
-                    const contentToken = tokens[i + 1];
-                    if (contentToken && contentToken.type === 'inline') {
-                        const runs = [];
-                        for (let j = 0; j < contentToken.children.length; j++) {
-                            const child = contentToken.children[j];
-                            if (child.type === 'text') {
-                                const prev = contentToken.children[j - 1];
-                                let bold = false, italic = false, code = false;
-                                let color = '1A0F18';
-                                if (prev && prev.type === 'strong_open') { bold = true; color = '7A1A2E'; }
-                                if (prev && prev.type === 'em_open') { italic = true; color = '5A4038'; }
-                                if (child.type === 'code_inline') { code = true; color = 'C41A16'; }
-                                runs.push(new TextRun({ text: child.content, bold, italics: italic, font: code ? 'Consolas' : 'Calibri', size: code ? 20 : 22, color: code ? 'C41A16' : color }));
-                            }
-                        }
+            // Check if content has markdown structure (headings, lists, etc.)
+            // If not, treat as plain text paragraph
+            const hasMarkdownStructure = tokens.some(t => 
+                t.type === 'heading_open' || 
+                t.type === 'paragraph_open' || 
+                t.type === 'bullet_list_open' ||
+                t.type === 'ordered_list_open' ||
+                t.type === 'blockquote_open' ||
+                t.type === 'hr'
+            );
+            
+            let children = [];
+            
+            if (hasMarkdownStructure) {
+                children = [];
+                let i = 0;
+                while (i < tokens.length) {
+                    const token = tokens[i];
+                    
+                    if (token.type === 'heading_open') {
+                        const level = parseInt(token.tag.slice(1));
+                        const contentToken = tokens[i + 1];
+                        const text = contentToken ? contentToken.content : '';
                         children.push(new Paragraph({
-                            children: runs.length ? runs : [new TextRun({ text: '', size: 22 })],
-                            spacing: { before: 60, after: 60 }
+                            text: text,
+                            heading: HeadingLevel[`HEADING_${level}`] || HeadingLevel.HEADING_1,
+                            alignment: AlignmentType.LEFT,
+                            spacing: { before: level === 1 ? 240 : 120, after: 60 }
                         }));
+                        i += 3;
+                        continue;
                     }
-                    i += 3;
-                    continue;
-                }
-                
-                if (token.type === 'hr') {
-                    children.push(new Paragraph({
-                        border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: 'DDDDDD' } },
-                        spacing: { before: 240, after: 240 }
-                    }));
-                    i++;
-                    continue;
-                }
-                
-                if (token.type === 'blockquote_open') {
-                    let bqText = '';
-                    i++;
-                    while (i < tokens.length && tokens[i].type !== 'blockquote_close') {
-                        if (tokens[i].type === 'inline') {
-                            bqText += tokens[i].content + ' ';
-                        }
-                        i++;
-                    }
-                    children.push(new Paragraph({
-                        text: bqText.trim(),
-                        indent: { left: 720 },
-                        spacing: { before: 120, after: 120 }
-                    }));
-                    i++;
-                    continue;
-                }
-                
-                if (token.type === 'bullet_list_open' || token.type === 'ordered_list_open') {
-                    const isOrdered = token.type === 'ordered_list_open';
-                    let listIndex = 1;
-                    i++;
-                    while (i < tokens.length && tokens[i].type !== 'bullet_list_close' && tokens[i].type !== 'ordered_list_close') {
-                        if (tokens[i].type === 'list_item_open') {
-                            i++;
-                            let itemText = '';
-                            while (i < tokens.length && tokens[i].type !== 'list_item_close') {
-                                if (tokens[i].type === 'inline') {
-                                    itemText += tokens[i].content + ' ';
+                    
+                    if (token.type === 'paragraph_open') {
+                        const contentToken = tokens[i + 1];
+                        if (contentToken && contentToken.type === 'inline') {
+                            const runs = [];
+                            for (let j = 0; j < contentToken.children.length; j++) {
+                                const child = contentToken.children[j];
+                                if (child.type === 'text') {
+                                    const prev = contentToken.children[j - 1];
+                                    let bold = false, italic = false, code = false;
+                                    let color = '1A0F18';
+                                    if (prev && prev.type === 'strong_open') { bold = true; color = '7A1A2E'; }
+                                    if (prev && prev.type === 'em_open') { italic = true; color = '5A4038'; }
+                                    if (child.type === 'code_inline') { code = true; color = 'C41A16'; }
+                                    runs.push(new TextRun({ text: child.content, bold, italics: italic, font: code ? 'Consolas' : 'Calibri', size: code ? 20 : 22, color: code ? 'C41A16' : color }));
                                 }
-                                i++;
                             }
                             children.push(new Paragraph({
-                                text: `${isOrdered ? listIndex + '.' : '\u2022'} ${itemText.trim()}`,
-                                indent: { left: 720, hanging: 360 },
-                                spacing: { before: 40, after: 40 }
+                                children: runs.length ? runs : [new TextRun({ text: '', size: 22 })],
+                                spacing: { before: 60, after: 60 }
                             }));
-                            listIndex++;
                         }
-                        i++;
+                        i += 3;
+                        continue;
                     }
-                    continue;
+                    
+                    if (token.type === 'hr') {
+                        children.push(new Paragraph({
+                            border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: 'DDDDDD' } },
+                            spacing: { before: 240, after: 240 }
+                        }));
+                        i++;
+                        continue;
+                    }
+                    
+                    if (token.type === 'blockquote_open') {
+                        let bqText = '';
+                        i++;
+                        while (i < tokens.length && tokens[i].type !== 'blockquote_close') {
+                            if (tokens[i].type === 'inline') {
+                                bqText += tokens[i].content + ' ';
+                            }
+                            i++;
+                        }
+                        children.push(new Paragraph({
+                            text: bqText.trim(),
+                            indent: { left: 720 },
+                            spacing: { before: 120, after: 120 }
+                        }));
+                        i++;
+                        continue;
+                    }
+                    
+                    if (token.type === 'bullet_list_open' || token.type === 'ordered_list_open') {
+                        const isOrdered = token.type === 'ordered_list_open';
+                        let listIndex = 1;
+                        i++;
+                        while (i < tokens.length && tokens[i].type !== 'bullet_list_close' && tokens[i].type !== 'ordered_list_close') {
+                            if (tokens[i].type === 'list_item_open') {
+                                i++;
+                                let itemText = '';
+                                while (i < tokens.length && tokens[i].type !== 'list_item_close') {
+                                    if (tokens[i].type === 'inline') {
+                                        itemText += tokens[i].content + ' ';
+                                    }
+                                    i++;
+                                }
+                                children.push(new Paragraph({
+                                    text: `${isOrdered ? listIndex + '.' : '\u2022'} ${itemText.trim()}`,
+                                    indent: { left: 720, hanging: 360 },
+                                    spacing: { before: 40, after: 40 }
+                                }));
+                                listIndex++;
+                            }
+                            i++;
+                        }
+                        continue;
+                    }
+                    i++;
                 }
-                i++;
+            } else {
+                // Plain text fallback: create a single paragraph with the content
+                children.push(new Paragraph({
+                    text: content || '',
+                    spacing: { before: 60, after: 60 }
+                }));
             }
-            
             const doc = new Document({
                 sections: [{ properties: {}, children: children }]
             });
