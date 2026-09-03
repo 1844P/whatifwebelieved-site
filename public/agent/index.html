@@ -1415,7 +1415,7 @@
                 <option value="ollama">Ollama (Local)</option>
             </select>
             <span id="geminiStatus">Ready</span>
-            <small id="apiHint" style="font-size:0.78rem;color:var(--text-muted);margin-left:4px;flex:1;">Primary API — No API key needed. Works instantly. Shared worker with Groq & OpenRouter fallbacks.</small>
+            <small id="apiHint" style="font-size:0.78rem;color:var(--text-muted);margin-left:4px;flex:1;">Primary API — No API key needed. Works instantly. Shared worker: Gemini 3.5 Flash (OpenRouter fallback).</small>
         </div>
         <div id="ollamaControls" style="display:none;max-width:900px;margin:6px auto 0;padding:0 32px 4px;">
             <span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
@@ -1582,7 +1582,7 @@
     </div>
 
 <div class="footer">
-        <p>Built by <a href="https://www.youtube.com/@paulos1844" target="_blank">WhatIfWeBelieved</a> · Primary: Gemini API · Fallbacks: Groq & OpenRouter</p>
+        <p>Built by <a href="https://www.youtube.com/@paulos1844" target="_blank">WhatIfWeBelieved</a> · Primary: Gemini 3.5 Flash · Fallback: OpenRouter</p>
     </div>
 
     <script type="module">
@@ -1733,7 +1733,7 @@ Process Transparency:
                 status.textContent = 'Worker (no key needed)';
                 status.style.background = '#d1fae5';
                 status.style.color = '#065f46';
-                apiHint.textContent = 'Primary API — No API key needed. Works instantly. Shared worker with Groq & OpenRouter fallbacks.';
+                apiHint.textContent = 'Primary API — No API key needed. Works instantly. Shared worker: Gemini 3.5 Flash (OpenRouter fallback).';
                 keySection.style.display = 'none';
             } else if (provider === 'gemini-direct') {
                 ollamaControls.style.display = 'none';

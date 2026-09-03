@@ -162,7 +162,7 @@ CRISIS PROTOCOL:
 FORMAT: Output as well-structured Markdown. Begin with the study title as a # heading.]`;
 
 async function callGemini(apiKey, body) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`;
   const response = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -174,26 +174,6 @@ async function callGemini(apiKey, body) {
   return { ok: true, text: text || 'No response generated.' };
 }
 
-async function callGroq(apiKey, systemPrompt, messages) {
-  const groqMessages = [{ role: 'system', content: systemPrompt + FABRICATION_CLAMP }, ...messages];
-  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
-      messages: groqMessages,
-      temperature: 0.2,
-      max_tokens: 2048,
-    }),
-  });
-  const data = await response.json();
-  if (!response.ok) return { ok: false, status: response.status, error: data };
-  const text = data.choices?.[0]?.message?.content;
-  return { ok: true, text: text || 'No response generated.' };
-}
 
 async function callOpenRouter(apiKey, systemPrompt, messages) {
   const orMessages = [{ role: 'system', content: systemPrompt + FABRICATION_CLAMP }, ...messages];
@@ -218,7 +198,7 @@ async function callOpenRouter(apiKey, systemPrompt, messages) {
   return { ok: true, text: text || 'No response generated.' };
 }
 
-// A hardened anti-fabrication clamp appended for fallback models (Groq/OpenRouter),
+// A hardened anti-fabrication clamp appended for the OpenRouter fallback model,
 // because prompt-based grounding alone is insufficient for Llama-family fallbacks.
 const FABRICATION_CLAMP = `
 
@@ -320,7 +300,7 @@ export default {
         generationConfig: { temperature: 0.7 },
       };
 
-      // Build OpenAI/Groq/OpenRouter format
+      // Build OpenAI/OpenRouter format
       const messages = [];
       for (const h of history) {
         if (h.user) messages.push({ role: 'user', content: h.user });
@@ -341,13 +321,8 @@ export default {
         result = await callGemini(userApiKey, geminiBody);
       }
 
-      // 3) Fallback to Groq
-      if ((!result || !result.ok) && env.GROQ_API_KEY) {
-        provider = 'groq';
-        result = await callGroq(env.GROQ_API_KEY, SYSTEM_PROMPT, messages);
-      }
 
-      // 4) Fallback to OpenRouter
+      // 3) Fallback to OpenRouter
       if ((!result || !result.ok) && env.OPENROUTER_API_KEY) {
         provider = 'openrouter';
         result = await callOpenRouter(env.OPENROUTER_API_KEY, SYSTEM_PROMPT, messages);
@@ -364,10 +339,10 @@ export default {
 
       const rawText = result.text;
 
-      // Code-level hallucination guardrail for fallback providers (Groq/OpenRouter).
+      // Code-level hallucination guardrail for the OpenRouter fallback provider.
       // If the output asserts unverifiable exact citations without hedging, refuse rather than
       // hand possibly-fabricated page numbers/quotes to the user.
-      if ((provider === 'groq' || provider === 'openrouter') && hasUnverifiableCitation(rawText)) {
+      if (provider === 'openrouter' && hasUnverifiableCitation(rawText)) {
         const refuseText = "I'm sorry, but the response flagged potentially unverifiable citation details (such as an exact page number or verbatim quote that could not be confirmed). To avoid offering you a fabricated citation, I won't present it as exact. I can provide a clearly-marked paraphrase or a general reference instead. Please ask me for that.";
         if (essayMode || sermonMode || bibleStudyMode) {
           return new Response(JSON.stringify({ text: refuseText, essay: refuseText, provider, flagged: true }), {
