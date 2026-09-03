@@ -186,7 +186,7 @@ async function callOpenRouter(apiKey, systemPrompt, messages) {
       'X-Title': 'WhatIfWeBelieved Theology Agent',
     },
     body: JSON.stringify({
-      model: 'meta-llama/llama-3.3-70b-instruct',
+      model: 'google/gemma-4-31b-it:free',
       messages: orMessages,
       temperature: 0.2,
       max_tokens: 2048,
@@ -199,7 +199,7 @@ async function callOpenRouter(apiKey, systemPrompt, messages) {
 }
 
 // A hardened anti-fabrication clamp appended for the OpenRouter fallback model,
-// because prompt-based grounding alone is insufficient for Llama-family fallbacks.
+// because prompt-based grounding alone is insufficient for small open-weight fallbacks.
 const FABRICATION_CLAMP = `
 
 [ABSOLUTE GROUNDING DIRECTIVE - applies to every response]
