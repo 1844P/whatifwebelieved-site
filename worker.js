@@ -186,7 +186,7 @@ async function callOpenRouter(apiKey, systemPrompt, messages) {
       'X-Title': 'WhatIfWeBelieved Theology Agent',
     },
     body: JSON.stringify({
-      model: 'meta-llama/llama-3.3-70b-instruct:free',
+      model: 'meta-llama/llama-3.3-70b-instruct',
       messages: orMessages,
       temperature: 0.2,
       max_tokens: 2048,
@@ -310,28 +310,35 @@ export default {
 
       let result = null;
       let provider = 'gemini';
+      const attempts = [];
 
       // 1) Try shared Gemini key
       if (env.GEMINI_API_KEY) {
         result = await callGemini(env.GEMINI_API_KEY, geminiBody);
+        if (!result || !result.ok) attempts.push('shared Gemini key: ' + JSON.stringify((result && result.error) || 'request failed'));
+      } else {
+        attempts.push('shared Gemini key: GEMINI_API_KEY is not set');
       }
 
       // 2) Try user's Gemini key if shared failed
       if ((!result || !result.ok) && userApiKey && userApiKey !== env.GEMINI_API_KEY) {
         result = await callGemini(userApiKey, geminiBody);
+        if (!result || !result.ok) attempts.push('user Gemini key: ' + JSON.stringify((result && result.error) || 'request failed'));
       }
-
 
       // 3) Fallback to OpenRouter
       if ((!result || !result.ok) && env.OPENROUTER_API_KEY) {
         provider = 'openrouter';
         result = await callOpenRouter(env.OPENROUTER_API_KEY, SYSTEM_PROMPT, messages);
+        if (!result || !result.ok) attempts.push('OpenRouter: ' + JSON.stringify((result && result.error) || 'request failed'));
+      } else if (!result || !result.ok) {
+        attempts.push('OpenRouter: OPENROUTER_API_KEY is not set');
       }
 
-      // All failed
+      // All failed — report every provider's error so the cause is visible
       if (!result || !result.ok) {
-        const errText = result ? JSON.stringify(result.error) : 'No providers available';
-        return new Response(JSON.stringify({ error: `All providers failed: ${errText}` }), {
+        const errText = attempts.length ? attempts.join('  |  ') : 'No providers configured';
+        return new Response(JSON.stringify({ error: `All providers failed — ${errText}` }), {
           status: 502,
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
         });
