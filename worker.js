@@ -454,7 +454,7 @@ export default {
       // All failed — report every provider's error so the cause is visible
       if (!result || !result.ok) {
         const errText = attempts.length ? attempts.join('  |  ') : 'No providers configured';
-        return new Response(JSON.stringify({ error: `All providers failed — ${errText}` }), {
+        return new Response(JSON.stringify({ error: `All providers failed — ${errText}`, sources, rag }), {
           status: 502,
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
         });
