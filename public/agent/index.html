@@ -2026,6 +2026,7 @@ Process Transparency:
             try {
                 let responseText;
                 let essayMarkdown = null;
+                let messageSources = [];
                 
                 if (currentProvider === 'gemini-direct') {
                     let fileInfo = null;
@@ -2040,6 +2041,8 @@ Process Transparency:
                     const data = await res.json();
                     responseText = data.text;
                     essayMarkdown = data.essay || null;
+                    // JATS retrieval citations returned by the worker (empty when RAG is off)
+                    messageSources = Array.isArray(data.sources) ? data.sources : [];
                     if (data.provider && data.provider !== 'gemini') {
                         responseText = '> *Powered by ' + data.provider.charAt(0).toUpperCase() + data.provider.slice(1) + '*\n\n' + responseText;
                     }
@@ -2065,6 +2068,7 @@ Process Transparency:
                 }
 
                 addMessage(responseText, 'assistant', essayMarkdown);
+                if (messageSources.length) renderSources(messageSources);
                 conversationHistory.push({ user: fullMessage, assistant: responseText });
             } catch (error) {
                 const msg = error.message || '';
@@ -2097,6 +2101,40 @@ Process Transparency:
                 loading.classList.remove('active');
                 userInput.focus();
             }
+        }
+
+        /**
+         * Render the JATS passages a reply was grounded in.
+         * Appended to the DOM after addMessage() so it works with both the
+         * typewriter renderer and the plain fallback, and never touches the
+         * answer text itself.
+         */
+        function renderSources(sources) {
+            const nodes = messagesDiv.querySelectorAll('.message.assistant');
+            const host = nodes[nodes.length - 1];
+            if (!host || !sources || !sources.length) return;
+
+            const wrap = document.createElement('div');
+            wrap.className = 'rag-sources';
+            wrap.style.cssText = 'margin-top:10px;padding:10px 12px;border-left:3px solid var(--gold);background:rgba(0,0,0,0.035);border-radius:6px;font-size:0.8rem;line-height:1.5;color:var(--text-secondary);';
+
+            const head = document.createElement('div');
+            head.style.cssText = 'font-weight:700;text-transform:uppercase;letter-spacing:0.06em;font-size:0.68rem;margin-bottom:6px;opacity:0.8;';
+            head.textContent = 'Grounded in the JATS corpus — ' + sources.length +
+                (sources.length === 1 ? ' passage' : ' passages');
+            wrap.appendChild(head);
+
+            const list = document.createElement('ol');
+            list.style.cssText = 'margin:0;padding-left:18px;';
+            sources.forEach(function(s) {
+                const li = document.createElement('li');
+                li.style.marginBottom = '2px';
+                const cite = s.citation || s.source || 'JATS passage';
+                li.textContent = (s.citation && s.source) ? cite + ' — ' + s.source : cite;
+                list.appendChild(li);
+            });
+            wrap.appendChild(list);
+            host.appendChild(wrap);
         }
 
         function showDownloadBar(label, isSermon) {

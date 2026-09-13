@@ -1,0 +1,3 @@
+# JATS RAG retrieval service — runtime dependencies
+# Deliberately minimal: the HTTP layer is Python's stdlib.
+numpy>=1.24

@@ -161,6 +161,102 @@ CRISIS PROTOCOL:
 
 FORMAT: Output as well-structured Markdown. Begin with the study title as a # heading.]`;
 
+// ---------------------------------------------------------------------------
+// RETRIEVAL-AUGMENTED GROUNDING — JATS RAG corpus
+// ---------------------------------------------------------------------------
+// The agent is grounded in the Journal of the Adventist Theological Society via
+// the retrieval service in rag-service/ (see rag-service/README.md).
+//
+// Worker variables (Settings -> Variables and Secrets):
+//   RAG_URL         e.g. https://jats-rag.example.org  — the retrieval service.
+//                   Unset => retrieval is skipped and behaviour is exactly as
+//                   before (pure model knowledge).
+//   RAG_TOKEN       optional shared secret, sent as the x-rag-token header.
+//   RAG_TOP_K       passages to retrieve (default 6, matching the JATS pipeline).
+//   RAG_MIN_SCORE   cosine floor for a passage to count (default 0.2).
+//   RAG_TIMEOUT_MS  hard timeout on the retrieval call (default 9000).
+// Retrieval is best-effort by design: a failed or slow RAG call degrades to the
+// old behaviour instead of breaking the answer.
+
+const RAG_DEFAULTS = { k: 6, minScore: 0.2, timeoutMs: 9000 };
+const RAG_MAX_PASSAGE_CHARS = 1200;   // per passage injected into the prompt
+const RAG_MAX_CONTEXT_CHARS = 12000;  // total grounding budget
+
+function ragEndpoint(env) {
+  const url = env && env.RAG_URL ? String(env.RAG_URL).trim() : '';
+  return url ? url.replace(/\/+$/, '') : '';
+}
+
+// Short follow-ups ("tell me more", "why is that?") retrieve poorly in
+// isolation, so prepend the previous user turn for context.
+function buildRetrievalQuery(message, history) {
+  const current = (message || '').trim();
+  if (!current) return '';
+  const words = current.split(/\s+/).filter(Boolean);
+  if (words.length <= 6 && Array.isArray(history) && history.length) {
+    for (let i = history.length - 1; i >= 0; i--) {
+      const prev = history[i] && history[i].user ? String(history[i].user).trim() : '';
+      if (prev) return (prev + ' ' + current).slice(0, 1200);
+    }
+  }
+  return current.slice(0, 1200);
+}
+
+async function retrievePassages(env, query) {
+  const endpoint = ragEndpoint(env);
+  if (!endpoint || !query) return { passages: [], used: false, error: null };
+
+  const k = parseInt((env && env.RAG_TOP_K) || RAG_DEFAULTS.k, 10) || RAG_DEFAULTS.k;
+  const parsedMin = parseFloat((env && env.RAG_MIN_SCORE) || RAG_DEFAULTS.minScore);
+  const minScore = isNaN(parsedMin) ? RAG_DEFAULTS.minScore : parsedMin;
+  const timeoutMs = parseInt((env && env.RAG_TIMEOUT_MS) || RAG_DEFAULTS.timeoutMs, 10) || RAG_DEFAULTS.timeoutMs;
+
+  const headers = { 'Content-Type': 'application/json' };
+  if (env && env.RAG_TOKEN) headers['x-rag-token'] = String(env.RAG_TOKEN);
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(endpoint + '/search', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ query: query, k: k, min_score: minScore }),
+      signal: controller.signal,
+    });
+    if (!res.ok) return { passages: [], used: false, error: 'RAG service HTTP ' + res.status };
+    const data = await res.json();
+    const results = Array.isArray(data.results) ? data.results : [];
+    return { passages: results, used: true, error: null };
+  } catch (e) {
+    const msg = e && e.name === 'AbortError' ? 'RAG timeout' : String((e && e.message) || e);
+    return { passages: [], used: false, error: msg };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function buildGroundingBlock(passages) {
+  if (!passages || !passages.length) return '';
+  let budget = RAG_MAX_CONTEXT_CHARS;
+  const parts = [];
+  for (let i = 0; i < passages.length; i++) {
+    if (budget <= 0) break;
+    const p = passages[i] || {};
+    const text = String(p.text || '').slice(0, Math.min(RAG_MAX_PASSAGE_CHARS, budget));
+    budget -= text.length;
+    const label = p.citation || p.source || ('passage ' + (i + 1));
+    parts.push('[' + (i + 1) + '] ' + label + '  (' + (p.source || '') + ')\n' + text);
+  }
+  if (!parts.length) return '';
+  return '\n\n=== RETRIEVED PASSAGES — Journal of the Adventist Theological Society ===\n' +
+    'The passages below were retrieved from the JATS corpus for this question. Treat them as your primary evidence:\n' +
+    '- Ground claims about the JATS literature in these passages and cite them inline as [1], [2], ... using the citation label given.\n' +
+    '- Quote sparingly and accurately; otherwise paraphrase. Never invent a page number, quotation, author, or article title that does not appear in the passages.\n' +
+    '- If the passages do not address the question, say so plainly, then answer from general knowledge under your normal citation standards — and make clear which claims are NOT grounded in the retrieved JATS literature.\n' +
+    '- Retrieval is not endorsement: weigh these as scholarly sources, and note disagreement where it exists.\n\n' +
+    parts.join('\n\n') + '\n=== END RETRIEVED PASSAGES ===\n';
+}
+
 async function callGemini(apiKey, body) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`;
   const response = await fetch(url, {
@@ -241,7 +337,7 @@ export default {
     }
 
     try {
-      const { message, history = [], fileContent, fileName, userApiKey, essayMode, sermonMode, sermonFormat, bibleStudyMode } = await request.json();
+      const { message, history = [], fileContent, fileName, userApiKey, essayMode, sermonMode, sermonFormat, bibleStudyMode, useRag } = await request.json();
 
       if (!message && !fileContent) {
         return new Response(JSON.stringify({ error: 'No message provided' }), {
@@ -284,6 +380,26 @@ export default {
         userText += BIBLE_STUDY_SUFFIX;
       }
 
+      // ---- JATS retrieval: best-effort grounding, never blocks the answer ---
+      let rag = { used: false, passages: 0 };
+      let sources = [];
+      let ragContext = '';
+      if (useRag !== false && !(env && env.RAG_DISABLED)) {
+        const ragQuery = buildRetrievalQuery(message, history);
+        const retrieval = await retrievePassages(env, ragQuery);
+        rag = {
+          used: retrieval.used,
+          passages: retrieval.passages.length,
+          query: retrieval.used ? ragQuery : undefined,
+          error: retrieval.error || undefined,
+        };
+        ragContext = buildGroundingBlock(retrieval.passages);
+        sources = retrieval.passages.map(function(p, i) {
+          return { n: i + 1, citation: p.citation || '', source: p.source || '', score: p.score };
+        });
+      }
+      const groundedSystemPrompt = SYSTEM_PROMPT + ragContext;
+
       // Build Gemini format
       const geminiContents = [];
       for (const h of history) {
@@ -295,7 +411,7 @@ export default {
       geminiContents.push({ role: 'user', parts: userParts });
 
       const geminiBody = {
-        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        systemInstruction: { parts: [{ text: groundedSystemPrompt }] },
         contents: geminiContents,
         generationConfig: { temperature: 0.7 },
       };
@@ -329,7 +445,7 @@ export default {
       // 3) Fallback to OpenRouter
       if ((!result || !result.ok) && env.OPENROUTER_API_KEY) {
         provider = 'openrouter';
-        result = await callOpenRouter(env.OPENROUTER_API_KEY, SYSTEM_PROMPT, messages);
+        result = await callOpenRouter(env.OPENROUTER_API_KEY, groundedSystemPrompt, messages);
         if (!result || !result.ok) attempts.push('OpenRouter: ' + JSON.stringify((result && result.error) || 'request failed'));
       } else if (!result || !result.ok) {
         attempts.push('OpenRouter: OPENROUTER_API_KEY is not set');
@@ -352,11 +468,11 @@ export default {
       if (provider === 'openrouter' && hasUnverifiableCitation(rawText)) {
         const refuseText = "I'm sorry, but the response flagged potentially unverifiable citation details (such as an exact page number or verbatim quote that could not be confirmed). To avoid offering you a fabricated citation, I won't present it as exact. I can provide a clearly-marked paraphrase or a general reference instead. Please ask me for that.";
         if (essayMode || sermonMode || bibleStudyMode) {
-          return new Response(JSON.stringify({ text: refuseText, essay: refuseText, provider, flagged: true }), {
+          return new Response(JSON.stringify({ text: refuseText, essay: refuseText, provider, flagged: true, sources, rag }), {
             headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
           });
         }
-        return new Response(JSON.stringify({ text: refuseText, provider, flagged: true }), {
+        return new Response(JSON.stringify({ text: refuseText, provider, flagged: true, sources, rag }), {
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
         });
       }
@@ -366,12 +482,12 @@ export default {
         const lines = rawText.split('\n');
         const summaryEnd = Math.min(lines.length, 15);
         const summary = lines.slice(0, summaryEnd).join('\n').trim() + `\n\n---\n**The full ${label} is ready. Use the download bar below to save it as a Word document.**`;
-        return new Response(JSON.stringify({ text: summary, essay: rawText, provider }), {
+        return new Response(JSON.stringify({ text: summary, essay: rawText, provider, sources, rag }), {
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
         });
       }
 
-      return new Response(JSON.stringify({ text: rawText, provider }), {
+      return new Response(JSON.stringify({ text: rawText, provider, sources, rag }), {
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       });
     } catch (e) {
