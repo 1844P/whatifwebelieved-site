@@ -5,5 +5,8 @@
   "installCommand": "npm install",
   "framework": "vite",
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "rewrites": [
+    { "source": "/api/rag/(.*)", "destination": "/api/rag" }
+  ]
 }
